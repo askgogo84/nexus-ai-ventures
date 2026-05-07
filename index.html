@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Nexus AI Ventures | Portfolio of AI-First Fintech Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -24,7 +24,6 @@
                         'float': 'float 6s ease-in-out infinite',
                         'gradient': 'gradient 8s linear infinite',
                         'shimmer': 'shimmer 2s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -32,7 +31,7 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        * { font-family: 'Inter', sans-serif; }
+        * { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -60,10 +59,6 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .card-3d:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
-        }
-        
         .text-gradient {
             background: linear-gradient(135deg, #10B981 0%, #3B82F6 50%, #8B5CF6 100%);
             -webkit-background-clip: text;
@@ -87,46 +82,60 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #10B981, #3B82F6);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; line-height: 1.1; }
+            .hero-subtitle { font-size: 1rem; }
+            .stat-card { padding: 1.5rem; }
+            .stat-number { font-size: 3rem; }
+            .section-title { font-size: 2rem; }
+            .product-card { margin-bottom: 1rem; }
+            .flywheel-item { margin-bottom: 2rem; }
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
         }
 
-        .product-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        @media (min-width: 769px) {
+            .hero-title { font-size: 4rem; }
+            .hero-subtitle { font-size: 1.25rem; }
+            .stat-card { padding: 2rem; }
+            .stat-number { font-size: 4rem; }
         }
+
+        .touch-feedback:active { transform: scale(0.95); }
         
-        .product-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+        .swipe-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            z-index: 50;
+            display: none;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+        @media (max-width: 768px) {
+            .swipe-indicator { display: block; }
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #10B981, #3B82F6);
+        .hamburger-line {
             transition: all 0.3s ease;
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.5);
+
+        .hamburger-active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         #canvas-container {
@@ -138,6 +147,10 @@
             z-index: -1;
             pointer-events: none;
         }
+
+        @media (max-width: 768px) {
+            #canvas-container { display: none; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-dark transition-colors duration-500 overflow-x-hidden">
@@ -148,49 +161,62 @@
     <div id="canvas-container"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-200/20 dark:border-gray-800/50 backdrop-blur-xl transition-all duration-300" id="navbar">
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-200/20 dark:border-gray-800/50 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                    <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center transform group-hover:rotate-12 transition duration-300 shadow-lg">
-                        <i class="fas fa-cube text-white text-2xl"></i>
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex items-center space-x-2 sm:space-x-4 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-bg flex items-center justify-center shadow-lg">
+                        <i class="fas fa-cube text-white text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <span class="text-2xl font-bold bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">Nexus AI</span>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 -mt-1">Ventures</p>
+                        <span class="text-lg sm:text-2xl font-bold bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">Nexus AI</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 -mt-1 hidden sm:block">Ventures</p>
                     </div>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#portfolio" class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Portfolio</a>
-                    <a href="#flywheel" class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Flywheel</a>
-                    <a href="#capital" class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Capital</a>
-                    <a href="#founders" class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Founders</a>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-6 nav-links">
+                    <a href="#portfolio" class="text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Portfolio</a>
+                    <a href="#flywheel" class="text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Flywheel</a>
+                    <a href="#capital" class="text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Capital</a>
+                    <a href="#founders" class="text-gray-700 dark:text-gray-300 hover:text-primary transition font-medium">Founders</a>
                     
-                    <button onclick="toggleTheme()" class="p-3 rounded-xl bg-gray-200/50 dark:bg-gray-800/50 hover:scale-110 transition shadow-lg">
-                        <i class="fas fa-sun hidden dark:block text-yellow-500 text-lg"></i>
-                        <i class="fas fa-moon block dark:hidden text-gray-700 text-lg"></i>
+                    <button onclick="toggleTheme()" class="p-2 rounded-xl bg-gray-200/50 dark:bg-gray-800/50 hover:scale-110 transition">
+                        <i class="fas fa-sun hidden dark:block text-yellow-500"></i>
+                        <i class="fas fa-moon block dark:hidden text-gray-700"></i>
                     </button>
                     
-                    <button onclick="downloadPortfolioPDF()" class="btn-primary px-6 py-3 text-white rounded-xl font-semibold shadow-lg">
-                        <i class="fas fa-download mr-2"></i>Download PDF
+                    <button onclick="downloadPortfolioPDF()" class="btn-primary px-4 py-2 text-white rounded-xl font-semibold text-sm">
+                        <i class="fas fa-download mr-2"></i>Download
                     </button>
                 </div>
 
-                <!-- Mobile menu button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden p-3 rounded-xl bg-gray-200/50 dark:bg-gray-800/50">
-                    <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-gray-200/50 dark:bg-gray-800/50 touch-feedback hamburger-container">
+                    <div class="w-5 h-0.5 bg-gray-700 dark:bg-gray-300 hamburger-line mb-1"></div>
+                    <div class="w-5 h-0.5 bg-gray-700 dark:bg-gray-300 hamburger-line mb-1"></div>
+                    <div class="w-5 h-0.5 bg-gray-700 dark:bg-gray-300 hamburger-line"></div>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden glass-effect border-t border-gray-200/20">
+        <div id="mobileMenu" class="hidden md:hidden glass-effect border-t border-gray-200/20 dark:border-gray-800/50">
             <div class="px-4 py-4 space-y-3">
-                <a href="#portfolio" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">Portfolio</a>
-                <a href="#flywheel" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">Flywheel</a>
-                <a href="#capital" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">Capital</a>
-                <a href="#founders" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">Founders</a>
+                <a href="#portfolio" onclick="toggleMobileMenu()" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition touch-feedback">Portfolio</a>
+                <a href="#flywheel" onclick="toggleMobileMenu()" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition touch-feedback">Flywheel</a>
+                <a href="#capital" onclick="toggleMobileMenu()" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition touch-feedback">Capital</a>
+                <a href="#founders" onclick="toggleMobileMenu()" class="block px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition touch-feedback">Founders</a>
+                <div class="flex space-x-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <button onclick="toggleTheme()" class="flex-1 px-4 py-3 rounded-xl bg-gray-200/50 dark:bg-gray-800/50 touch-feedback">
+                        <i class="fas fa-sun hidden dark:block text-yellow-500 mr-2"></i>
+                        <i class="fas fa-moon block dark:hidden text-gray-700 mr-2"></i>
+                        Theme
+                    </button>
+                    <button onclick="downloadPortfolioPDF()" class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-blue-600 text-white touch-feedback">
+                        <i class="fas fa-download mr-2"></i>PDF
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -202,107 +228,95 @@
             <div class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-300 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
         </div>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center px-6 py-3 bg-white/20 rounded-full mb-8 backdrop-blur-xl border border-white/30 animate-float">
-                <i class="fas fa-rocket text-yellow-300 mr-3"></i>
-                <span class="text-sm font-semibold text-white">4 AI Products • 1 Vision • Capital-Efficient Scale</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center py-12">
+            <div class="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 bg-white/20 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-white/30 animate-float">
+                <i class="fas fa-rocket text-yellow-300 mr-2 text-sm"></i>
+                <span class="text-xs sm:text-sm font-semibold text-white">4 AI Products • 1 Vision • Capital-Efficient</span>
             </div>
             
-            <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight text-white">
+            <h1 class="hero-title font-black mb-4 sm:mb-6 leading-tight text-white">
                 <span class="block shimmer inline-block bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">4 AI Products.</span>
-                <span class="text-yellow-300 block mt-4">1 Vision.</span>
-                <span class="text-4xl md:text-6xl block mt-4">Capital-Efficient Scale.</span>
+                <span class="text-yellow-300 block mt-2">1 Vision.</span>
+                <span class="text-2xl sm:text-4xl block mt-2">Capital-Efficient Scale.</span>
             </h1>
             
-            <p class="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-white/90 leading-relaxed">
+            <p class="hero-subtitle mb-8 sm:mb-12 max-w-3xl mx-auto text-white/90 leading-relaxed px-2">
                 Nexus AI Ventures builds capital-efficient AI startups at the intersection of 
                 <span class="font-bold">consumer finance</span>, <span class="font-bold">wealth tech</span>, 
                 <span class="font-bold">institutional lending</span>, and <span class="font-bold">credit intelligence</span>.
             </p>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
-                <div class="glass-effect rounded-3xl p-8 card-hover transform hover:scale-105 transition duration-300">
-                    <div class="text-6xl font-black text-yellow-300 mb-3">4.5<span class="text-2xl">Cr</span></div>
-                    <div class="text-sm font-semibold text-white">Total Seed Ask</div>
+            <!-- Stats Grid - Mobile Optimized -->
+            <div class="grid grid-cols-2 gap-3 sm:gap-6 max-w-3xl mx-auto mt-8 sm:mt-12">
+                <div class="glass-effect stat-card rounded-2xl sm:rounded-3xl card-hover transform touch-feedback">
+                    <div class="stat-number font-black text-yellow-300 mb-2">4.5<span class="text-xl sm:text-2xl">Cr</span></div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">Total Seed Ask</div>
                 </div>
-                <div class="glass-effect rounded-3xl p-8 card-hover transform hover:scale-105 transition duration-300">
-                    <div class="text-6xl font-black text-yellow-300 mb-3">&lt;<span class="text-4xl">500</span><span class="text-2xl">K</span></div>
-                    <div class="text-sm font-semibold text-white">USD Equivalent</div>
+                <div class="glass-effect stat-card rounded-2xl sm:rounded-3xl card-hover transform touch-feedback">
+                    <div class="stat-number font-black text-yellow-300 mb-2">&lt;<span class="text-2xl sm:text-4xl">500</span><span class="text-lg sm:text-2xl">K</span></div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">USD Equivalent</div>
                 </div>
-                <div class="glass-effect rounded-3xl p-8 card-hover transform hover:scale-105 transition duration-300">
-                    <div class="text-6xl font-black text-yellow-300 mb-3">4</div>
-                    <div class="text-sm font-semibold text-white">Shots on Goal</div>
+                <div class="glass-effect stat-card rounded-2xl sm:rounded-3xl card-hover transform touch-feedback">
+                    <div class="stat-number font-black text-yellow-300 mb-2">4</div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">Shots on Goal</div>
                 </div>
-                <div class="glass-effect rounded-3xl p-8 card-hover transform hover:scale-105 transition duration-300">
-                    <div class="text-6xl font-black text-yellow-300 mb-3">Q3</div>
-                    <div class="text-sm font-semibold text-white">Seed Round</div>
+                <div class="glass-effect stat-card rounded-2xl sm:rounded-3xl card-hover transform touch-feedback">
+                    <div class="stat-number font-black text-yellow-300 mb-2 text-4xl sm:text-6xl">Q3</div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">Seed Round</div>
                 </div>
             </div>
 
-            <div class="mt-16">
-                <p class="text-2xl mb-8 font-bold text-white">
+            <div class="mt-8 sm:mt-16">
+                <p class="text-lg sm:text-2xl mb-6 sm:mb-8 font-bold text-white px-4">
                     Less than <span class="text-yellow-300">$500K</span> gives you 
                     <span class="text-yellow-300">4 shots on goal</span>, not 1.
                 </p>
-                <a href="#portfolio" class="inline-block px-12 py-6 bg-white text-green-600 rounded-full font-bold text-xl hover:shadow-2xl transition transform hover:scale-110 shadow-xl">
-                    Explore Portfolio <i class="fas fa-arrow-down ml-3 animate-bounce"></i>
+                <a href="#portfolio" class="inline-block px-8 py-4 sm:px-12 sm:py-6 bg-white text-green-600 rounded-full font-bold text-base sm:text-xl hover:shadow-2xl transition transform touch-feedback shadow-xl">
+                    Explore Portfolio <i class="fas fa-arrow-down ml-2 animate-bounce"></i>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-32 bg-white dark:bg-dark relative">
+    <section id="portfolio" class="py-16 sm:py-32 bg-white dark:bg-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
+            <div class="text-center mb-12 sm:mb-20">
+                <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Our <span class="text-gradient">Portfolio</span>
                 </h2>
-                <p class="text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    Click each product to explore the deck and download investor materials
+                <p class="text-base sm:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
+                    Tap each product to explore the deck and download investor materials
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-10">
                 <!-- AskGogo AI -->
                 <div class="product-card group perspective-1000 cursor-pointer" onclick="openProductModal('askgogo')">
-                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-400 via-green-500 to-green-600 p-1 h-full">
-                        <div class="bg-white dark:bg-gray-900 rounded-[22px] p-10 h-full relative">
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-green-100 dark:bg-green-900/30 rounded-full -mr-20 -mt-20 opacity-50 animate-pulse"></div>
+                    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-green-400 via-green-500 to-green-600 p-0.5 sm:p-1 h-full">
+                        <div class="bg-white dark:bg-gray-900 rounded-[18px] sm:rounded-[22px] p-6 sm:p-10 h-full relative">
+                            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
+                                        <i class="fab fa-whatsapp text-2xl sm:text-4xl text-white"></i>
+                                    </div>
+                                    <span class="px-3 py-1 sm:px-4 sm:py-2 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-xs sm:text-sm font-bold">LIVE ✅</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-xl sm:text-2xl text-green-600"></i>
+                            </div>
                             
-                            <div class="relative z-10">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-xl">
-                                            <i class="fab fa-whatsapp text-4xl text-white"></i>
-                                        </div>
-                                        <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-sm font-bold animate-pulse">LIVE ✅</span>
-                                    </div>
-                                    <i class="fas fa-arrow-right text-2xl text-green-600 group-hover:translate-x-2 transition-transform"></i>
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-2 sm:mb-3">AskGogo AI</h3>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">Consumer AI assistant inside WhatsApp</p>
+                            
+                            <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <div class="flex justify-between items-center p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                    <span class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400">Seed</span>
+                                    <span class="text-2xl sm:text-3xl font-black text-green-600">₹2 Cr</span>
                                 </div>
-                                
-                                <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-3">AskGogo AI</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-6 text-lg">Consumer AI assistant inside WhatsApp</p>
-                                
-                                <div class="space-y-4 mb-8">
-                                    <div class="flex justify-between items-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
-                                        <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">Seed Allocation</span>
-                                        <span class="text-3xl font-black text-green-600">₹2 Cr</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-gray-400">Stage</span>
-                                        <span class="font-bold text-gray-800 dark:text-gray-200">Live • 1,000+ users • All Indian languages</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-gray-400">Pricing</span>
-                                        <span class="font-bold text-gray-800 dark:text-gray-200">₹99-499/mo</span>
-                                    </div>
-                                </div>
-
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">WhatsApp Native</span>
-                                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">UPI Live ✅</span>
-                                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">All Indian Languages</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">WhatsApp Native</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">UPI Live ✅</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-semibold">All Languages</span>
                                 </div>
                             </div>
                         </div>
@@ -311,39 +325,29 @@
 
                 <!-- FolioIQ -->
                 <div class="product-card group perspective-1000 cursor-pointer" onclick="openProductModal('folioiq')">
-                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 p-1 h-full">
-                        <div class="bg-white dark:bg-gray-900 rounded-[22px] p-10 h-full relative">
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-blue-100 dark:bg-blue-900/30 rounded-full -mr-20 -mt-20 opacity-50 animate-pulse"></div>
+                    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 p-0.5 sm:p-1 h-full">
+                        <div class="bg-white dark:bg-gray-900 rounded-[18px] sm:rounded-[22px] p-6 sm:p-10 h-full relative">
+                            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
+                                        <i class="fas fa-chart-line text-2xl sm:text-4xl text-white"></i>
+                                    </div>
+                                    <span class="px-3 py-1 sm:px-4 sm:py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-xs sm:text-sm font-bold">MVP</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-xl sm:text-2xl text-blue-600"></i>
+                            </div>
                             
-                            <div class="relative z-10">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
-                                            <i class="fas fa-chart-line text-4xl text-white"></i>
-                                        </div>
-                                        <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm font-bold">MVP</span>
-                                    </div>
-                                    <i class="fas fa-arrow-right text-2xl text-blue-600 group-hover:translate-x-2 transition-transform"></i>
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-2 sm:mb-3">FolioIQ</h3>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">AI wealth & portfolio intelligence</p>
+                            
+                            <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <div class="flex justify-between items-center p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                    <span class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400">Seed</span>
+                                    <span class="text-2xl sm:text-3xl font-black text-blue-600">₹1.5 Cr</span>
                                 </div>
-                                
-                                <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-3">FolioIQ</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-6 text-lg">AI wealth & portfolio intelligence</p>
-                                
-                                <div class="space-y-4 mb-8">
-                                    <div class="flex justify-between items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-                                        <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">Seed Allocation</span>
-                                        <span class="text-3xl font-black text-blue-600">₹1.5 Cr</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-gray-400">Stage</span>
-                                        <span class="font-bold text-gray-800 dark:text-gray-200">MVP Deployed</span>
-                                    </div>
-                                </div>
-
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold">CAS Parser</span>
-                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold">AI Rebalancing</span>
-                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold">Goal-Based</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold">CAS Parser</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-semibold">AI Rebalancing</span>
                                 </div>
                             </div>
                         </div>
@@ -352,39 +356,29 @@
 
                 <!-- AURA -->
                 <div class="product-card group perspective-1000 cursor-pointer" onclick="openProductModal('aura')">
-                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 p-1 h-full">
-                        <div class="bg-white dark:bg-gray-900 rounded-[22px] p-10 h-full relative">
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-purple-100 dark:bg-purple-900/30 rounded-full -mr-20 -mt-20 opacity-50 animate-pulse"></div>
+                    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 p-0.5 sm:p-1 h-full">
+                        <div class="bg-white dark:bg-gray-900 rounded-[18px] sm:rounded-[22px] p-6 sm:p-10 h-full relative">
+                            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
+                                        <i class="fas fa-building text-2xl sm:text-4xl text-white"></i>
+                                    </div>
+                                    <span class="px-3 py-1 sm:px-4 sm:py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-xs sm:text-sm font-bold">REVENUE</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-xl sm:text-2xl text-purple-600"></i>
+                            </div>
                             
-                            <div class="relative z-10">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl">
-                                            <i class="fas fa-building text-4xl text-white"></i>
-                                        </div>
-                                        <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm font-bold">REVENUE</span>
-                                    </div>
-                                    <i class="fas fa-arrow-right text-2xl text-purple-600 group-hover:translate-x-2 transition-transform"></i>
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-2 sm:mb-3">AURA</h3>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">AI deal intelligence for lenders</p>
+                            
+                            <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <div class="flex justify-between items-center p-3 sm:p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                                    <span class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400">Seed</span>
+                                    <span class="text-2xl sm:text-3xl font-black text-purple-600">₹50 Lacs</span>
                                 </div>
-                                
-                                <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-3">AURA</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-6 text-lg">AI deal intelligence for lenders</p>
-                                
-                                <div class="space-y-4 mb-8">
-                                    <div class="flex justify-between items-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
-                                        <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">Seed Allocation</span>
-                                        <span class="text-3xl font-black text-purple-600">₹50 Lacs</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-gray-400">Stage</span>
-                                        <span class="font-bold text-gray-800 dark:text-gray-200">Revenue Generating</span>
-                                    </div>
-                                </div>
-
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">Underwriting</span>
-                                    <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">B2B SaaS</span>
-                                    <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">API-First</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">B2B SaaS</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">API-First</span>
                                 </div>
                             </div>
                         </div>
@@ -393,39 +387,29 @@
 
                 <!-- CreditIQ -->
                 <div class="product-card group perspective-1000 cursor-pointer" onclick="openProductModal('creditiq')">
-                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-1 h-full">
-                        <div class="bg-white dark:bg-gray-900 rounded-[22px] p-10 h-full relative">
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-orange-100 dark:bg-orange-900/30 rounded-full -mr-20 -mt-20 opacity-50 animate-pulse"></div>
+                    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-0.5 sm:p-1 h-full">
+                        <div class="bg-white dark:bg-gray-900 rounded-[18px] sm:rounded-[22px] p-6 sm:p-10 h-full relative">
+                            <div class="flex items-center justify-between mb-4 sm:mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
+                                        <i class="fas fa-credit-card text-2xl sm:text-4xl text-white"></i>
+                                    </div>
+                                    <span class="px-3 py-1 sm:px-4 sm:py-2 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full text-xs sm:text-sm font-bold">PROTOTYPE</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-xl sm:text-2xl text-orange-600"></i>
+                            </div>
                             
-                            <div class="relative z-10">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl">
-                                            <i class="fas fa-credit-card text-4xl text-white"></i>
-                                        </div>
-                                        <span class="px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full text-sm font-bold">PROTOTYPE</span>
-                                    </div>
-                                    <i class="fas fa-arrow-right text-2xl text-orange-600 group-hover:translate-x-2 transition-transform"></i>
+                            <h3 class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-2 sm:mb-3">CreditIQ</h3>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">AI-powered credit scoring</p>
+                            
+                            <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                                <div class="flex justify-between items-center p-3 sm:p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
+                                    <span class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400">Seed</span>
+                                    <span class="text-2xl sm:text-3xl font-black text-orange-600">₹50 Lacs</span>
                                 </div>
-                                
-                                <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-3">CreditIQ</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mb-6 text-lg">AI-powered credit scoring & monitoring</p>
-                                
-                                <div class="space-y-4 mb-8">
-                                    <div class="flex justify-between items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
-                                        <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">Seed Allocation</span>
-                                        <span class="text-3xl font-black text-orange-600">₹50 Lacs</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-gray-400">Stage</span>
-                                        <span class="font-bold text-gray-800 dark:text-gray-200">Investor-Grade Prototype</span>
-                                    </div>
-                                </div>
-
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-semibold">AI Scoring</span>
-                                    <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-semibold">Real-Time</span>
-                                    <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-semibold">Thin-File</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-semibold">AI Scoring</span>
+                                    <span class="px-2 py-1 sm:px-3 sm:py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-semibold">Real-Time</span>
                                 </div>
                             </div>
                         </div>
@@ -435,118 +419,99 @@
         </div>
     </section>
 
-    <!-- Flywheel Section -->
-    <section id="flywheel" class="py-24 bg-gray-50 dark:bg-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-green-500 via-blue-500 via-purple-500 to-orange-500 rounded-full blur-3xl animate-spin-slow"></div>
-        </div>
-        
+    <!-- Flywheel Section - Mobile Optimized -->
+    <section id="flywheel" class="py-16 sm:py-24 bg-gray-50 dark:bg-dark relative overflow-hidden">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">Portfolio Flywheel</h2>
-                <p class="text-2xl text-gray-600 dark:text-gray-400">One layer compounds into the next</p>
+            <div class="text-center mb-12 sm:mb-20">
+                <h2 class="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">Portfolio Flywheel</h2>
+                <p class="text-base sm:text-2xl text-gray-600 dark:text-gray-400">One layer compounds into the next</p>
             </div>
 
-            <div class="relative">
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-2 bg-gradient-to-b from-green-500 via-blue-500 via-purple-500 to-orange-500 hidden md:block rounded-full"></div>
-                
-                <div class="space-y-12">
-                    <!-- AskGogo -->
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
-                            <h3 class="text-3xl font-bold text-green-600 mb-3">AskGogo AI</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-4 text-lg">Builds consumer behavior and personal AI memory through WhatsApp-native interactions</p>
-                            <ul class="space-y-3 text-base dark:text-gray-300">
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-green-500 mr-3"></i>Personal memory graph</li>
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-green-500 mr-3"></i>Vernacular voice data</li>
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-green-500 mr-3"></i>UPI behavior patterns</li>
-                            </ul>
-                        </div>
-                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center z-10 shadow-2xl transform hover:scale-125 transition">
-                            <i class="fas fa-comments text-2xl text-white"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16 mt-6 md:mt-0"></div>
+            <div class="space-y-8 sm:space-y-12">
+                <!-- AskGogo -->
+                <div class="flywheel-item flex flex-col items-center text-center">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-2xl mb-4">
+                        <i class="fas fa-comments text-2xl text-white"></i>
                     </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-green-600 mb-3">AskGogo AI</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-md">Builds consumer behavior and personal AI memory through WhatsApp-native interactions</p>
+                    <ul class="space-y-2 text-sm sm:text-base dark:text-gray-300">
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Personal memory graph</li>
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Vernacular voice data</li>
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>UPI behavior patterns</li>
+                    </ul>
+                </div>
 
-                    <!-- FolioIQ -->
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0"></div>
-                        <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center z-10 shadow-2xl transform hover:scale-125 transition">
-                            <i class="fas fa-chart-pie text-2xl text-white"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16">
-                            <h3 class="text-3xl font-bold text-blue-600 mb-3">FolioIQ</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-4 text-lg">Turns financial context into intelligent wealth decisions using AI</p>
-                            <ul class="space-y-3 text-base dark:text-gray-300">
-                                <li><i class="fas fa-check-circle text-blue-500 mr-3"></i>Financial context from AskGogo</li>
-                                <li><i class="fas fa-check-circle text-blue-500 mr-3"></i>Spending pattern analysis</li>
-                                <li><i class="fas fa-check-circle text-blue-500 mr-3"></i>Goal-based recommendations</li>
-                            </ul>
-                        </div>
+                <!-- FolioIQ -->
+                <div class="flywheel-item flex flex-col items-center text-center">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-2xl mb-4">
+                        <i class="fas fa-chart-pie text-2xl text-white"></i>
                     </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-blue-600 mb-3">FolioIQ</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-md">Turns financial context into intelligent wealth decisions using AI</p>
+                    <ul class="space-y-2 text-sm sm:text-base dark:text-gray-300">
+                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Financial context from AskGogo</li>
+                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Spending pattern analysis</li>
+                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Goal-based recommendations</li>
+                    </ul>
+                </div>
 
-                    <!-- AURA -->
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
-                            <h3 class="text-3xl font-bold text-purple-600 mb-3">AURA</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-4 text-lg">Takes AI decision architecture into institutional underwriting</p>
-                            <ul class="space-y-3 text-base dark:text-gray-300">
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-purple-500 mr-3"></i>Same AI decision engine</li>
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-purple-500 mr-3"></i>Risk models at scale</li>
-                                <li class="flex items-center justify-end"><i class="fas fa-check-circle text-purple-500 mr-3"></i>Document parsing</li>
-                            </ul>
-                        </div>
-                        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center z-10 shadow-2xl transform hover:scale-125 transition">
-                            <i class="fas fa-building text-2xl text-white"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16 mt-6 md:mt-0"></div>
+                <!-- AURA -->
+                <div class="flywheel-item flex flex-col items-center text-center">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-purple-500 rounded-full flex items-center justify-center shadow-2xl mb-4">
+                        <i class="fas fa-building text-2xl text-white"></i>
                     </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-purple-600 mb-3">AURA</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-md">Takes AI decision architecture into institutional underwriting</p>
+                    <ul class="space-y-2 text-sm sm:text-base dark:text-gray-300">
+                        <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>Same AI decision engine</li>
+                        <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>Risk models at scale</li>
+                        <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>Document parsing</li>
+                    </ul>
+                </div>
 
-                    <!-- CreditIQ -->
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0"></div>
-                        <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center z-10 shadow-2xl transform hover:scale-125 transition">
-                            <i class="fas fa-shield-alt text-2xl text-white"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16">
-                            <h3 class="text-3xl font-bold text-orange-600 mb-3">CreditIQ</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-4 text-lg">Democratizes credit intelligence for consumers and SMBs</p>
-                            <ul class="space-y-3 text-base dark:text-gray-300">
-                                <li><i class="fas fa-check-circle text-orange-500 mr-3"></i>Real-time credit monitoring</li>
-                                <li><i class="fas fa-check-circle text-orange-500 mr-3"></i>AI-powered scoring</li>
-                                <li><i class="fas fa-check-circle text-orange-500 mr-3"></i>Thin-file inclusion</li>
-                            </ul>
-                        </div>
+                <!-- CreditIQ -->
+                <div class="flywheel-item flex flex-col items-center text-center">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-orange-500 rounded-full flex items-center justify-center shadow-2xl mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-white"></i>
                     </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-orange-600 mb-3">CreditIQ</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-md">Democratizes credit intelligence for consumers and SMBs</p>
+                    <ul class="space-y-2 text-sm sm:text-base dark:text-gray-300">
+                        <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>Real-time credit monitoring</li>
+                        <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>AI-powered scoring</li>
+                        <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>Thin-file inclusion</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="mt-20 p-10 bg-gradient-to-r from-green-50 via-blue-50 via-purple-50 to-orange-50 dark:from-gray-800 dark:to-gray-800 rounded-3xl border-2 border-gray-200 dark:border-gray-700">
+            <!-- Connective Tissue - Mobile Grid -->
+            <div class="mt-12 sm:mt-20 p-6 sm:p-10 bg-gradient-to-r from-green-50 via-blue-50 via-purple-50 to-orange-50 dark:from-gray-800 dark:to-gray-800 rounded-2xl sm:rounded-3xl border-2 border-gray-200 dark:border-gray-700">
                 <div class="text-center">
-                    <h3 class="text-3xl font-bold mb-8 dark:text-white">The Connective Tissue</h3>
-                    <div class="grid grid-cols-3 md:grid-cols-6 gap-6 text-sm">
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-lock text-3xl text-primary mb-3"></i>
+                    <h3 class="text-xl sm:text-3xl font-bold mb-6 sm:mb-8 dark:text-white">The Connective Tissue</h3>
+                    <div class="grid grid-cols-3 gap-3 sm:gap-6 text-xs sm:text-sm">
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-lock text-2xl sm:text-3xl text-primary mb-2"></i>
                             <br/>Auth
                         </div>
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-brain text-3xl text-secondary mb-3"></i>
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-brain text-2xl sm:text-3xl text-secondary mb-2"></i>
                             <br/>AI Orchestration
                         </div>
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-database text-3xl text-accent mb-3"></i>
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-database text-2xl sm:text-3xl text-accent mb-2"></i>
                             <br/>Memory
                         </div>
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-tachometer-alt text-3xl text-blue-500 mb-3"></i>
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-tachometer-alt text-2xl sm:text-3xl text-blue-500 mb-2"></i>
                             <br/>Dashboards
                         </div>
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-rupee-sign text-3xl text-green-500 mb-3"></i>
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-rupee-sign text-2xl sm:text-3xl text-green-500 mb-2"></i>
                             <br/>Payments
                         </div>
-                        <div class="p-4 bg-white dark:bg-gray-700 rounded-xl transform hover:scale-110 transition shadow-lg">
-                            <i class="fas fa-chart-bar text-3xl text-purple-500 mb-3"></i>
+                        <div class="p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl shadow-lg">
+                            <i class="fas fa-chart-bar text-2xl sm:text-3xl text-purple-500 mb-2"></i>
                             <br/>Analytics
                         </div>
                     </div>
@@ -556,186 +521,128 @@
     </section>
 
     <!-- Capital Section -->
-    <section id="capital" class="py-24 bg-white dark:bg-dark relative">
+    <section id="capital" class="py-16 sm:py-24 bg-white dark:bg-dark relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">Capital Allocation</h2>
-                <p class="text-2xl text-gray-600 dark:text-gray-400">₹4.5 Cr total seed round across 4 products</p>
+            <div class="text-center mb-12 sm:mb-20">
+                <h2 class="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">Capital Allocation</h2>
+                <p class="text-base sm:text-2xl text-gray-600 dark:text-gray-400">₹4.5 Cr total seed round across 4 products</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 card-hover border-t-4 border-green-500 transform hover:scale-105 transition">
-                    <h3 class="text-2xl font-bold mb-3 dark:text-white">AskGogo AI</h3>
-                    <div class="text-4xl font-bold text-green-600 mb-6">₹2 Cr</div>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><i class="fas fa-code text-green-500 mr-2"></i>Product & Engineering</li>
-                        <li><i class="fas fa-bullhorn text-green-500 mr-2"></i>Growth & Marketing</li>
-                        <li><i class="fas fa-headset text-green-500 mr-2"></i>Customer Success</li>
-                    </ul>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-12 sm:mb-16">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 card-hover border-t-4 border-green-500">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 dark:text-white">AskGogo AI</h3>
+                    <div class="text-3xl sm:text-4xl font-bold text-green-600 mb-4 sm:mb-6">₹2 Cr</div>
                 </div>
-
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 card-hover border-t-4 border-blue-500 transform hover:scale-105 transition">
-                    <h3 class="text-2xl font-bold mb-3 dark:text-white">FolioIQ</h3>
-                    <div class="text-4xl font-bold text-blue-600 mb-6">₹1.5 Cr</div>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><i class="fas fa-code text-blue-500 mr-2"></i>CAS Parser Accuracy</li>
-                        <li><i class="fas fa-robot text-blue-500 mr-2"></i>AI Rebalancing</li>
-                        <li><i class="fas fa-handshake text-blue-500 mr-2"></i>Fund House Partnerships</li>
-                    </ul>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 card-hover border-t-4 border-blue-500">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 dark:text-white">FolioIQ</h3>
+                    <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-4 sm:mb-6">₹1.5 Cr</div>
                 </div>
-
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 card-hover border-t-4 border-purple-500 transform hover:scale-105 transition">
-                    <h3 class="text-2xl font-bold mb-3 dark:text-white">AURA</h3>
-                    <div class="text-4xl font-bold text-purple-600 mb-6">₹50 Lacs</div>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><i class="fas fa-plug text-purple-500 mr-2"></i>Sacra API Integration</li>
-                        <li><i class="fas fa-file-contract text-purple-500 mr-2"></i>Contract Underwriting</li>
-                        <li><i class="fas fa-tags text-purple-500 mr-2"></i>White-Label Platform</li>
-                    </ul>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 card-hover border-t-4 border-purple-500">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 dark:text-white">AURA</h3>
+                    <div class="text-3xl sm:text-4xl font-bold text-purple-600 mb-4 sm:mb-6">₹50 Lacs</div>
                 </div>
-
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 card-hover border-t-4 border-orange-500 transform hover:scale-105 transition">
-                    <h3 class="text-2xl font-bold mb-3 dark:text-white">CreditIQ</h3>
-                    <div class="text-4xl font-bold text-orange-600 mb-6">₹50 Lacs</div>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><i class="fas fa-brain text-orange-500 mr-2"></i>AI Scoring Models</li>
-                        <li><i class="fas fa-bell text-orange-500 mr-2"></i>Real-Time Monitoring</li>
-                        <li><i class="fas fa-chart-line text-orange-500 mr-2"></i>Credit Builder Tools</li>
-                    </ul>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-6 card-hover border-t-4 border-orange-500">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 dark:text-white">CreditIQ</h3>
+                    <div class="text-3xl sm:text-4xl font-bold text-orange-600 mb-4 sm:mb-6">₹50 Lacs</div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-primary via-blue-600 to-purple-600 rounded-3xl p-12 text-white text-center transform hover:scale-105 transition shadow-2xl">
-                <h3 class="text-4xl font-bold mb-6">Total Seed Ask: ₹4.5 Cr (~$500K USD)</h3>
-                <p class="text-xl mb-8 opacity-95">
-                    Shared infrastructure reduces burn by ~60% vs 4 separate startups.<br/>
+            <div class="bg-gradient-to-r from-primary via-blue-600 to-purple-600 rounded-2xl sm:rounded-3xl p-6 sm:p-12 text-white text-center">
+                <h3 class="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">Total Seed Ask: ₹4.5 Cr (~$500K USD)</h3>
+                <p class="text-base sm:text-xl mb-6 sm:mb-8 opacity-95">
+                    Shared infrastructure reduces burn by ~60% vs 4 separate startups.<br class="hidden sm:block"/>
                     One team, four products, exponential output.
                 </p>
-                <div class="grid md:grid-cols-3 gap-8 text-lg">
-                    <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm transform hover:scale-110 transition">
-                        <div class="text-4xl font-bold mb-2">40%</div>
-                        <div>Product & Engineering</div>
-                    </div>
-                    <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm transform hover:scale-110 transition">
-                        <div class="text-4xl font-bold mb-2">30%</div>
-                        <div>Growth & Marketing</div>
-                    </div>
-                    <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm transform hover:scale-110 transition">
-                        <div class="text-4xl font-bold mb-2">30%</div>
-                        <div>Operations & Reserve</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Founders Section -->
-    <section id="founders" class="py-24 bg-gray-50 dark:bg-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-            <div class="absolute top-0 right-0 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">Founders</h2>
-                <p class="text-2xl text-gray-600 dark:text-gray-400">No inflated bios. Just execution philosophy.</p>
+    <section id="founders" class="py-16 sm:py-24 bg-gray-50 dark:bg-dark relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 sm:mb-20">
+                <h2 class="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">Founders</h2>
+                <p class="text-base sm:text-2xl text-gray-600 dark:text-gray-400">No inflated bios. Just execution philosophy.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="text-center p-8 bg-white dark:bg-gray-800 rounded-3xl card-hover border-2 border-primary/30">
-                    <div class="w-28 h-28 mx-auto mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-4xl font-bold transform hover:scale-110 transition shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+                <div class="text-center p-6 sm:p-8 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl card-hover">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-3xl sm:text-4xl font-bold">
                         GM
                     </div>
-                    <h3 class="text-2xl font-bold dark:text-white mb-3">Goverdhan M D</h3>
-                    <div class="text-primary font-bold text-lg mb-4">Build in Public</div>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    <h3 class="text-xl sm:text-2xl font-bold dark:text-white mb-2 sm:mb-3">Goverdhan M D</h3>
+                    <div class="text-primary font-bold text-base sm:text-lg mb-3 sm:mb-4">Build in Public</div>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                         Build in public, sell early, listen to real users, convert chaos into distribution.
                     </p>
-                    <div class="flex justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 rounded-full"><i class="fas fa-rocket mr-1"></i>3 Products</span>
-                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 rounded-full"><i class="fas fa-clock mr-1"></i>12 Months Build</span>
-                    </div>
                 </div>
 
-                <div class="text-center p-8 bg-white dark:bg-gray-800 rounded-3xl card-hover border-2 border-blue-500/30">
-                    <div class="w-28 h-28 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold transform hover:scale-110 transition shadow-xl">
+                <div class="text-center p-6 sm:p-8 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl card-hover">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl sm:text-4xl font-bold">
                         SJ
                     </div>
-                    <h3 class="text-2xl font-bold dark:text-white mb-3">Srinivas Jayaram</h3>
-                    <div class="text-blue-600 font-bold text-lg mb-4">Infrastructure Lead</div>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    <h3 class="text-xl sm:text-2xl font-bold dark:text-white mb-2 sm:mb-3">Srinivas Jayaram</h3>
+                    <div class="text-blue-600 font-bold text-base sm:text-lg mb-3 sm:mb-4">Infrastructure Lead</div>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                         Ship the core stack fast, keep infrastructure reusable, automate before hiring.
                     </p>
-                    <div class="flex justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full"><i class="fas fa-server mr-1"></i>Cloud Native</span>
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full"><i class="fas fa-cogs mr-1"></i>Automation</span>
-                    </div>
                 </div>
 
-                <div class="text-center p-8 bg-white dark:bg-gray-800 rounded-3xl card-hover border-2 border-purple-500/30">
-                    <div class="w-28 h-28 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold transform hover:scale-110 transition shadow-xl">
+                <div class="text-center p-6 sm:p-8 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl card-hover">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl sm:text-4xl font-bold">
                         MV
                     </div>
-                    <h3 class="text-2xl font-bold dark:text-white mb-3">Mathew Varkey</h3>
-                    <div class="text-purple-600 font-bold text-lg mb-4">Capital Strategy</div>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    <h3 class="text-xl sm:text-2xl font-bold dark:text-white mb-2 sm:mb-3">Mathew Varkey</h3>
+                    <div class="text-purple-600 font-bold text-base sm:text-lg mb-3 sm:mb-4">Capital Strategy</div>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                         Keep capital disciplined, measure unit economics early, make every rupee accountable.
                     </p>
-                    <div class="flex justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full"><i class="fas fa-coins mr-1"></i>Unit Economics</span>
-                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full"><i class="fas fa-piggy-bank mr-1"></i>Capital Efficient</span>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-24 gradient-bg text-white relative overflow-hidden">
-        <div class="absolute inset-0">
-            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl opacity-20 animate-float"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-yellow-300 rounded-full blur-3xl opacity-20 animate-float" style="animation-delay: 2s;"></div>
-        </div>
-        
+    <section class="py-16 sm:py-24 gradient-bg text-white relative overflow-hidden">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 class="text-5xl md:text-6xl font-bold mb-8">
-                Ready to Back 4 Winners?
-            </h2>
-            <p class="text-2xl mb-12 opacity-95">
-                Join us in building India's most capital-efficient AI venture studio.<br/>
-                No Indian founder has presented a fintech AI portfolio this way.
+            <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 sm:mb-8">Ready to Back 4 Winners?</h2>
+            <p class="text-base sm:text-2xl mb-8 sm:mb-12 opacity-95">
+                Join us in building India's most capital-efficient AI venture studio.
             </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-                <a href="mailto:hello@askgogo.in" class="px-10 py-5 bg-white text-green-600 rounded-full font-bold text-xl hover:shadow-2xl transition transform hover:scale-110 shadow-xl">
-                    <i class="fas fa-envelope mr-3"></i>hello@askgogo.in
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-8 sm:mb-12">
+                <a href="mailto:hello@askgogo.in" class="px-8 py-4 sm:px-10 sm:py-5 bg-white text-green-600 rounded-full font-bold text-base sm:text-xl hover:shadow-2xl transition transform touch-feedback shadow-xl">
+                    <i class="fas fa-envelope mr-2 sm:mr-3"></i>hello@askgogo.in
                 </a>
-                <a href="tel:+918310441698" class="px-10 py-5 bg-transparent border-3 border-white text-white rounded-full font-bold text-xl hover:bg-white/10 transition transform hover:scale-110">
-                    <i class="fas fa-phone mr-3"></i>+91 8310441698
+                <a href="tel:+918310441698" class="px-8 py-4 sm:px-10 sm:py-5 bg-transparent border-2 sm:border-3 border-white text-white rounded-full font-bold text-base sm:text-xl hover:bg-white/10 transition transform touch-feedback">
+                    <i class="fas fa-phone mr-2 sm:mr-3"></i>+91 8310441698
                 </a>
             </div>
-            <div class="flex flex-wrap justify-center gap-8 text-lg">
-                <span class="px-6 py-3 bg-white/20 rounded-full backdrop-blur-sm"><i class="fas fa-globe mr-2"></i>askgogo.in</span>
-                <span class="px-6 py-3 bg-white/20 rounded-full backdrop-blur-sm"><i class="fas fa-map-marker-alt mr-2"></i>Bengaluru, India</span>
-                <span class="px-6 py-3 bg-white/20 rounded-full backdrop-blur-sm"><i class="fas fa-clock mr-2"></i>Seeking Seed Q3 2026</span>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-lg">
+                <span class="px-4 py-2 sm:px-6 sm:py-3 bg-white/20 rounded-full backdrop-blur-sm"><i class="fas fa-globe mr-2"></i>askgogo.in</span>
+                <span class="px-4 py-2 sm:px-6 sm:py-3 bg-white/20 rounded-full backdrop-blur-sm"><i class="fas fa-map-marker-alt mr-2"></i>Bengaluru, India</span>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-gray-900 text-gray-400 py-8 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-lg">&copy; 2026 Nexus AI Ventures. All rights reserved.</p>
-            <p class="mt-3 text-sm">Powered by AskGogo AI • Building the future of fintech AI</p>
+            <p class="text-base sm:text-lg">&copy; 2026 Nexus AI Ventures. All rights reserved.</p>
+            <p class="mt-2 sm:mt-3 text-sm">Powered by AskGogo AI • Building the future of fintech AI</p>
         </div>
     </footer>
+
+    <!-- Swipe Indicator -->
+    <div class="swipe-indicator">
+        <i class="fas fa-arrow-up mr-2"></i>Swipe to navigate
+    </div>
 
     <!-- Product Modals -->
     <div id="productModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeModal()"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-            <div class="inline-block align-bottom bg-white dark:bg-gray-900 rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full modal-enter">
+            <div class="inline-block align-bottom bg-white dark:bg-gray-900 rounded-t-3xl sm:rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full modal-enter">
                 <div id="modalContent"></div>
             </div>
         </div>
@@ -755,53 +662,10 @@
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger-container');
             menu.classList.toggle('hidden');
+            hamburger.classList.toggle('hamburger-active');
         }
-
-        // Three.js 3D Background
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-        const geometries = [
-            new THREE.IcosahedronGeometry(1, 0),
-            new THREE.OctahedronGeometry(1, 0),
-            new THREE.TetrahedronGeometry(1, 0)
-        ];
-
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x10B981, 
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
-
-        const meshes = [];
-        for (let i = 0; i < 8; i++) {
-            const mesh = new THREE.Mesh(geometries[i % geometries.length], material);
-            mesh.position.set(
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 15
-            );
-            mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-            scene.add(mesh);
-            meshes.push(mesh);
-        }
-
-        camera.position.z = 5;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            meshes.forEach((mesh, i) => {
-                mesh.rotation.x += 0.001 * (i + 1);
-                mesh.rotation.y += 0.001 * (i + 1);
-            });
-            renderer.render(scene, camera);
-        }
-        animate();
 
         // Scroll Progress
         window.addEventListener('scroll', () => {
@@ -809,30 +673,22 @@
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById('scrollBar').style.width = scrolled + '%';
-            
-            // Navbar shadow
-            const navbar = document.getElementById('navbar');
-            if (winScroll > 100) {
-                navbar.classList.add('shadow-xl');
-            } else {
-                navbar.classList.remove('shadow-xl');
-            }
         });
 
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.utils.toArray('.product-card').forEach((element, i) => {
+        gsap.utils.toArray('.product-card, .flywheel-item').forEach((element, i) => {
             gsap.fromTo(element, 
                 { opacity: 0, y: 50 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.8,
-                    delay: i * 0.2,
+                    delay: i * 0.1,
                     scrollTrigger: {
                         trigger: element,
-                        start: 'top 80%',
+                        start: 'top 85%',
                     }
                 }
             );
@@ -840,10 +696,10 @@
 
         // Modal Content
         const productDecks = {
-            askgogo: `<div class="p-10"><div class="flex justify-between items-center mb-8"><h2 class="text-4xl font-bold dark:text-white">AskGogo AI - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transform hover:scale-110 transition"><i class="fas fa-times text-3xl"></i></button></div><div class="space-y-6 max-h-[70vh] overflow-y-auto pr-4"><div class="bg-green-50 dark:bg-green-900/20 rounded-3xl p-8 border-2 border-green-200 dark:border-green-800"><h3 class="text-2xl font-bold text-green-700 dark:text-green-400 mb-6">The Problem</h3><div class="grid md:grid-cols-3 gap-6"><div class="bg-white dark:bg-gray-800 p-6 rounded-2xl transform hover:scale-105 transition shadow-lg"><i class="fas fa-mobile-alt text-4xl text-green-500 mb-4"></i><h4 class="font-bold mb-2 dark:text-white text-lg">App Fatigue</h4><p class="text-sm text-gray-600 dark:text-gray-400">Users juggle 15+ apps for daily tasks</p></div><div class="bg-white dark:bg-gray-800 p-6 rounded-2xl transform hover:scale-105 transition shadow-lg"><i class="fas fa-brain text-4xl text-green-500 mb-4"></i><h4 class="font-bold mb-2 dark:text-white text-lg">Memory Gap</h4><p class="text-sm text-gray-600 dark:text-gray-400">No tool remembers context across conversations</p></div><div class="bg-white dark:bg-gray-800 p-6 rounded-2xl transform hover:scale-105 transition shadow-lg"><i class="fas fa-language text-4xl text-green-500 mb-4"></i><h4 class="font-bold mb-2 dark:text-white text-lg">Language Barrier</h4><p class="text-sm text-gray-600 dark:text-gray-400">90% of India prefers vernacular languages</p></div></div></div><div class="flex justify-between items-center pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-4xl font-bold text-green-600">₹2 Cr</div></div><a href="/decks/AskGogo_Investor_Deck.pdf" download class="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition transform hover:scale-105 shadow-lg"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
-            folioiq: `<div class="p-10"><div class="flex justify-between items-center mb-8"><h2 class="text-4xl font-bold dark:text-white">FolioIQ - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transform hover:scale-110 transition"><i class="fas fa-times text-3xl"></i></button></div><div class="space-y-6 max-h-[70vh] overflow-y-auto pr-4"><div class="bg-blue-50 dark:bg-blue-900/20 rounded-3xl p-8 border-2 border-blue-200 dark:border-blue-800"><h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6">The Problem</h3><ul class="space-y-4 dark:text-gray-300 text-lg"><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-4 text-xl"></i><span>Unreadable CAS statements</span></li><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-4 text-xl"></i><span>No AI intelligence</span></li><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-4 text-xl"></i><span>Hidden costs everywhere</span></li></ul></div><div class="flex justify-between items-center pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-4xl font-bold text-blue-600">₹1.5 Cr</div></div><a href="/decks/FolioIQ_Investor_Deck.pdf" download class="px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition transform hover:scale-105 shadow-lg"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
-            aura: `<div class="p-10"><div class="flex justify-between items-center mb-8"><h2 class="text-4xl font-bold dark:text-white">AURA - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transform hover:scale-110 transition"><i class="fas fa-times text-3xl"></i></button></div><div class="space-y-6 max-h-[70vh] overflow-y-auto pr-4"><div class="bg-purple-50 dark:bg-purple-900/20 rounded-3xl p-8 border-2 border-purple-200 dark:border-purple-800"><h3 class="text-2xl font-bold text-purple-700 dark:text-purple-400 mb-6">The Problem</h3><ul class="space-y-4 dark:text-gray-300 text-lg"><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-4 text-xl"></i><span>Manual underwriting</span></li><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-4 text-xl"></i><span>High default rates</span></li><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-4 text-xl"></i><span>Integration complexity</span></li></ul></div><div class="flex justify-between items-center pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-4xl font-bold text-purple-600">₹50 Lacs</div></div><a href="/decks/AURA_Intelligence_Platform_Investor_Deck.pdf" download class="px-8 py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition transform hover:scale-105 shadow-lg"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
-            creditiq: `<div class="p-10"><div class="flex justify-between items-center mb-8"><h2 class="text-4xl font-bold dark:text-white">CreditIQ - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transform hover:scale-110 transition"><i class="fas fa-times text-3xl"></i></button></div><div class="space-y-6 max-h-[70vh] overflow-y-auto pr-4"><div class="bg-orange-50 dark:bg-orange-900/20 rounded-3xl p-8 border-2 border-orange-200 dark:border-orange-800"><h3 class="text-2xl font-bold text-orange-700 dark:text-orange-400 mb-6">The Problem</h3><ul class="space-y-4 dark:text-gray-300 text-lg"><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-4 text-xl"></i><span>Thin-file borrowers</span></li><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-4 text-xl"></i><span>Outdated scores</span></li><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-4 text-xl"></i><span>Loan rejections</span></li></ul></div><div class="flex justify-between items-center pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-4xl font-bold text-orange-600">₹50 Lacs</div></div><a href="/decks/CreditIQ_Investor_Deck.pdf" download class="px-8 py-4 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition transform hover:scale-105 shadow-lg"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`
+            askgogo: `<div class="p-6 sm:p-10"><div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-4xl font-bold dark:text-white">AskGogo AI - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-2"><i class="fas fa-times text-2xl sm:text-3xl"></i></button></div><div class="space-y-4 sm:space-y-6 max-h-[60vh] overflow-y-auto pr-2"><div class="bg-green-50 dark:bg-green-900/20 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border-2 border-green-200 dark:border-green-800"><h3 class="text-xl sm:text-2xl font-bold text-green-700 dark:text-green-400 mb-4 sm:mb-6">The Problem</h3><div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6"><div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl"><i class="fas fa-mobile-alt text-3xl sm:text-4xl text-green-500 mb-3"></i><h4 class="font-bold mb-2 dark:text-white text-base sm:text-lg">App Fatigue</h4><p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Users juggle 15+ apps for daily tasks</p></div><div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl"><i class="fas fa-brain text-3xl sm:text-4xl text-green-500 mb-3"></i><h4 class="font-bold mb-2 dark:text-white text-base sm:text-lg">Memory Gap</h4><p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">No tool remembers context across conversations</p></div><div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl"><i class="fas fa-language text-3xl sm:text-4xl text-green-500 mb-3"></i><h4 class="font-bold mb-2 dark:text-white text-base sm:text-lg">Language Barrier</h4><p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">90% of India prefers vernacular languages</p></div></div></div><div class="flex justify-between items-center pt-4 sm:pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-3xl sm:text-4xl font-bold text-green-600">₹2 Cr</div></div><a href="/decks/AskGogo_Investor_Deck.pdf" download class="px-4 py-3 sm:px-8 sm:py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition text-sm sm:text-base"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
+            folioiq: `<div class="p-6 sm:p-10"><div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-4xl font-bold dark:text-white">FolioIQ - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-2"><i class="fas fa-times text-2xl sm:text-3xl"></i></button></div><div class="space-y-4 sm:space-y-6 max-h-[60vh] overflow-y-auto pr-2"><div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border-2 border-blue-200 dark:border-blue-800"><h3 class="text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-400 mb-4 sm:mb-6">The Problem</h3><ul class="space-y-3 sm:space-y-4 dark:text-gray-300 text-sm sm:text-base"><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i><span>Unreadable CAS statements</span></li><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i><span>No AI intelligence</span></li><li class="flex items-start"><i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i><span>Hidden costs everywhere</span></li></ul></div><div class="flex justify-between items-center pt-4 sm:pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-3xl sm:text-4xl font-bold text-blue-600">₹1.5 Cr</div></div><a href="/decks/FolioIQ_Investor_Deck.pdf" download class="px-4 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition text-sm sm:text-base"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
+            aura: `<div class="p-6 sm:p-10"><div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-4xl font-bold dark:text-white">AURA - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-2"><i class="fas fa-times text-2xl sm:text-3xl"></i></button></div><div class="space-y-4 sm:space-y-6 max-h-[60vh] overflow-y-auto pr-2"><div class="bg-purple-50 dark:bg-purple-900/20 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border-2 border-purple-200 dark:border-purple-800"><h3 class="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400 mb-4 sm:mb-6">The Problem</h3><ul class="space-y-3 sm:space-y-4 dark:text-gray-300 text-sm sm:text-base"><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i><span>Manual underwriting</span></li><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i><span>High default rates</span></li><li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i><span>Integration complexity</span></li></ul></div><div class="flex justify-between items-center pt-4 sm:pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-3xl sm:text-4xl font-bold text-purple-600">₹50 Lacs</div></div><a href="/decks/AURA_Intelligence_Platform_Investor_Deck.pdf" download class="px-4 py-3 sm:px-8 sm:py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition text-sm sm:text-base"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`,
+            creditiq: `<div class="p-6 sm:p-10"><div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-4xl font-bold dark:text-white">CreditIQ - Investor Deck</h2><button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-2"><i class="fas fa-times text-2xl sm:text-3xl"></i></button></div><div class="space-y-4 sm:space-y-6 max-h-[60vh] overflow-y-auto pr-2"><div class="bg-orange-50 dark:bg-orange-900/20 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border-2 border-orange-200 dark:border-orange-800"><h3 class="text-xl sm:text-2xl font-bold text-orange-700 dark:text-orange-400 mb-4 sm:mb-6">The Problem</h3><ul class="space-y-3 sm:space-y-4 dark:text-gray-300 text-sm sm:text-base"><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Thin-file borrowers</span></li><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Outdated scores</span></li><li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Loan rejections</span></li></ul></div><div class="flex justify-between items-center pt-4 sm:pt-6 border-t-2 border-gray-200 dark:border-gray-700"><div><div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Seed Ask</div><div class="text-3xl sm:text-4xl font-bold text-orange-600">₹50 Lacs</div></div><a href="/decks/CreditIQ_Investor_Deck.pdf" download class="px-4 py-3 sm:px-8 sm:py-4 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition text-sm sm:text-base"><i class="fas fa-download mr-2"></i>Download PDF</a></div></div></div>`
         };
 
         function openProductModal(product) {
@@ -870,17 +726,46 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
-                    // Close mobile menu if open
                     document.getElementById('mobileMenu').classList.add('hidden');
+                    document.querySelector('.hamburger-container').classList.remove('hamburger-active');
                 }
             });
         });
 
+        // Touch/Swipe Support
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, {passive: true});
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartY - touchEndY;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && window.scrollY < 100) {
+                    // Swipe up on top - show menu hint
+                    document.querySelector('.swipe-indicator').style.display = 'block';
+                    setTimeout(() => {
+                        document.querySelector('.swipe-indicator').style.display = 'none';
+                    }, 2000);
+                }
+            }
+        }
+
         // Window resize handler
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            if (window.innerWidth > 768) {
+                document.getElementById('mobileMenu').classList.add('hidden');
+                document.querySelector('.hamburger-container').classList.remove('hamburger-active');
+            }
         });
     </script>
 </body>
