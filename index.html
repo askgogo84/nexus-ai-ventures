@@ -1,927 +1,955 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus AI Ventures | Portfolio of AI-First Fintech & Consumer Products</title>
-    <meta name="description" content="Four production AI products spanning B2B SaaS underwriting, consumer credit, mutual fund intelligence, and WhatsApp-native AI. Combined seed ask: ₹5.5Cr.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ink: '#0B1E3A',
-                        slate2: '#475569',
-                        accent: '#D97706',
-                        accent2: '#059669',
-                        line: '#E5E7EB',
-                        soft: '#F8FAFC',
-                        cream: '#FEF6E8',
-                    },
-                    fontFamily: {
-                        display: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        html { scroll-behavior: smooth; }
-        body { font-family: 'DM Sans', sans-serif; color: #0B1E3A; background: #F8FAFC; }
-        .display { font-family: 'Cormorant Garamond', serif; letter-spacing: -0.01em; }
-        .num { font-variant-numeric: tabular-nums; }
-        
-        /* Decorative dot grid */
-        .dotgrid {
-            background-image: radial-gradient(rgba(11,30,58,0.08) 1px, transparent 1px);
-            background-size: 22px 22px;
-        }
-        
-        /* Subtle gradient blob */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        /* Card hover lift */
-        .lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(11,30,58,0.15); }
-        
-        /* Brand accent line */
-        .accent-line {
-            display: inline-block;
-            width: 40px;
-            height: 2px;
-            background: #D97706;
-            vertical-align: middle;
-            margin-right: 12px;
-        }
-        
-        /* Pill */
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-        
-        .pill-live { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
-        .pill-amber { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-        .pill-ink { background: #EEF2F7; color: #0B1E3A; border: 1px solid #DBE2EC; }
-        
-        /* Pulsing live dot */
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #10B981;
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-        
-        /* Sticky nav blur */
-        .nav-glass {
-            background: rgba(248, 250, 252, 0.85);
-            backdrop-filter: saturate(180%) blur(12px);
-            -webkit-backdrop-filter: saturate(180%) blur(12px);
-            border-bottom: 1px solid rgba(11,30,58,0.08);
-        }
-        
-        /* Number ticker style */
-        .stat-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            line-height: 1;
-        }
-        
-        /* Section divider */
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(11,30,58,0.12), transparent);
-        }
-        
-        /* Tab buttons */
-        .tab-btn {
-            position: relative;
-            padding: 12px 0;
-            font-weight: 500;
-            color: #475569;
-            transition: color 0.2s;
-        }
-        .tab-btn.active { color: #0B1E3A; }
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #D97706;
-        }
-        
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Mobile nav */
-        @media (max-width: 768px) {
-            .display-xl { font-size: clamp(2.2rem, 9vw, 3.5rem) !important; line-height: 1.05 !important; }
-            .display-lg { font-size: clamp(1.8rem, 7vw, 2.5rem) !important; }
-        }
-        
-        /* Product card brand strips */
-        .strip-aura { background: linear-gradient(90deg, #0B1E3A, #1E3A5F); }
-        .strip-creditiq { background: linear-gradient(90deg, #D97706, #F59E0B); }
-        .strip-folioiq { background: linear-gradient(90deg, #059669, #10B981); }
-        .strip-askgogo { background: linear-gradient(90deg, #16A34A, #65A30D); }
-        
-        /* External link icon */
-        .ext-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #0B1E3A;
-            border: 1px solid #DBE2EC;
-            padding: 8px 14px;
-            border-radius: 999px;
-            transition: all 0.2s;
-        }
-        .ext-link:hover { background: #0B1E3A; color: #fff; border-color: #0B1E3A; }
-        
-        /* CTA button */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #0B1E3A;
-            color: #fff;
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .btn-primary:hover { background: #D97706; transform: translateY(-1px); }
-        
-        .btn-ghost {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #0B1E3A;
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 1px solid #DBE2EC;
-            background: #fff;
-            transition: all 0.2s;
-        }
-        .btn-ghost:hover { border-color: #0B1E3A; }
-        
-        /* Highlight bar */
-        .hl-bar {
-            background: #FEF6E8;
-            border-left: 3px solid #D97706;
-            padding: 12px 16px;
-            border-radius: 0 8px 8px 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus AI Ventures — $11.1M ARR by Year 3 · India + UAE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Instrument+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f5;--bg2:#f2efe8;--bg3:#e8e4da;--ink:#0f0e0b;--ink2:#3a3830;--ink3:#6b6659;--border:#d4cfc3;--border2:#c2bdb0;--white:#ffffff;--shadow:rgba(15,14,11,0.06);--shadow2:rgba(15,14,11,0.12);--aura:#c94a0a;--aura-bg:#fff3ee;--aura-border:#f5c4aa;--credit:#0a7c6e;--credit-bg:#edfaf7;--credit-border:#9de4d6;--folio:#1a6b2a;--folio-bg:#edfaf0;--folio-border:#9ddba8;--gogo:#5b1eaa;--gogo-bg:#f5eeff;--gogo-border:#c9a8f5;--gold:#b8870c;--gold-bg:#fdf6e3;--gold-border:#e8c96a;--nav-h:64px;--r:12px;--r2:20px}
+[data-theme="dark"]{--bg:#0d0c09;--bg2:#171510;--bg3:#221f17;--ink:#f0ece3;--ink2:#c8c2b4;--ink3:#7a7468;--border:#2e2a22;--border2:#3d3830;--white:#1a1710;--shadow:rgba(0,0,0,0.3);--shadow2:rgba(0,0,0,0.5);--aura:#f07040;--aura-bg:#1f1008;--aura-border:#6b2c10;--credit:#22c4ae;--credit-bg:#081a18;--credit-border:#0d5a50;--folio:#4ade74;--folio-bg:#081408;--folio-border:#1a5020;--gogo:#c084fc;--gogo-bg:#120820;--gogo-border:#5b2a8a;--gold:#f0bb30;--gold-bg:#1a1408;--gold-border:#6a5010}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);background:rgba(250,248,245,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s,border-color .3s}
+[data-theme="dark"] nav{background:rgba(13,12,9,0.93)}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:22px;letter-spacing:-.5px;color:var(--ink)}
+.nav-logo em{font-style:normal;color:var(--gold)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink3);letter-spacing:.2px;transition:color .2s;padding:4px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-links a:hover{color:var(--ink);border-bottom-color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.theme-btn{background:var(--bg3);border:1.5px solid var(--border2);border-radius:100px;padding:6px 12px;font-size:12px;font-weight:500;color:var(--ink2);display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap}
+.theme-btn:hover{border-color:var(--gold);color:var(--gold)}
+.nav-cta{background:var(--ink);color:var(--bg);font-weight:600;font-size:13px;padding:9px 20px;border-radius:var(--r);border:none;letter-spacing:.2px;transition:all .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--gold);color:var(--bg)}
+
+/* HERO */
+#hero{min-height:100vh;padding-top:calc(var(--nav-h) + 56px);padding-bottom:80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--bg);padding-left:clamp(16px,5vw,80px);padding-right:clamp(16px,5vw,80px)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:28px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-3px;color:var(--ink);margin-bottom:24px}
+.hero-h1 .h1-accent{display:block;background:linear-gradient(135deg,var(--gold) 0%,#e8a020 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-h1 .h1-italic{display:block;font-style:italic;font-size:.82em;color:var(--ink2);-webkit-text-fill-color:var(--ink2)}
+.hero-desc{font-size:clamp(15px,1.8vw,19px);font-weight:300;color:var(--ink3);max-width:540px;line-height:1.7;margin-bottom:36px}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--border);color:var(--ink2);font-size:12px;font-weight:500;letter-spacing:.2px;padding:7px 13px;border-radius:100px;transition:all .2s}
+.pill:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--white);box-shadow:0 4px 24px var(--shadow);max-width:820px}
+.hs{padding:24px 20px;border-right:1.5px solid var(--border);transition:background .2s}
+.hs:last-child{border-right:none}
+.hs:hover{background:var(--bg2)}
+.hs-val{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(22px,2.5vw,34px);letter-spacing:-1px;color:var(--ink);line-height:1;margin-bottom:5px}
+.hs-val .a{color:var(--gold)}
+.hs-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink3);font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-5px)}}
+.scroll-hint .arr{font-size:16px;color:var(--gold)}
+
+/* MARQUEE */
+.mq-wrap{border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);background:var(--bg2);padding:15px 0;overflow:hidden}
+.mq-track{display:flex;animation:mq 30s linear infinite;width:max-content}
+.mq-item{display:flex;align-items:center;gap:10px;padding:0 36px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);white-space:nowrap;border-right:1.5px solid var(--border)}
+.mq-dot{color:var(--gold)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION BASE */
+.sec{padding:96px clamp(16px,5vw,80px)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--gold);flex-shrink:0}
+.sec-h{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(32px,4.5vw,58px);line-height:1.05;letter-spacing:-1.5px;color:var(--ink);margin-bottom:16px}
+.sec-sub{font-size:17px;font-weight:300;color:var(--ink3);line-height:1.7;max-width:580px;margin-bottom:52px}
+.mx{max-width:1200px;margin:0 auto}
+
+/* PORTFOLIO INTRO */
+#portfolio{background:var(--bg);padding-bottom:32px}
+
+/* PRODUCT BLOCKS */
+.prod-block{padding:72px clamp(16px,5vw,80px);border-top:1.5px solid var(--border);position:relative}
+.prod-block::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%}
+.pb-aura::before{background:var(--aura)}
+.pb-credit::before{background:var(--credit)}
+.pb-folio::before{background:var(--folio)}
+.pb-gogo::before{background:var(--gogo)}
+.prod-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.prod-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+.prod-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;border:1.5px solid}
+.pb-a{background:var(--aura-bg);color:var(--aura);border-color:var(--aura-border)}
+.pb-c{background:var(--credit-bg);color:var(--credit);border-color:var(--credit-border)}
+.pb-f{background:var(--folio-bg);color:var(--folio);border-color:var(--folio-border)}
+.pb-g{background:var(--gogo-bg);color:var(--gogo);border-color:var(--gogo-border)}
+.prod-name{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(38px,4.5vw,68px);line-height:.95;letter-spacing:-2px;color:var(--ink);margin-bottom:14px}
+.prod-tag{font-size:15px;font-weight:300;color:var(--ink3);line-height:1.6;max-width:400px;margin-bottom:24px}
+.prod-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.pm{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;transition:all .2s}
+.pm:hover{transform:translateY(-2px);box-shadow:0 4px 16px var(--shadow)}
+.pm-v{font-family:'Playfair Display',serif;font-weight:700;font-size:21px;letter-spacing:-.5px;line-height:1;margin-bottom:3px}
+.pm-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3)}
+.prod-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn-p{background:var(--ink);color:var(--bg);font-weight:600;font-size:13px;padding:10px 22px;border-radius:var(--r);border:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow2)}
+.btn-dl{background:transparent;color:var(--ink3);font-weight:500;font-size:12px;padding:9px 16px;border-radius:var(--r);border:1.5px solid var(--border);transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-dl:hover{border-color:var(--ink3);color:var(--ink)}
+.btn-o{background:transparent;color:var(--ink);font-weight:500;font-size:13px;padding:10px 20px;border-radius:var(--r);border:1.5px solid var(--border2);transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-o:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FEATURE GRID */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.feat{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:all .2s}
+.feat:hover{border-color:var(--border2);transform:translateY(-1px)}
+.feat-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.feat-nm{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.feat-ds{font-size:11px;color:var(--ink3);line-height:1.5}
+
+/* DEMO BOX */
+.demo-box{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:0 4px 20px var(--shadow)}
+.demo-bar{background:var(--bg2);border-bottom:1.5px solid var(--border);padding:11px 16px;display:flex;align-items:center;gap:8px}
+.demo-dots{display:flex;gap:5px}
+.dd{width:10px;height:10px;border-radius:50%}
+.dd-r{background:#ff5f57}.dd-y{background:#febc2e}.dd-g{background:#28c840}
+.demo-url{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);margin-left:6px;flex:1;text-align:center}
+.demo-bd{padding:20px}
+.dlbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;display:block}
+.dinp{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);color:var(--ink);padding:9px 12px;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:10px}
+.dinp:focus{border-color:var(--gold)}
+.dsel{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);color:var(--ink);padding:9px 12px;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:10px;appearance:none}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.run-btn{width:100%;padding:11px;border-radius:var(--r);border:none;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:4px}
+.run-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow2)}
+.result{margin-top:14px;border:1.5px solid var(--border);border-radius:var(--r);padding:14px;background:var(--bg2);display:none}
+.result.show{display:block;animation:fi .35s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.srow{margin-bottom:9px}
+.stop{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;color:var(--ink2)}
+.sbg{background:var(--bg3);height:5px;border-radius:3px;overflow:hidden}
+.sfill{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+
+/* WHATSAPP */
+.wa-wrap{background:#0b141a;border-radius:var(--r2);overflow:hidden}
+.wa-hdr{background:#1f2c34;padding:11px 14px;display:flex;align-items:center;gap:10px}
+.wa-av{width:34px;height:34px;border-radius:50%;background:var(--gogo);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0}
+.wa-nm{font-weight:700;font-size:13px;color:#e9edef}
+.wa-st{font-size:10px;color:#8696a0}
+.wa-msgs{padding:10px;min-height:180px;max-height:230px;overflow-y:auto;display:flex;flex-direction:column;gap:7px}
+.wa-m{padding:7px 11px;border-radius:8px;font-size:12px;max-width:88%;line-height:1.5;white-space:pre-line}
+.wa-in{background:#1f2c34;color:#e9edef;align-self:flex-start;border-top-left-radius:2px}
+.wa-out{background:#005c4b;color:#e9edef;align-self:flex-end;border-top-right-radius:2px}
+.wa-inp-wrap{background:#1f2c34;padding:9px 11px;display:flex;gap:8px;align-items:center;border-top:1px solid rgba(255,255,255,.05)}
+.wa-inp{flex:1;background:#2a3942;border:none;border-radius:18px;padding:8px 14px;color:#e9edef;font-size:12px;outline:none}
+.wa-snd{width:32px;height:32px;border-radius:50%;background:var(--gogo);border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.wa-snd:hover{background:#7c3aed}
+
+/* QUIZ */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.qbtn{background:var(--bg2);border:1.5px solid var(--border);color:var(--ink);border-radius:var(--r);padding:9px 11px;font-size:12px;font-weight:500;cursor:pointer;text-align:left;transition:all .2s}
+.qbtn:hover{border-color:var(--credit);color:var(--credit)}
+
+/* MARKET SECTION */
+#market{background:var(--bg2)}
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.mkt-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:28px 24px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.mkt-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px var(--shadow2)}
+.mkt-top{position:absolute;top:0;left:0;right:0;height:3px}
+.mc-flag{font-size:34px;margin-bottom:14px}
+.mc-country{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;margin-bottom:6px}
+.mc-desc{font-size:12px;color:var(--ink3);margin-bottom:16px;line-height:1.5}
+.mc-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.mc-row:last-child{border-bottom:none}
+.mc-k{color:var(--ink3)}.mc-v{font-weight:600;color:var(--ink)}
+
+/* PRICING TABLE */
+.ptbl{max-width:1200px;margin:52px auto 0;border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--white);box-shadow:0 4px 24px var(--shadow)}
+.ptbl-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;border-bottom:1px solid var(--border)}
+.ptbl-row:last-child{border-bottom:none}
+.ptbl-row.hdr{background:var(--bg2)}
+.ptbl-cell{padding:14px 18px;font-size:13px;border-right:1px solid var(--border)}
+.ptbl-cell:last-child{border-right:none}
+.ptbl-row.hdr .ptbl-cell{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.ptbl-prod{font-weight:600;display:flex;align-items:center;gap:7px}
+.pd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ptbl-hl{font-weight:800;color:var(--gold)}
+.ptbl-row.total{background:var(--gold-bg)}
+.ptbl-row.total .ptbl-cell{font-weight:700}
+
+/* FINANCIALS */
+#financials{background:var(--bg)}
+.fin-hero{text-align:center;margin-bottom:56px}
+.fin-big{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(64px,11vw,148px);letter-spacing:-6px;line-height:.9;background:linear-gradient(135deg,var(--ink) 0%,var(--gold) 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.fin-sub{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink3);letter-spacing:.5px}
+.fin-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.fc{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:24px 20px;transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-4px);box-shadow:0 12px 40px var(--shadow2)}
+.fc-top{display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.fcd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.fc-prod{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
+.fc-arr{font-family:'Playfair Display',serif;font-weight:900;font-size:28px;letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.fc-note{font-size:11px;color:var(--ink3);margin-bottom:12px}
+.fc-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+.fck{color:var(--ink3)}.fcv{font-weight:600;color:var(--ink)}
+
+/* ARR PROGRESS */
+.arr-prog{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:28px;box-shadow:0 4px 20px var(--shadow)}
+.arr-title{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;margin-bottom:24px;color:var(--ink)}
+.arr-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.arr-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);width:74px;flex-shrink:0}
+.arr-bg{flex:1;height:7px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.arr-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.arr-val{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;letter-spacing:-.5px;color:var(--ink);width:70px;text-align:right;flex-shrink:0}
+.arr-pct{font-size:10px;color:var(--ink3);width:36px;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+
+/* ASK */
+#ask{background:var(--ink);color:var(--bg);padding:96px clamp(16px,5vw,80px)}
+#ask .eyebrow{color:var(--gold)}
+.ask-amt{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(56px,9vw,128px);letter-spacing:-5px;line-height:.9;color:var(--bg);margin:12px 0 8px}
+.ask-amt em{font-style:normal;color:var(--gold)}
+.ask-range{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(240,236,227,.45);margin-bottom:52px}
+.ask-split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.ask-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,236,227,.35);margin-bottom:18px}
+.alloc-list{display:flex;flex-direction:column;gap:14px}
+.alloc-item{display:flex;align-items:center;gap:14px}
+.alloc-nm{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,236,227,.5);width:80px;flex-shrink:0}
+.alloc-bg{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.alloc-fill{height:100%;border-radius:3px}
+.alloc-val{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--bg);width:76px;text-align:right;flex-shrink:0}
+.milestones{border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);overflow:hidden}
+.ms{display:flex;align-items:flex-start;gap:18px;padding:17px 22px;border-bottom:1px solid rgba(255,255,255,.07);transition:background .2s}
+.ms:last-child{border-bottom:none}
+.ms:hover{background:rgba(255,255,255,.04)}
+.ms-mo{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);flex-shrink:0;width:62px;margin-top:2px}
+.ms-txt{font-size:13px;font-weight:500;color:rgba(240,236,227,.82);line-height:1.4}
+
+/* TEAM */
+#team{background:var(--bg2)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.team-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:32px 28px;transition:transform .2s,box-shadow .2s}
+.team-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px var(--shadow2)}
+.team-av{width:52px;height:52px;border-radius:50%;background:var(--gold-bg);border:2px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--gold);margin-bottom:18px}
+.team-nm{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;margin-bottom:3px}
+.team-role{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.team-bio{font-size:13px;color:var(--ink3);line-height:1.7}
+
+/* CTA */
+#cta{background:var(--bg);border-top:1.5px solid var(--border);text-align:center;padding:96px clamp(16px,5vw,80px)}
+#cta .eyebrow{justify-content:center}
+#cta .sec-sub{margin-left:auto;margin-right:auto;text-align:center}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn-cta-p{background:var(--ink);color:var(--bg);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:none;transition:all .2s}
+.btn-cta-p:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 28px var(--shadow2)}
+.btn-cta-o{background:transparent;color:var(--ink);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:2px solid var(--border2);transition:all .2s}
+.btn-cta-o:hover{border-color:var(--gold);color:var(--gold)}
+.cta-email{margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink3);letter-spacing:.5px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px clamp(16px,5vw,80px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
+.foot-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:19px;color:var(--ink)}
+.foot-logo em{font-style:normal;color:var(--gold)}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:var(--ink3);transition:color .2s}
+.foot-links a:hover{color:var(--gold)}
+.foot-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.5px}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv1{transition-delay:.1s}.rv2{transition-delay:.2s}.rv3{transition-delay:.3s}.rv4{transition-delay:.4s}
+
+/* MOBILE */
+@media(max-width:960px){
+  .nav-links{display:none}
+  .prod-inner{grid-template-columns:1fr;gap:32px}
+  .mkt-grid{grid-template-columns:1fr}
+  .fin-cards{grid-template-columns:1fr 1fr}
+  .ask-split{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .hs:nth-child(2){border-right:none}
+  .hs:nth-child(3){border-top:1.5px solid var(--border)}
+  .feat-grid{grid-template-columns:1fr}
+  .ptbl{overflow-x:auto}
+  .ptbl-row{min-width:640px}
+}
+@media(max-width:600px){
+  .sec{padding:64px 16px}
+  .prod-block{padding:56px 16px}
+  .fin-cards{grid-template-columns:1fr}
+  .dgrid{grid-template-columns:1fr}
+  .qgrid{grid-template-columns:1fr}
+  .ask-amt{letter-spacing:-3px}
+  .alloc-item{flex-wrap:wrap}
+  .alloc-nm{width:100%}
+  footer{flex-direction:column;text-align:center}
+  .foot-links{justify-content:center}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav-glass fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
-        <a href="#top" class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-ink flex items-center justify-center text-white font-bold text-sm">N</div>
-            <span class="display text-xl font-semibold">Nexus AI</span>
-        </a>
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate2">
-            <a href="#portfolio" class="hover:text-ink transition">Portfolio</a>
-            <a href="#thesis" class="hover:text-ink transition">Thesis</a>
-            <a href="#financials" class="hover:text-ink transition">Financials</a>
-            <a href="#ask" class="hover:text-ink transition">The Ask</a>
-            <a href="#team" class="hover:text-ink transition">Team</a>
-        </div>
-        <a href="#ask" class="btn-primary text-sm py-2 px-4">
-            Invest <i class="fa-solid fa-arrow-right text-xs"></i>
-        </a>
-    </div>
+<nav>
+  <a class="nav-logo" href="#hero">Nexus <em>AI</em></a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Products</a></li>
+    <li><a href="#market">Markets</a></li>
+    <li><a href="#financials">Financials</a></li>
+    <li><a href="#ask">The Ask</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn">
+      <span id="themeIcon">🌙</span>
+      <span id="themeTxt">Dark Mode</span>
+    </button>
+    <a href="mailto:hello@askgogo.in" class="nav-cta">Invest →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section id="top" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-    <div class="blob bg-accent2" style="width: 400px; height: 400px; top: -100px; right: -100px;"></div>
-    <div class="blob bg-accent" style="width: 350px; height: 350px; bottom: -150px; left: -150px;"></div>
-    
-    <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-        <div class="max-w-4xl">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="pill pill-ink"><span class="live-dot"></span>Seed Round Open · May 2026</span>
-                <span class="pill pill-amber">4 Products Live</span>
-            </div>
-            
-            <h1 class="display display-xl text-5xl md:text-7xl font-semibold text-ink leading-tight mb-6">
-                Four production AI products.<br>
-                <span class="text-accent">One operating discipline.</span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-slate2 leading-relaxed mb-8 max-w-3xl">
-                Nexus AI Ventures is a focused holdco building capital-efficient AI products across B2B SaaS underwriting, consumer credit-card discovery, mutual fund intelligence, and WhatsApp-native consumer AI. Every product below is live, shippable and revenue-ready.
-            </p>
-            
-            <div class="flex flex-wrap gap-3 mb-12">
-                <a href="#portfolio" class="btn-primary">See the portfolio <i class="fa-solid fa-arrow-down text-xs"></i></a>
-                <a href="#ask" class="btn-ghost">View the ask · ₹5.5Cr</a>
-            </div>
-            
-            <!-- Hero stat strip -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-8 border-t border-line">
-                <div>
-                    <div class="stat-num text-4xl md:text-5xl text-ink num">4</div>
-                    <div class="text-sm text-slate2 mt-2">Production products live</div>
-                </div>
-                <div>
-                    <div class="stat-num text-4xl md:text-5xl text-accent num">₹5.5Cr</div>
-                    <div class="text-sm text-slate2 mt-2">Consolidated seed ask</div>
-                </div>
-                <div>
-                    <div class="stat-num text-4xl md:text-5xl text-accent2 num">₹68.6Cr</div>
-                    <div class="text-sm text-slate2 mt-2">Combined Y3 ARR target</div>
-                </div>
-                <div>
-                    <div class="stat-num text-4xl md:text-5xl text-ink num">18mo</div>
-                    <div class="text-sm text-slate2 mt-2">Runway to revenue scale</div>
-                </div>
-            </div>
-        </div>
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="live-dot"></span>Seed Round Open · May 2026 · India + UAE</div>
+    <h1 class="hero-h1">
+      Four AI<br>
+      <span class="h1-accent">Products.</span>
+      <span class="h1-italic">One Operating System.</span>
+    </h1>
+    <p class="hero-desc">Nexus AI Ventures builds capital-efficient AI products across B2B SaaS underwriting, consumer credit, mutual fund intelligence and WhatsApp-native consumer AI — launched simultaneously in India and UAE.</p>
+    <div class="hero-pills">
+      <span class="pill">🌏 India + UAE launch</span>
+      <span class="pill">🏗️ Shared AI infrastructure</span>
+      <span class="pill">⚡ All 4 products live</span>
+      <span class="pill">📈 $11.1M Y3 ARR target</span>
+      <span class="pill">🎯 $500K–$1M seed ask</span>
     </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-val">$<span class="a">11.1</span>M</div><div class="hs-lbl">Y3 ARR Target</div></div>
+      <div class="hs"><div class="hs-val"><span class="a">4</span></div><div class="hs-lbl">Live Products</div></div>
+      <div class="hs"><div class="hs-val"><span class="a">90</span>%</div><div class="hs-lbl">Peak Margin</div></div>
+      <div class="hs"><div class="hs-val"><span class="a">18</span>mo</div><div class="hs-lbl">Runway</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll to explore</span><span class="arr">↓</span></div>
 </section>
 
-<div class="divider"></div>
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track" id="mqTrack">
+    <div class="mq-item"><span class="mq-dot">◆</span> AURA Intelligence · B2B SaaS Underwriting</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> CreditIQ · Credit Card Discovery</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Intelligence</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> AskGogo AI · WhatsApp-Native AI</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> India + UAE · Dual Market Launch 2026</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> $11.1M Y3 ARR · ≈ ₹100 Crore</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> AURA Intelligence · B2B SaaS Underwriting</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> CreditIQ · Credit Card Discovery</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Intelligence</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> AskGogo AI · WhatsApp-Native AI</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> India + UAE · Dual Market Launch 2026</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> $11.1M Y3 ARR · ≈ ₹100 Crore</div>
+  </div>
+</div>
 
-<!-- HIGHLIGHTS / WHY NEXUS -->
-<section id="thesis" class="py-20 md:py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="max-w-3xl mb-14">
-            <div class="text-sm font-medium text-accent uppercase tracking-wider mb-3"><span class="accent-line"></span>Why Nexus AI</div>
-            <h2 class="display display-lg text-4xl md:text-5xl font-semibold text-ink mb-6">A portfolio approach, not a single-bet startup.</h2>
-            <p class="text-lg text-slate2 leading-relaxed">
-                Each product solves a real, monetizable problem in a different market — but they share one tech stack, one ops team and one execution discipline. Capital deployed compounds across products instead of being siloed in a single thesis.
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-5">
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="w-11 h-11 rounded-lg bg-ink text-white flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
-                <h3 class="display text-xl font-semibold mb-2">Shared infrastructure</h3>
-                <p class="text-sm text-slate2 leading-relaxed">One auth, one AI orchestration layer, one analytics stack, one design system. Each new product launches faster and cheaper than the last.</p>
-            </div>
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="w-11 h-11 rounded-lg bg-accent text-white flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <h3 class="display text-xl font-semibold mb-2">Ship-fast operating model</h3>
-                <p class="text-sm text-slate2 leading-relaxed">All four products went from concept to live deployment in 2026. Founder-led GTM, no agency overhead, no theoretical roadmap.</p>
-            </div>
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="w-11 h-11 rounded-lg bg-accent2 text-white flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-chart-line"></i>
-                </div>
-                <h3 class="display text-xl font-semibold mb-2">Diversified revenue risk</h3>
-                <p class="text-sm text-slate2 leading-relaxed">B2B SaaS ($), consumer subscription (₹), affiliate/CPA and white-label B2B. If one wedge slips, three others compound.</p>
-            </div>
-        </div>
-        
-        <!-- Single-glance highlights bar -->
-        <div class="mt-14 bg-ink rounded-2xl p-8 md:p-10 text-white">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="text-xs text-white/60 uppercase tracking-wider mb-2">Market reach</div>
-                    <div class="display text-3xl font-semibold">550M+</div>
-                    <div class="text-sm text-white/70 mt-1">Addressable users across products</div>
-                </div>
-                <div>
-                    <div class="text-xs text-white/60 uppercase tracking-wider mb-2">Verticals covered</div>
-                    <div class="display text-3xl font-semibold">4</div>
-                    <div class="text-sm text-white/70 mt-1">SaaS lending, credit cards, MF, consumer AI</div>
-                </div>
-                <div>
-                    <div class="text-xs text-white/60 uppercase tracking-wider mb-2">Gross margin band</div>
-                    <div class="display text-3xl font-semibold">45–90%</div>
-                    <div class="text-sm text-white/70 mt-1">Mature SaaS / AI economics</div>
-                </div>
-                <div>
-                    <div class="text-xs text-white/60 uppercase tracking-wider mb-2">Capital efficiency</div>
-                    <div class="display text-3xl font-semibold">12.5×</div>
-                    <div class="text-sm text-white/70 mt-1">Y3 ARR ÷ seed ask</div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- PORTFOLIO INTRO -->
+<section id="portfolio" class="sec" style="padding-bottom:24px">
+  <div class="mx">
+    <div class="eyebrow rv">The Portfolio</div>
+    <h2 class="sec-h rv">Four Products.<br>All Live Today.</h2>
+    <p class="sec-sub rv">Every product has a production URL, defined ARR path and isolated seed allocation. Scroll through each — try the live demos inline, or download the investor deck.</p>
+  </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- PORTFOLIO -->
-<section id="portfolio" class="py-20 md:py-28 dotgrid">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="max-w-3xl mb-14">
-            <div class="text-sm font-medium text-accent uppercase tracking-wider mb-3"><span class="accent-line"></span>The Portfolio</div>
-            <h2 class="display display-lg text-4xl md:text-5xl font-semibold text-ink mb-6">Four products. All live. All shippable today.</h2>
-            <p class="text-lg text-slate2 leading-relaxed">
-                Every product below has a working production URL, a defined ARR path and an isolated seed allocation. Click through to use them — this is not a deck of mockups.
-            </p>
-        </div>
-        
-        <!-- PRODUCT 1: AURA -->
-        <div class="bg-white border border-line rounded-3xl overflow-hidden mb-8 lift">
-            <div class="strip-aura h-1.5"></div>
-            <div class="grid md:grid-cols-12 gap-0">
-                <!-- Left: identity + brief -->
-                <div class="md:col-span-5 p-8 md:p-10 border-b md:border-b-0 md:border-r border-line">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-12 h-12 rounded-xl bg-ink text-white flex items-center justify-center font-bold">A</div>
-                        <div>
-                            <div class="display text-2xl font-semibold">AURA Intelligence</div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider">B2B SaaS · Lending Infrastructure</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="pill pill-live"><span class="live-dot"></span>Production</span>
-                        <span class="pill pill-ink">USD pricing</span>
-                        <span class="pill pill-ink">Enterprise B2B</span>
-                    </div>
-                    
-                    <p class="text-slate2 leading-relaxed mb-5">
-                        <strong class="text-ink">AI underwriting OS for any institution funding SaaS.</strong> Banks, debt VCs, fintech lenders and family offices use AURA's 8-layer risk engine to go from inbound deal to investment memo in 5 minutes — instead of 2–3 days.
-                    </p>
-                    
-                    <div class="hl-bar text-sm">
-                        <strong class="text-ink">The wedge:</strong> Replaces $100K+/year of fragmented data subscriptions + senior analyst time with one unified workflow.
-                    </div>
-                    
-                    <div class="mt-6 flex flex-wrap gap-2">
-                        <a href="https://ecl-aura.vercel.app/" target="_blank" rel="noopener" class="ext-link">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> ecl-aura.vercel.app
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Right: economics + ask -->
-                <div class="md:col-span-7 p-8 md:p-10 bg-soft">
-                    <div class="grid grid-cols-2 gap-5 mb-6">
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Pricing</div>
-                            <div class="display text-2xl font-semibold text-ink">$10K + $2K/mo</div>
-                            <div class="text-xs text-slate2 mt-1">Setup + recurring</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Gross margin</div>
-                            <div class="display text-2xl font-semibold text-accent2">45–55%</div>
-                            <div class="text-xs text-slate2 mt-1">Improves with scale</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y2 ARR target</div>
-                            <div class="display text-2xl font-semibold text-ink num">$550K</div>
-                            <div class="text-xs text-slate2 mt-1">25 institutional customers</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y3 ARR target</div>
-                            <div class="display text-2xl font-semibold text-accent num">$2.2M</div>
-                            <div class="text-xs text-slate2 mt-1">~₹18.3Cr · 100 customers</div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-line pt-5">
-                        <div class="text-xs text-slate2 uppercase tracking-wider mb-2">ARR justification</div>
-                        <p class="text-sm text-ink leading-relaxed">
-                            ARR math: 100 customers × $24K/year subscription + $1.2M in setup fees = <strong>$2.2M Y3 ARR run-rate</strong>. The market context — $83.4B US venture debt, $5.78B revenue-based financing, 23-day average time-to-fund — means even 1% market penetration produces a multi-million dollar ARR ceiling. AURA is priced cheaper than one analyst-month.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PRODUCT 2: CreditIQ -->
-        <div class="bg-white border border-line rounded-3xl overflow-hidden mb-8 lift">
-            <div class="strip-creditiq h-1.5"></div>
-            <div class="grid md:grid-cols-12 gap-0">
-                <div class="md:col-span-5 p-8 md:p-10 border-b md:border-b-0 md:border-r border-line">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-12 h-12 rounded-xl bg-accent text-white flex items-center justify-center font-bold">C</div>
-                        <div>
-                            <div class="display text-2xl font-semibold">CreditIQ</div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider">Consumer Fintech · Affiliate Platform</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="pill pill-live"><span class="live-dot"></span>Production</span>
-                        <span class="pill pill-ink">60+ cards, 12 banks</span>
-                        <span class="pill pill-ink">Free-to-user</span>
-                    </div>
-                    
-                    <p class="text-slate2 leading-relaxed mb-5">
-                        <strong class="text-ink">India's AI-powered credit card discovery and reward optimization engine.</strong> Users find the right card via a 4-question flow, calculate true annual reward value from their actual spend, and compare cards side-by-side — replacing biased bank pages and affiliate blogs.
-                    </p>
-                    
-                    <div class="hl-bar text-sm">
-                        <strong class="text-ink">The wedge:</strong> Captures high-intent users at the moment they're comparing cards — exactly when banks pay the most per qualified lead.
-                    </div>
-                    
-                    <div class="mt-6 flex flex-wrap gap-2">
-                        <a href="https://credit-iq-beryl.vercel.app/" target="_blank" rel="noopener" class="ext-link">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> credit-iq-beryl.vercel.app
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="md:col-span-7 p-8 md:p-10 bg-soft">
-                    <div class="grid grid-cols-2 gap-5 mb-6">
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Monetization</div>
-                            <div class="display text-2xl font-semibold text-ink">CPA + B2B + Premium</div>
-                            <div class="text-xs text-slate2 mt-1">Multi-stream</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">CPA per approval</div>
-                            <div class="display text-2xl font-semibold text-accent2">₹500–₹3,000</div>
-                            <div class="text-xs text-slate2 mt-1">Indian card affiliate market</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y1 ARR target</div>
-                            <div class="display text-2xl font-semibold text-ink num">₹1.2Cr</div>
-                            <div class="text-xs text-slate2 mt-1">25K MAU · 2% conversion</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y3 ARR target</div>
-                            <div class="display text-2xl font-semibold text-accent num">₹12Cr</div>
-                            <div class="text-xs text-slate2 mt-1">CPA + 2 bank partners + B2B API</div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-line pt-5">
-                        <div class="text-xs text-slate2 uppercase tracking-wider mb-2">ARR justification</div>
-                        <p class="text-sm text-ink leading-relaxed">
-                            India has <strong>11.5Cr+ outstanding credit cards</strong> growing at double digits. Average industry CPA is ₹1,500/approval. ARR math at Y3: 250K MAU × 2% application rate × 40% approval × ₹1,500 = <strong>₹3Cr/year affiliate</strong> + ₹6Cr bank-sponsored placements + ₹3Cr B2B widget licensing = ₹12Cr. SEO-led acquisition keeps CAC near zero.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PRODUCT 3: FolioIQ -->
-        <div class="bg-white border border-line rounded-3xl overflow-hidden mb-8 lift">
-            <div class="strip-folioiq h-1.5"></div>
-            <div class="grid md:grid-cols-12 gap-0">
-                <div class="md:col-span-5 p-8 md:p-10 border-b md:border-b-0 md:border-r border-line">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-12 h-12 rounded-xl bg-accent2 text-white flex items-center justify-center font-bold">F</div>
-                        <div>
-                            <div class="display text-2xl font-semibold">FolioIQ</div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider">Consumer Wealth · MF Intelligence</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="pill pill-live"><span class="live-dot"></span>Production</span>
-                        <span class="pill pill-ink">Subscription SaaS</span>
-                        <span class="pill pill-ink">77.7% margin</span>
-                    </div>
-                    
-                    <p class="text-slate2 leading-relaxed mb-5">
-                        <strong class="text-ink">Upload a CAS statement, get complete portfolio intelligence.</strong> AI parses any CAMS/KFintech statement and surfaces fund overlap, hidden cost drag, tax-harvesting opportunities and rebalancing actions — for the 9.92Cr Indian SIP investors who currently get only NAV summaries.
-                    </p>
-                    
-                    <div class="hl-bar text-sm">
-                        <strong class="text-ink">The wedge:</strong> Free CAS analysis builds trust → Pro tier (₹199/mo) converts power users → B2B layer white-labels to RIAs and wealth apps.
-                    </div>
-                    
-                    <div class="mt-6 flex flex-wrap gap-2">
-                        <a href="https://folio-iq.vercel.app/" target="_blank" rel="noopener" class="ext-link">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> folio-iq.vercel.app
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="md:col-span-7 p-8 md:p-10 bg-soft">
-                    <div class="grid grid-cols-2 gap-5 mb-6">
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Pricing</div>
-                            <div class="display text-2xl font-semibold text-ink">₹199 / ₹349 /mo</div>
-                            <div class="text-xs text-slate2 mt-1">Pro / Premium tiers</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Gross margin</div>
-                            <div class="display text-2xl font-semibold text-accent2">77.7%</div>
-                            <div class="text-xs text-slate2 mt-1">Cost/user ₹44.3</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y2 ARR target</div>
-                            <div class="display text-2xl font-semibold text-ink num">₹21.6L</div>
-                            <div class="text-xs text-slate2 mt-1">~10K paid users</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y5 ARR target</div>
-                            <div class="display text-2xl font-semibold text-accent num">₹5.6Cr</div>
-                            <div class="text-xs text-slate2 mt-1">150K paid + B2B</div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-line pt-5">
-                        <div class="text-xs text-slate2 uppercase tracking-wider mb-2">ARR justification</div>
-                        <p class="text-sm text-ink leading-relaxed">
-                            India: <strong>₹73.73L Cr AUM, 26.63Cr folios, 9.92Cr SIP accounts</strong>. Capturing 0.15% of SIP accounts at ₹199/mo = ₹35.6Cr ARR ceiling. Y5 plan of ₹5.6Cr represents 0.025% market share — conservative given 77.7% margins, low CAC (₹200 at scale), and 8.5× LTV/CAC. Break-even at month 14.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PRODUCT 4: AskGogo -->
-        <div class="bg-white border border-line rounded-3xl overflow-hidden mb-8 lift">
-            <div class="strip-askgogo h-1.5"></div>
-            <div class="grid md:grid-cols-12 gap-0">
-                <div class="md:col-span-5 p-8 md:p-10 border-b md:border-b-0 md:border-r border-line">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white" style="background:#16A34A">G</div>
-                        <div>
-                            <div class="display text-2xl font-semibold">AskGogo AI</div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider">Consumer AI · WhatsApp-Native</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="pill pill-live"><span class="live-dot"></span>Production</span>
-                        <span class="pill pill-ink">Voice-first · 10+ languages</span>
-                        <span class="pill pill-ink">90% margin potential</span>
-                    </div>
-                    
-                    <p class="text-slate2 leading-relaxed mb-5">
-                        <strong class="text-ink">Your personal AI assistant, living on WhatsApp.</strong> Reminders, notes, bill split, tasks, daily briefing and document reading — all inside the app 550M+ Indians already use. No new app, no signup friction, no English-only barrier.
-                    </p>
-                    
-                    <div class="hl-bar text-sm">
-                        <strong class="text-ink">The wedge:</strong> WhatsApp is the missing distribution layer for consumer AI in India. AskGogo doesn't create a new habit — it rides one.
-                    </div>
-                    
-                    <div class="mt-6 flex flex-wrap gap-2">
-                        <a href="https://askgogo.in" target="_blank" rel="noopener" class="ext-link">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> askgogo.in
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="md:col-span-7 p-8 md:p-10 bg-soft">
-                    <div class="grid grid-cols-2 gap-5 mb-6">
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Pricing</div>
-                            <div class="display text-2xl font-semibold text-ink">₹99–₹499 /mo</div>
-                            <div class="text-xs text-slate2 mt-1">Free → Pro → Founder Pro</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Gross margin</div>
-                            <div class="display text-2xl font-semibold text-accent2">90.3%</div>
-                            <div class="text-xs text-slate2 mt-1">Cost/user ₹18.20</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">10K-user MRR</div>
-                            <div class="display text-2xl font-semibold text-ink num">₹18.7L</div>
-                            <div class="text-xs text-slate2 mt-1">ARPU ₹187 blended</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate2 uppercase tracking-wider mb-1">Y2 ARR target</div>
-                            <div class="display text-2xl font-semibold text-accent num">₹10Cr+</div>
-                            <div class="text-xs text-slate2 mt-1">50K paid users milestone</div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t border-line pt-5">
-                        <div class="text-xs text-slate2 uppercase tracking-wider mb-2">ARR justification</div>
-                        <p class="text-sm text-ink leading-relaxed">
-                            Indian AI assistant market projected at <strong>₹1,537Cr by 2034</strong> (20.23% CAGR). LTV/CAC target of 50:1 with ₹2,244 12-month LTV. ARR math: 50K paid users × ₹187 blended ARPU × 12 = ₹11.2Cr run-rate. Break-even at ~2,500 paid users. WhatsApp's 550M India base means even 0.01% paid conversion produces ₹10Cr+ ARR.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+<!-- PRODUCT 1: AURA -->
+<div class="prod-block pb-aura">
+  <div class="prod-inner">
+    <div class="rv">
+      <div class="prod-num">01 / 04</div>
+      <span class="prod-badge pb-a">🔶 B2B SaaS · Enterprise</span>
+      <h2 class="prod-name">AURA<br>Intelligence</h2>
+      <p class="prod-tag">AI underwriting OS for any institution funding SaaS. From inbound deal to IC memo in 5 minutes. Serving banks, debt VCs and fintech lenders in India, UAE and globally.</p>
+      <div class="prod-metrics">
+        <div class="pm"><div class="pm-v" style="color:var(--aura)">$2.4M</div><div class="pm-l">Y3 ARR · India+UAE+US</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--aura)">45–55%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">5 min</div><div class="pm-l">Deal Screening</div></div>
+        <div class="pm"><div class="pm-v">15×</div><div class="pm-l">Faster Decisions</div></div>
+      </div>
+      <div class="prod-actions">
+        <a href="https://ecl-aura.vercel.app" target="_blank" class="btn-p" style="background:var(--aura)">Launch App ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/AURA_Intelligence_Platform_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+      </div>
     </div>
+    <div class="rv rv2">
+      <div class="feat-grid">
+        <div class="feat"><span class="feat-ico">⚗️</span><div><div class="feat-nm">8-Layer Risk Engine</div><div class="feat-ds">PD/LGD/EL, DSCR, NRR, burn multiple — one standardized model</div></div></div>
+        <div class="feat"><span class="feat-ico">📄</span><div><div class="feat-nm">AI Deal Memos</div><div class="feat-ds">Full IC-ready memos with risk analysis in under 60 seconds</div></div></div>
+        <div class="feat"><span class="feat-ico">📋</span><div><div class="feat-nm">Smart Term Sheets</div><div class="feat-ds">Facility sizing and covenant logic auto-drafted from score data</div></div></div>
+        <div class="feat"><span class="feat-ico">📊</span><div><div class="feat-nm">Live Pipeline</div><div class="feat-ds">Probability-weighted deal tracking from watchlist to funded</div></div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">AURA Risk Scorer — Live Demo</div></div>
+        <div class="demo-bd">
+          <div class="dgrid">
+            <div><label class="dlbl">Company</label><input class="dinp" id="a-co" placeholder="e.g. Acme SaaS"></div>
+            <div><label class="dlbl">ARR (USD)</label><input class="dinp" id="a-arr" placeholder="e.g. $2.4M"></div>
+            <div><label class="dlbl">Gross Margin %</label><input class="dinp" type="number" id="a-margin" placeholder="72"></div>
+            <div><label class="dlbl">YoY Growth %</label><input class="dinp" type="number" id="a-growth" placeholder="85"></div>
+            <div><label class="dlbl">Cash Runway (mo)</label><input class="dinp" type="number" id="a-run" placeholder="18"></div>
+            <div><label class="dlbl">NRR %</label><input class="dinp" type="number" id="a-nrr" placeholder="115"></div>
+          </div>
+          <button class="run-btn" style="background:var(--aura);color:#fff" onclick="runAura()">⚡ Generate AURA Score</button>
+          <div class="result" id="aura-res"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT 2: CREDITIQ -->
+<div class="prod-block pb-credit">
+  <div class="prod-inner">
+    <div class="rv">
+      <div class="prod-num">02 / 04</div>
+      <span class="prod-badge pb-c">💳 Consumer Fintech · India + UAE</span>
+      <h2 class="prod-name">Credit<span style="color:var(--credit)">IQ</span></h2>
+      <p class="prod-tag">AI-powered credit card discovery, comparison and reward optimization. 60+ cards across India and UAE banks. Free for users — monetized on high-intent CPA leads and B2B API.</p>
+      <div class="prod-metrics">
+        <div class="pm"><div class="pm-v" style="color:var(--credit)">$1.3M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--credit)">~80%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">60+</div><div class="pm-l">Cards Indexed</div></div>
+        <div class="pm"><div class="pm-v">$33</div><div class="pm-l">CPA/Approval (UAE)</div></div>
+      </div>
+      <div class="prod-actions">
+        <a href="https://credit-iq-beryl.vercel.app" target="_blank" class="btn-p" style="background:var(--credit)">Launch App ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/CreditIQ_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+      </div>
+    </div>
+    <div class="rv rv2">
+      <div class="feat-grid">
+        <div class="feat"><span class="feat-ico">🔍</span><div><div class="feat-nm">AI Card Finder</div><div class="feat-ds">4-step quiz matches you to best card from 60+ options across 12 banks</div></div></div>
+        <div class="feat"><span class="feat-ico">🧮</span><div><div class="feat-nm">Reward Calculator</div><div class="feat-ds">True annual reward value based on actual spend patterns</div></div></div>
+        <div class="feat"><span class="feat-ico">⚖️</span><div><div class="feat-nm">Compare Cards</div><div class="feat-ds">Side-by-side fees, cashback, lounge access, welcome bonuses</div></div></div>
+        <div class="feat"><span class="feat-ico">🇦🇪</span><div><div class="feat-nm">UAE NRI Track</div><div class="feat-ds">ADCB, Emirates NBD, HSBC UAE for NRI and expat cardholders</div></div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">CreditIQ Card Finder — Live Demo</div></div>
+        <div class="demo-bd" id="cq-bd">
+          <div id="cq1">
+            <p style="font-size:13px;font-weight:600;color:var(--ink)">Primary spending category?</p>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:0">Step 1 of 4</p>
+            <div class="qgrid">
+              <button class="qbtn" onclick="cqNext(1,'travel')">✈️ Travel & Lounge</button>
+              <button class="qbtn" onclick="cqNext(1,'cashback')">💰 Max Cashback</button>
+              <button class="qbtn" onclick="cqNext(1,'dining')">🍽️ Dining & Lifestyle</button>
+              <button class="qbtn" onclick="cqNext(1,'shopping')">🛍️ Online Shopping</button>
+            </div>
+          </div>
+          <div id="cq2" style="display:none">
+            <p style="font-size:13px;font-weight:600;color:var(--ink)">Monthly spend range?</p>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:0">Step 2 of 4</p>
+            <div class="qgrid">
+              <button class="qbtn" onclick="cqNext(2,'low')">Under $200</button>
+              <button class="qbtn" onclick="cqNext(2,'mid')">$200–$600</button>
+              <button class="qbtn" onclick="cqNext(2,'high')">$600–$1,200</button>
+              <button class="qbtn" onclick="cqNext(2,'premium')">Above $1,200</button>
+            </div>
+          </div>
+          <div id="cq3" style="display:none">
+            <p style="font-size:13px;font-weight:600;color:var(--ink)">Annual fee preference?</p>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:0">Step 3 of 4</p>
+            <div class="qgrid">
+              <button class="qbtn" onclick="cqNext(3,'free')">Zero fee</button>
+              <button class="qbtn" onclick="cqNext(3,'low')">Under $15/yr</button>
+              <button class="qbtn" onclick="cqNext(3,'mid')">$15–$60/yr</button>
+              <button class="qbtn" onclick="cqNext(3,'premium')">Premium ($60+)</button>
+            </div>
+          </div>
+          <div id="cq4" style="display:none">
+            <p style="font-size:13px;font-weight:600;color:var(--ink)">Your market?</p>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:0">Step 4 of 4</p>
+            <div class="qgrid">
+              <button class="qbtn" onclick="cqResult('India-HDFC')">🇮🇳 India (HDFC)</button>
+              <button class="qbtn" onclick="cqResult('India-SBI')">🇮🇳 India (SBI)</button>
+              <button class="qbtn" onclick="cqResult('UAE-ADCB')">🇦🇪 UAE (ADCB)</button>
+              <button class="qbtn" onclick="cqResult('UAE-NBD')">🇦🇪 UAE (Emirates NBD)</button>
+            </div>
+          </div>
+          <div class="result" id="cq-res"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT 3: FOLIOIQ -->
+<div class="prod-block pb-folio">
+  <div class="prod-inner">
+    <div class="rv">
+      <div class="prod-num">03 / 04</div>
+      <span class="prod-badge pb-f">📊 Consumer Wealth · MF Intelligence</span>
+      <h2 class="prod-name">Folio<span style="color:var(--folio)">IQ</span></h2>
+      <p class="prod-tag">One CAS upload gives Indian mutual fund investors complete portfolio intelligence — overlap, cost drag, tax-harvesting, rebalancing. UAE expansion targets NRI investors with global MF portfolios.</p>
+      <div class="prod-metrics">
+        <div class="pm"><div class="pm-v" style="color:var(--folio)">$4.1M</div><div class="pm-l">Y3 ARR (≈₹37Cr)</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--folio)">77.7%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">$2.20</div><div class="pm-l">India Pro/mo (₹199)</div></div>
+        <div class="pm"><div class="pm-v">Mo.14</div><div class="pm-l">Break-even</div></div>
+      </div>
+      <div class="prod-actions">
+        <a href="https://folio-iq.vercel.app" target="_blank" class="btn-p" style="background:var(--folio)">Launch App ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/FolioIQ_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+      </div>
+    </div>
+    <div class="rv rv2">
+      <div class="feat-grid">
+        <div class="feat"><span class="feat-ico">📂</span><div><div class="feat-nm">CAS Intelligence</div><div class="feat-ds">Drag-drop CAMS/KFintech PDF — extracts all funds, SIPs, NAVs instantly</div></div></div>
+        <div class="feat"><span class="feat-ico">🔗</span><div><div class="feat-nm">Overlap Detector</div><div class="feat-ds">Surfaces hidden fund overlap diluting diversification with fixes</div></div></div>
+        <div class="feat"><span class="feat-ico">💰</span><div><div class="feat-nm">Tax & Cost Engine</div><div class="feat-ds">LTCG/STCG harvest opportunities + expense ratio drag in real dollars</div></div></div>
+        <div class="feat"><span class="feat-ico">💬</span><div><div class="feat-nm">AI Chat</div><div class="feat-ds">Ask "Which fund has highest overlap?" — get exact answer in plain language</div></div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">FolioIQ Portfolio Analyzer — Live Demo</div></div>
+        <div class="demo-bd">
+          <div class="dgrid">
+            <div><label class="dlbl">Number of Funds</label><input class="dinp" type="number" id="f-fn" placeholder="e.g. 8" min="1" max="50"></div>
+            <div><label class="dlbl">Portfolio Value (₹)</label><input class="dinp" id="f-val" placeholder="e.g. 15,00,000"></div>
+            <div><label class="dlbl">Monthly SIP (₹)</label><input class="dinp" id="f-sip" placeholder="e.g. 25,000"></div>
+            <div><label class="dlbl">Plan Type</label><select class="dsel" id="f-plan"><option value="regular">Regular Plan (MFD)</option><option value="direct">Direct Plan</option><option value="mixed">Mix of Both</option></select></div>
+          </div>
+          <button class="run-btn" style="background:var(--folio);color:#fff" onclick="runFolio()">📊 Generate Health Score</button>
+          <div class="result" id="folio-res"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT 4: ASKGOGO -->
+<div class="prod-block pb-gogo">
+  <div class="prod-inner">
+    <div class="rv">
+      <div class="prod-num">04 / 04</div>
+      <span class="prod-badge pb-g">🤖 Consumer AI · WhatsApp-Native</span>
+      <h2 class="prod-name">Ask<span style="color:var(--gogo)">Gogo</span></h2>
+      <p class="prod-tag">Your personal AI assistant on WhatsApp. Reminders, notes, bill split, tasks, briefings in 10+ Indian languages — no new app, no signup. India + UAE launch with bilingual Arabic/English support.</p>
+      <div class="prod-metrics">
+        <div class="pm"><div class="pm-v" style="color:var(--gogo)">$3.4M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--gogo)">90.3%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">$1.10</div><div class="pm-l">India entry (₹99/mo)</div></div>
+        <div class="pm"><div class="pm-v">$4.99</div><div class="pm-l">UAE entry /mo</div></div>
+      </div>
+      <div class="prod-actions">
+        <a href="https://askgogo.in" target="_blank" class="btn-p" style="background:var(--gogo)">Try AskGogo ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/AskGogo_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+      </div>
+    </div>
+    <div class="rv rv2">
+      <div class="feat-grid">
+        <div class="feat"><span class="feat-ico">⏰</span><div><div class="feat-nm">Smart Reminders</div><div class="feat-ds">"Kal subah 7 baje gym" works in Hindi, Kannada, Tamil & 7 more</div></div></div>
+        <div class="feat"><span class="feat-ico">💸</span><div><div class="feat-nm">Bill Split</div><div class="feat-ds">"Split ₹2,400 between me, Riya and Aman" → instant UPI prompts</div></div></div>
+        <div class="feat"><span class="feat-ico">🎙️</span><div><div class="feat-nm">Voice-First</div><div class="feat-ds">Voice notes in any Indian language + Arabic for UAE users</div></div></div>
+        <div class="feat"><span class="feat-ico">📄</span><div><div class="feat-nm">Doc Intelligence</div><div class="feat-ds">Send any PDF or image — instant summary, bill analysis, contract review</div></div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">AskGogo AI — WhatsApp Simulation</div></div>
+        <div style="padding:0">
+          <div class="wa-wrap">
+            <div class="wa-hdr"><div class="wa-av">G</div><div><div class="wa-nm">AskGogo AI ✓</div><div class="wa-st">online · askgogo.in</div></div></div>
+            <div class="wa-msgs" id="waMsgs"><div class="wa-m wa-in">👋 Hi! I'm Gogo. Try: "Remind me at 8pm", "Split ₹1500 between 3 friends", "Plan my day", "UAE mode", or "What can you do?"</div></div>
+            <div class="wa-inp-wrap"><input class="wa-inp" id="waInp" placeholder="Type a message..." onkeypress="if(event.key==='Enter')waSend()"><button class="wa-snd" onclick="waSend()">➤</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARKET: INDIA + UAE -->
+<section id="market" class="sec">
+  <div class="mx">
+    <div class="eyebrow rv">Market Opportunity</div>
+    <h2 class="sec-h rv">India + UAE.<br>Different Price Points,<br>One Platform.</h2>
+    <p class="sec-sub rv">Dual-market launch unlocks premium USD pricing in UAE ($4.99–$3K/mo) alongside volume-scale pricing in India ($1.10–$2K/mo) — compounding ARR from two distinct consumer and B2B markets.</p>
+    <div class="mkt-grid">
+      <div class="mkt-card rv">
+        <div class="mkt-top" style="background:var(--folio)"></div>
+        <div class="mc-flag">🇮🇳</div>
+        <div class="mc-country">India</div>
+        <div class="mc-desc">Volume market · INR pricing · 550M WhatsApp users · ₹73.73L Cr MF AUM · 11.5Cr+ credit cards</div>
+        <div class="mc-row"><span class="mc-k">AURA</span><span class="mc-v">$2K/mo + $10K setup</span></div>
+        <div class="mc-row"><span class="mc-k">CreditIQ CPA</span><span class="mc-v">$17 avg (₹1,500)</span></div>
+        <div class="mc-row"><span class="mc-k">FolioIQ Pro</span><span class="mc-v">$2.20/mo (₹199)</span></div>
+        <div class="mc-row"><span class="mc-k">AskGogo entry</span><span class="mc-v">$1.10/mo (₹99)</span></div>
+        <div class="mc-row"><span class="mc-k">Fintech TAM</span><span class="mc-v">$28B+</span></div>
+      </div>
+      <div class="mkt-card rv rv1">
+        <div class="mkt-top" style="background:var(--aura)"></div>
+        <div class="mc-flag">🇦🇪</div>
+        <div class="mc-country">UAE</div>
+        <div class="mc-desc">Premium market · USD pricing · 9.5M+ population · $1.6T banking assets · highest NRI density globally</div>
+        <div class="mc-row"><span class="mc-k">AURA</span><span class="mc-v">$3K/mo + $15K setup</span></div>
+        <div class="mc-row"><span class="mc-k">CreditIQ CPA</span><span class="mc-v">$25–$45/approval</span></div>
+        <div class="mc-row"><span class="mc-k">FolioIQ Pro</span><span class="mc-v">$9.99/mo</span></div>
+        <div class="mc-row"><span class="mc-k">AskGogo entry</span><span class="mc-v">$4.99/mo</span></div>
+        <div class="mc-row"><span class="mc-k">Fintech TAM</span><span class="mc-v">$8B+</span></div>
+      </div>
+      <div class="mkt-card rv rv2">
+        <div class="mkt-top" style="background:var(--gold)"></div>
+        <div class="mc-flag">🌐</div>
+        <div class="mc-country">AURA Global</div>
+        <div class="mc-desc">B2B SaaS intelligence · US venture debt $83.4B · Revenue-based finance $5.78B · Singapore, UK corridors</div>
+        <div class="mc-row"><span class="mc-k">US/UK/SG pricing</span><span class="mc-v">$2K–$3K/mo + setup</span></div>
+        <div class="mc-row"><span class="mc-k">Speed improvement</span><span class="mc-v">5 min vs 2–3 days</span></div>
+        <div class="mc-row"><span class="mc-k">Data cost savings</span><span class="mc-v">76% vs $100K+ stack</span></div>
+        <div class="mc-row"><span class="mc-k">Memo creation</span><span class="mc-v">60 sec vs 4–6 hrs</span></div>
+        <div class="mc-row"><span class="mc-k">Y3 target</span><span class="mc-v">80–100 customers</span></div>
+      </div>
+    </div>
+    <div class="ptbl rv">
+      <div class="ptbl-row hdr">
+        <div class="ptbl-cell">Product</div>
+        <div class="ptbl-cell">India Price</div>
+        <div class="ptbl-cell">UAE Price</div>
+        <div class="ptbl-cell">Y3 ARR</div>
+        <div class="ptbl-cell">Margin</div>
+      </div>
+      <div class="ptbl-row">
+        <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--aura)"></span>AURA Intelligence</span></div>
+        <div class="ptbl-cell">$2K/mo + $10K</div>
+        <div class="ptbl-cell">$3K/mo + $15K</div>
+        <div class="ptbl-cell ptbl-hl">$2.4M</div>
+        <div class="ptbl-cell">45–55%</div>
+      </div>
+      <div class="ptbl-row">
+        <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--credit)"></span>CreditIQ</span></div>
+        <div class="ptbl-cell">$17 CPA avg</div>
+        <div class="ptbl-cell">$33 CPA avg</div>
+        <div class="ptbl-cell ptbl-hl">$1.3M</div>
+        <div class="ptbl-cell">~80%</div>
+      </div>
+      <div class="ptbl-row">
+        <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--folio)"></span>FolioIQ</span></div>
+        <div class="ptbl-cell">$2.20–$3.90/mo</div>
+        <div class="ptbl-cell">$9.99–$19.99/mo</div>
+        <div class="ptbl-cell ptbl-hl">$4.1M</div>
+        <div class="ptbl-cell">77.7%</div>
+      </div>
+      <div class="ptbl-row">
+        <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--gogo)"></span>AskGogo AI</span></div>
+        <div class="ptbl-cell">$1.10–$5.50/mo</div>
+        <div class="ptbl-cell">$4.99–$19.99/mo</div>
+        <div class="ptbl-cell ptbl-hl">$3.4M</div>
+        <div class="ptbl-cell">90.3%</div>
+      </div>
+      <div class="ptbl-row total" style="background:var(--gold-bg)">
+        <div class="ptbl-cell">Combined Portfolio</div>
+        <div class="ptbl-cell">INR + USD</div>
+        <div class="ptbl-cell">USD premium</div>
+        <div class="ptbl-cell" style="font-size:15px;color:var(--gold)">$11.1M</div>
+        <div class="ptbl-cell">45–90%</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- CONSOLIDATED FINANCIALS -->
-<section id="financials" class="py-20 md:py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="max-w-3xl mb-14">
-            <div class="text-sm font-medium text-accent uppercase tracking-wider mb-3"><span class="accent-line"></span>Combined Financials</div>
-            <h2 class="display display-lg text-4xl md:text-5xl font-semibold text-ink mb-6">The portfolio in one table.</h2>
-            <p class="text-lg text-slate2 leading-relaxed">
-                Each product has its own seed slice, its own market and its own ARR trajectory. The aggregate shows why a portfolio bet outperforms a single-thesis bet.
-            </p>
-        </div>
-        
-        <!-- Comparison table -->
-        <div class="bg-soft border border-line rounded-2xl overflow-hidden overflow-x-auto">
-            <table class="w-full text-sm">
-                <thead class="bg-ink text-white">
-                    <tr>
-                        <th class="text-left p-4 font-medium">Product</th>
-                        <th class="text-left p-4 font-medium">Market</th>
-                        <th class="text-left p-4 font-medium">Pricing</th>
-                        <th class="text-left p-4 font-medium">Margin</th>
-                        <th class="text-left p-4 font-medium">Seed Ask</th>
-                        <th class="text-left p-4 font-medium">Y2 ARR</th>
-                        <th class="text-left p-4 font-medium">Y3+ ARR</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-line">
-                    <tr class="hover:bg-white transition">
-                        <td class="p-4">
-                            <div class="font-semibold text-ink">AURA</div>
-                            <div class="text-xs text-slate2">B2B SaaS underwriting</div>
-                        </td>
-                        <td class="p-4 text-slate2">Banks · debt VCs · fintech lenders</td>
-                        <td class="p-4 num">$2K/mo + $10K setup</td>
-                        <td class="p-4 text-accent2 font-medium">45–55%</td>
-                        <td class="p-4 font-semibold num">₹2Cr</td>
-                        <td class="p-4 num">$550K</td>
-                        <td class="p-4 num font-semibold text-accent">$2.2M (~₹18.3Cr)</td>
-                    </tr>
-                    <tr class="hover:bg-white transition">
-                        <td class="p-4">
-                            <div class="font-semibold text-ink">CreditIQ</div>
-                            <div class="text-xs text-slate2">Consumer credit affiliate</div>
-                        </td>
-                        <td class="p-4 text-slate2">11.5Cr Indian card users</td>
-                        <td class="p-4 num">CPA + B2B + Premium</td>
-                        <td class="p-4 text-accent2 font-medium">~80%</td>
-                        <td class="p-4 font-semibold num">₹50L</td>
-                        <td class="p-4 num">₹3Cr</td>
-                        <td class="p-4 num font-semibold text-accent">₹12Cr</td>
-                    </tr>
-                    <tr class="hover:bg-white transition">
-                        <td class="p-4">
-                            <div class="font-semibold text-ink">FolioIQ</div>
-                            <div class="text-xs text-slate2">MF portfolio intelligence</div>
-                        </td>
-                        <td class="p-4 text-slate2">9.92Cr SIP accounts · ₹73.73L Cr AUM</td>
-                        <td class="p-4 num">₹199 / ₹349 /mo</td>
-                        <td class="p-4 text-accent2 font-medium">77.7%</td>
-                        <td class="p-4 font-semibold num">₹1.5Cr</td>
-                        <td class="p-4 num">₹21.6L</td>
-                        <td class="p-4 num font-semibold text-accent">₹5.6Cr (Y5)</td>
-                    </tr>
-                    <tr class="hover:bg-white transition">
-                        <td class="p-4">
-                            <div class="font-semibold text-ink">AskGogo</div>
-                            <div class="text-xs text-slate2">WhatsApp-native consumer AI</div>
-                        </td>
-                        <td class="p-4 text-slate2">550M+ WhatsApp India users</td>
-                        <td class="p-4 num">₹99–₹499 /mo</td>
-                        <td class="p-4 text-accent2 font-medium">90.3%</td>
-                        <td class="p-4 font-semibold num">₹2Cr</td>
-                        <td class="p-4 num">₹10Cr+</td>
-                        <td class="p-4 num font-semibold text-accent">₹33Cr (50K users × ARPU)</td>
-                    </tr>
-                    <tr class="bg-cream font-semibold">
-                        <td class="p-4 text-ink">Combined</td>
-                        <td class="p-4 text-ink">Portfolio aggregate</td>
-                        <td class="p-4 text-ink">Diversified</td>
-                        <td class="p-4 text-accent2">45–90%</td>
-                        <td class="p-4 text-accent num">₹6Cr (rounded ₹5.5Cr ask)</td>
-                        <td class="p-4 text-ink num">~₹13.7Cr</td>
-                        <td class="p-4 text-accent num">~₹68.6Cr</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <p class="text-xs text-slate2 mt-4">
-            Note: Combined seed ask is rounded to ₹5.5Cr — investors can allocate across the portfolio or single-product. Y3+ ARR figures are run-rate targets per individual product business cases (FolioIQ uses Y5 per its 5-year model). All currency conversions at $1 = ₹83.
-        </p>
+<!-- FINANCIALS -->
+<section id="financials" class="sec">
+  <div class="mx">
+    <div class="eyebrow rv" style="justify-content:center">Combined Financials</div>
+    <div class="fin-hero rv">
+      <div class="fin-big">$11.1M</div>
+      <div class="fin-sub">Year 3 ARR Target · India + UAE · ≈ ₹100 Crore · at $1 = ₹90</div>
     </div>
+    <div class="fin-cards">
+      <div class="fc rv">
+        <div class="fc-top"><div class="fcd" style="background:var(--aura)"></div><div class="fc-prod">AURA Intelligence</div></div>
+        <div class="fc-arr" style="color:var(--aura)">$2.4M</div>
+        <div class="fc-note">≈₹21.6Cr · 80 customers Y3</div>
+        <div class="fc-row"><span class="fck">India customers</span><span class="fcv">50</span></div>
+        <div class="fc-row"><span class="fck">UAE customers</span><span class="fcv">30</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$222K (₹2Cr)</span></div>
+        <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">45–55%</span></div>
+      </div>
+      <div class="fc rv rv1">
+        <div class="fc-top"><div class="fcd" style="background:var(--credit)"></div><div class="fc-prod">CreditIQ</div></div>
+        <div class="fc-arr" style="color:var(--credit)">$1.3M</div>
+        <div class="fc-note">≈₹11.7Cr · CPA + B2B API</div>
+        <div class="fc-row"><span class="fck">India CPA avg</span><span class="fcv">$17 (₹1,500)</span></div>
+        <div class="fc-row"><span class="fck">UAE CPA avg</span><span class="fcv">$33 (AED 121)</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$56K (₹50L)</span></div>
+        <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">~80%</span></div>
+      </div>
+      <div class="fc rv rv2">
+        <div class="fc-top"><div class="fcd" style="background:var(--folio)"></div><div class="fc-prod">FolioIQ</div></div>
+        <div class="fc-arr" style="color:var(--folio)">$4.1M</div>
+        <div class="fc-note">≈₹36.9Cr · Sub + B2B</div>
+        <div class="fc-row"><span class="fck">India price</span><span class="fcv">$2.20–$3.90/mo</span></div>
+        <div class="fc-row"><span class="fck">UAE price</span><span class="fcv">$9.99–$19.99/mo</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$167K (₹1.5Cr)</span></div>
+        <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">77.7%</span></div>
+      </div>
+      <div class="fc rv rv3">
+        <div class="fc-top"><div class="fcd" style="background:var(--gogo)"></div><div class="fc-prod">AskGogo AI</div></div>
+        <div class="fc-arr" style="color:var(--gogo)">$3.4M</div>
+        <div class="fc-note">≈₹30.6Cr · Subscription tiers</div>
+        <div class="fc-row"><span class="fck">India price</span><span class="fcv">$1.10–$5.50/mo</span></div>
+        <div class="fc-row"><span class="fck">UAE price</span><span class="fcv">$4.99–$19.99/mo</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$222K (₹2Cr)</span></div>
+        <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">90.3%</span></div>
+      </div>
+    </div>
+    <div class="arr-prog rv">
+      <div class="arr-title">Year 3 ARR Breakdown — Path to $11.1M</div>
+      <div class="arr-row"><div class="arr-lbl">FolioIQ</div><div class="arr-bg"><div class="arr-fill" data-w="37" style="background:var(--folio)"></div></div><div class="arr-val">$4.1M</div><div class="arr-pct">37%</div></div>
+      <div class="arr-row"><div class="arr-lbl">AskGogo</div><div class="arr-bg"><div class="arr-fill" data-w="31" style="background:var(--gogo)"></div></div><div class="arr-val">$3.4M</div><div class="arr-pct">31%</div></div>
+      <div class="arr-row"><div class="arr-lbl">AURA</div><div class="arr-bg"><div class="arr-fill" data-w="22" style="background:var(--aura)"></div></div><div class="arr-val">$2.4M</div><div class="arr-pct">22%</div></div>
+      <div class="arr-row"><div class="arr-lbl">CreditIQ</div><div class="arr-bg"><div class="arr-fill" data-w="12" style="background:var(--credit)"></div></div><div class="arr-val">$1.3M</div><div class="arr-pct">12%</div></div>
+    </div>
+  </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- THE ASK -->
-<section id="ask" class="py-20 md:py-28">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="bg-ink rounded-3xl overflow-hidden relative">
-            <div class="blob bg-accent" style="width: 500px; height: 500px; top: -200px; right: -200px; opacity: 0.25;"></div>
-            
-            <div class="relative z-10 p-8 md:p-16">
-                <div class="grid md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-7">
-                        <div class="text-sm font-medium text-accent uppercase tracking-wider mb-3">
-                            <span class="accent-line"></span>The Ask
-                        </div>
-                        <h2 class="display text-4xl md:text-6xl font-semibold text-white leading-tight mb-6">
-                            ₹5.5 Crores.<br>
-                            <span class="text-accent">18 months runway.</span><br>
-                            ~₹68Cr ARR target.
-                        </h2>
-                        <p class="text-lg text-white/80 leading-relaxed mb-8">
-                            One round funds all four products through PMF and revenue scale. Capital flows into a shared infrastructure team, then deploys per-product into growth, partnerships and compliance.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-3">
-                            <a href="mailto:hello@askgogo.in" class="btn-primary bg-accent hover:bg-white hover:text-ink">
-                                <i class="fa-solid fa-envelope"></i> hello@askgogo.in
-                            </a>
-                            <a href="#portfolio" class="btn-ghost bg-white/10 border-white/20 text-white hover:bg-white hover:text-ink">
-                                Review portfolio first
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-5">
-                        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur">
-                            <div class="text-xs text-white/60 uppercase tracking-wider mb-4">Capital allocation by product</div>
-                            
-                            <div class="space-y-4">
-                                <div>
-                                    <div class="flex justify-between text-sm mb-2">
-                                        <span class="text-white">AskGogo AI</span>
-                                        <span class="text-accent font-semibold num">₹2Cr · 36%</span>
-                                    </div>
-                                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <div class="h-full bg-accent" style="width: 36%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm mb-2">
-                                        <span class="text-white">AURA</span>
-                                        <span class="text-accent font-semibold num">₹2Cr · 36%</span>
-                                    </div>
-                                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <div class="h-full bg-accent" style="width: 36%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm mb-2">
-                                        <span class="text-white">FolioIQ</span>
-                                        <span class="text-accent font-semibold num">₹1.5Cr · 27%</span>
-                                    </div>
-                                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <div class="h-full bg-accent" style="width: 27%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm mb-2">
-                                        <span class="text-white">CreditIQ</span>
-                                        <span class="text-accent font-semibold num">₹50L · 9%</span>
-                                    </div>
-                                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <div class="h-full bg-accent" style="width: 9%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="border-t border-white/10 mt-6 pt-5">
-                                <div class="text-xs text-white/60 uppercase tracking-wider mb-2">Why this ask, not less</div>
-                                <p class="text-sm text-white/80 leading-relaxed">
-                                    Below ₹3Cr forces single-product focus and kills the portfolio thesis. Above ₹8Cr dilutes ownership before PMF. ₹5.5Cr funds all four products through revenue scale with 18-month buffer.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Milestones row -->
-                <div class="border-t border-white/10 mt-12 pt-10 grid md:grid-cols-4 gap-6">
-                    <div>
-                        <div class="text-xs text-white/50 uppercase tracking-wider mb-2">Month 6</div>
-                        <div class="display text-white text-lg">First paying customers across all 4 products</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-white/50 uppercase tracking-wider mb-2">Month 12</div>
-                        <div class="display text-white text-lg">₹3Cr+ aggregate ARR run-rate</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-white/50 uppercase tracking-wider mb-2">Month 14</div>
-                        <div class="display text-white text-lg">FolioIQ break-even at unit level</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-white/50 uppercase tracking-wider mb-2">Month 18</div>
-                        <div class="display text-white text-lg">Series A position with proof on all 4</div>
-                    </div>
-                </div>
-            </div>
+<section id="ask">
+  <div class="mx">
+    <div class="eyebrow rv">The Ask</div>
+    <div class="ask-amt rv"><em>$500K</em><br>to $1M</div>
+    <div class="ask-range rv">Seed Round · India + UAE Combined · May 2026 · At $1 = ₹90, this is ₹4.5Cr–₹9Cr</div>
+    <div class="ask-split">
+      <div class="rv">
+        <div class="ask-lbl">Capital Allocation</div>
+        <div class="alloc-list">
+          <div class="alloc-item"><div class="alloc-nm">AskGogo</div><div class="alloc-bg"><div class="alloc-fill" style="width:34%;background:var(--gogo)"></div></div><div class="alloc-val">$222K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">AURA</div><div class="alloc-bg"><div class="alloc-fill" style="width:34%;background:var(--aura)"></div></div><div class="alloc-val">$222K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">FolioIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:26%;background:var(--folio)"></div></div><div class="alloc-val">$167K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">CreditIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:9%;background:var(--credit)"></div></div><div class="alloc-val">$56K</div></div>
         </div>
+        <p style="font-size:11px;color:rgba(240,236,227,.3);margin-top:18px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px">Total ₹5.5Cr at $610K midpoint · $1 = ₹90<br>Investor can allocate to full portfolio or single product</p>
+      </div>
+      <div class="rv rv2">
+        <div class="ask-lbl">18-Month Milestones</div>
+        <div class="milestones">
+          <div class="ms"><div class="ms-mo">Mo. 6</div><div class="ms-txt">First paying customers across all 4 products in India + UAE</div></div>
+          <div class="ms"><div class="ms-mo">Mo. 9</div><div class="ms-txt">UAE pilot revenues — AURA & AskGogo premium users live</div></div>
+          <div class="ms"><div class="ms-mo">Mo. 12</div><div class="ms-txt">$350K+ aggregate ARR run-rate across both markets</div></div>
+          <div class="ms"><div class="ms-mo">Mo. 14</div><div class="ms-txt">FolioIQ unit-level break-even (~10K paid users)</div></div>
+          <div class="ms"><div class="ms-mo">Mo. 18</div><div class="ms-txt">Series A positioning with $1M+ ARR proof, India + UAE</div></div>
+        </div>
+        <p style="font-size:11px;color:rgba(240,236,227,.3);margin-top:14px;font-family:'JetBrains Mono',monospace;line-height:1.6">Why $500K–$1M: below this, only 1 product gets funded. Above $1M dilutes pre-PMF. This range funds all 4 through revenue scale with 18-month buffer.</p>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- TEAM -->
-<section id="team" class="py-20 md:py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="max-w-3xl mb-14">
-            <div class="text-sm font-medium text-accent uppercase tracking-wider mb-3"><span class="accent-line"></span>Execution Team</div>
-            <h2 class="display display-lg text-4xl md:text-5xl font-semibold text-ink mb-6">Three operators. One discipline: ship.</h2>
-            <p class="text-lg text-slate2 leading-relaxed">
-                A founder-led team with a prior exit, deep tech execution and financial control — running on shared infrastructure to compound product velocity.
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-5">
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="display text-2xl font-semibold mb-1">Goverdhan M.D.</div>
-                <div class="text-sm text-accent mb-4">Build · Sell · Iterate</div>
-                <p class="text-sm text-slate2 leading-relaxed">
-                    Serial entrepreneur with prior acquisition exit. Operates across product strategy, founder-led sales and rapid GTM iteration. Public-facing AI literacy thought leader (Doordarshan Vanitha).
-                </p>
-            </div>
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="display text-2xl font-semibold mb-1">Srinivas Jayaram</div>
-                <div class="text-sm text-accent mb-4">Tech · Product Execution</div>
-                <p class="text-sm text-slate2 leading-relaxed">
-                    Reliable engineering leadership across all four production deployments. Owns shared infrastructure, deployment discipline and the AI orchestration layer underneath every product.
-                </p>
-            </div>
-            <div class="bg-soft border border-line rounded-2xl p-6 lift">
-                <div class="display text-2xl font-semibold mb-1">Mathew Varkey</div>
-                <div class="text-sm text-accent mb-4">Finance · Operating Control</div>
-                <p class="text-sm text-slate2 leading-relaxed">
-                    Financial discipline and operating control across the holdco. Owns unit economics, capital allocation between products and reporting against milestones.
-                </p>
-            </div>
-        </div>
-        
-        <div class="mt-14 hl-bar">
-            <div class="text-sm text-ink leading-relaxed">
-                <strong>Execution philosophy:</strong> ship fast, learn from real users, keep infrastructure shared and compound product velocity. Every product on this page is live because of this philosophy — not despite it.
-            </div>
-        </div>
+<section id="team" class="sec">
+  <div class="mx">
+    <div class="eyebrow rv">Execution Team</div>
+    <h2 class="sec-h rv">Three Operators.<br>One Discipline.</h2>
+    <p class="sec-sub rv">Founder-led with a prior acquisition exit, deep tech execution and financial control across India and UAE operations.</p>
+    <div class="team-grid">
+      <div class="team-card rv">
+        <div class="team-av">G</div>
+        <div class="team-nm">Goverdhan M.D.</div>
+        <div class="team-role">Build · Sell · Iterate</div>
+        <p class="team-bio">Serial entrepreneur with prior acquisition exit. Founder-led sales, GTM iteration and public AI thought leadership (Doordarshan Vanitha). Operating across Bengaluru and UAE markets. Founder, askgogo.in.</p>
+      </div>
+      <div class="team-card rv rv1">
+        <div class="team-av">S</div>
+        <div class="team-nm">Srinivas Jayaram</div>
+        <div class="team-role">Tech · Product Execution</div>
+        <p class="team-bio">Engineering leadership across all 4 production deployments. Owns shared AI orchestration infrastructure, deployment discipline and the unified platform layer underneath every Nexus AI product.</p>
+      </div>
+      <div class="team-card rv rv2">
+        <div class="team-av">M</div>
+        <div class="team-nm">Mathew Varkey</div>
+        <div class="team-role">Finance · Operating Control</div>
+        <p class="team-bio">Financial discipline and operating control across the holdco. Owns unit economics, capital allocation across India/UAE operations and Series A milestone reporting and readiness.</p>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- FOOTER CTA -->
-<footer class="py-16 bg-soft border-t border-line">
-    <div class="max-w-7xl mx-auto px-5 md:px-8">
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-ink flex items-center justify-center text-white font-bold text-sm">N</div>
-                    <span class="display text-xl font-semibold">Nexus AI Ventures</span>
-                </div>
-                <p class="text-slate2 leading-relaxed max-w-md">
-                    Four production AI products. One execution discipline. ₹5.5Cr seed round open for discussion.
-                </p>
-            </div>
-            <div class="md:text-right">
-                <div class="text-xs text-slate2 uppercase tracking-wider mb-3">Get in touch</div>
-                <a href="mailto:hello@askgogo.in" class="display text-2xl font-semibold text-ink hover:text-accent transition">hello@askgogo.in</a>
-                <div class="text-sm text-slate2 mt-2">Bengaluru · India</div>
-                <div class="flex md:justify-end gap-2 mt-5">
-                    <a href="https://ecl-aura.vercel.app/" target="_blank" rel="noopener" class="ext-link text-xs">AURA</a>
-                    <a href="https://credit-iq-beryl.vercel.app/" target="_blank" rel="noopener" class="ext-link text-xs">CreditIQ</a>
-                    <a href="https://folio-iq.vercel.app/" target="_blank" rel="noopener" class="ext-link text-xs">FolioIQ</a>
-                    <a href="https://askgogo.in" target="_blank" rel="noopener" class="ext-link text-xs">AskGogo</a>
-                </div>
-            </div>
-        </div>
-        <div class="text-xs text-slate2 mt-12 pt-8 border-t border-line">
-            © 2026 Nexus AI Ventures · Investor Information · Not an offer to sell securities
-        </div>
-    </div>
+<!-- CTA -->
+<section id="cta">
+  <div class="eyebrow">Partner With Us</div>
+  <h2 class="sec-h">Four Live Products.<br>Two Markets. One Round.</h2>
+  <p class="sec-sub" style="margin:0 auto;text-align:center">$500K–$1M seeds India + UAE simultaneously across 4 capital-efficient AI products through to Series A readiness. Each product has its own ARR path, margin profile and isolated allocation.</p>
+  <div class="cta-btns">
+    <a href="mailto:hello@askgogo.in" class="btn-cta-p">Contact Goverdhan →</a>
+    <a href="https://nexus-ai-ventures.vercel.app" class="btn-cta-o">View Live Products</a>
+  </div>
+  <p class="cta-email">hello@askgogo.in · Bengaluru, India + Dubai, UAE</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Nexus <em>AI</em></div>
+  <div class="foot-links">
+    <a href="https://ecl-aura.vercel.app" target="_blank">AURA</a>
+    <a href="https://credit-iq-beryl.vercel.app" target="_blank">CreditIQ</a>
+    <a href="https://folio-iq.vercel.app" target="_blank">FolioIQ</a>
+    <a href="https://askgogo.in" target="_blank">AskGogo</a>
+    <a href="mailto:hello@askgogo.in">Contact</a>
+  </div>
+  <div class="foot-copy">© 2026 Nexus AI Ventures · $1 = ₹90 · India + UAE</div>
 </footer>
 
 <script>
-    // Smooth-scroll active nav state (simple)
-    const links = document.querySelectorAll('nav a[href^="#"]');
-    links.forEach(link => {
-        link.addEventListener('click', e => {
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-</script>
+// THEME
+const html=document.documentElement;
+const tBtn=document.getElementById('themeBtn');
+const tIcon=document.getElementById('themeIcon');
+const tTxt=document.getElementById('themeTxt');
+const saved=localStorage.getItem('nx-theme')||'light';
+html.setAttribute('data-theme',saved);
+updateThemeBtn(saved);
+function updateThemeBtn(t){tIcon.textContent=t==='light'?'🌙':'☀️';tTxt.textContent=t==='light'?'Dark Mode':'Light Mode'}
+tBtn.addEventListener('click',()=>{
+  const c=html.getAttribute('data-theme');
+  const n=c==='light'?'dark':'light';
+  html.setAttribute('data-theme',n);
+  localStorage.setItem('nx-theme',n);
+  updateThemeBtn(n);
+});
 
+// SCROLL REVEAL
+const rvObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('[data-w]').forEach(b=>{
+        setTimeout(()=>{b.style.width=b.dataset.w+'%'},200);
+      });
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+// ARR BARS on scroll into view
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-w]').forEach(b=>{
+        setTimeout(()=>{b.style.width=b.dataset.w+'%'},300);
+      });
+    }
+  });
+},{threshold:0.4});
+document.querySelectorAll('.arr-prog').forEach(el=>barObs.observe(el));
+
+// AURA SCORER
+function runAura(){
+  const co=document.getElementById('a-co').value||'Demo SaaS Co.';
+  const arr=document.getElementById('a-arr').value||'$1.5M';
+  const m=parseFloat(document.getElementById('a-margin').value)||65;
+  const g=parseFloat(document.getElementById('a-growth').value)||70;
+  const r=parseFloat(document.getElementById('a-run').value)||14;
+  const nrr=parseFloat(document.getElementById('a-nrr').value)||112;
+  const layers=[
+    {n:'Revenue Quality',s:Math.min(100,m*.85+15)},
+    {n:'Unit Economics',s:Math.min(100,(nrr-70)*1.4+m*.2)},
+    {n:'Runway',s:Math.min(100,r*4.8)},
+    {n:'Growth Velocity',s:Math.min(100,g*.88)},
+    {n:'Market Position',s:68},
+    {n:'Investor Quality',s:71}
+  ];
+  layers.forEach(l=>l.s=Math.max(10,Math.min(100,Math.round(l.s))));
+  const comp=Math.round(layers.reduce((a,l)=>a+l.s,0)/layers.length);
+  const grade=comp>=80?'A':comp>=70?'B':comp>=60?'C':'D';
+  const gc=comp>=80?'var(--folio)':comp>=70?'var(--aura)':comp>=60?'var(--gold)':'#ef4444';
+  const act=comp>=75?'✅ Proceed to full due diligence':comp>=65?'🔶 Request additional data':'⚠️ Needs significant justification';
+  const res=document.getElementById('aura-res');
+  res.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px">AURA Score — ${co.toUpperCase()}</div><div style="font-family:'Playfair Display',serif;font-weight:900;font-size:36px;letter-spacing:-2px;color:var(--aura);line-height:1">${comp}<span style="font-size:14px;color:var(--ink3)">/100</span></div></div><div style="width:54px;height:54px;border-radius:50%;border:3px solid ${gc};display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:22px;color:${gc}">${grade}</div></div>${layers.map(l=>`<div class="srow"><div class="stop"><span>${l.n}</span><span style="color:var(--aura);font-family:'JetBrains Mono',monospace">${l.s}</span></div><div class="sbg"><div class="sfill" style="width:0%;background:var(--aura);opacity:${.4+l.s/150}" data-w="${l.s}"></div></div></div>`).join('')}<div style="padding:9px 12px;background:var(--bg3);border-radius:var(--r);font-size:11px;color:var(--ink2);margin-top:8px"><strong>Recommendation:</strong> ${act}</div><div style="font-size:10px;color:var(--ink3);margin-top:7px;font-family:'JetBrains Mono',monospace">ARR: ${arr} · NRR: ${nrr}% · Runway: ${r}mo · Growth: ${g}% YoY</div>`;
+  res.classList.add('show');
+  setTimeout(()=>{res.querySelectorAll('[data-w]').forEach(b=>{const w=b.dataset.w;b.style.width='0';setTimeout(()=>{b.style.width=w+'%'},60)})},50);
+}
+
+// CREDITIQ QUIZ
+const cqs={};
+function cqNext(step,val){
+  cqs['s'+step]=val;
+  document.getElementById('cq'+step).style.display='none';
+  const nx=document.getElementById('cq'+(step+1));
+  if(nx)nx.style.display='block';
+}
+function cqResult(bank){
+  cqs.bank=bank;
+  document.getElementById('cq4').style.display='none';
+  const isUAE=bank.startsWith('UAE');
+  const cards={
+    travel:{low:'HDFC MoneyBack+',mid:'HDFC Regalia',high:'Axis Magnus',premium:'HDFC Infinia'},
+    cashback:{low:'Amazon ICICI',mid:'SBI Cashback',high:'Axis ACE',premium:'HDFC Millennia'},
+    dining:{low:'IndusInd Nexxt',mid:'Amex Membership',high:'HDFC Diners',premium:'HDFC Infinia'},
+    shopping:{low:'Amazon ICICI',mid:'Flipkart Axis',high:'HDFC Millennia',premium:'Kotak Royale'}
+  };
+  const uae={
+    travel:{low:'ADCB SimplyLife',mid:'ADCB Traveller',high:'Emirates NBD Skywards',premium:'Emirates NBD Infinite'},
+    cashback:{low:'ADCB SimplyLife',mid:'Mashreq Cashback',high:'FAB Cashback',premium:'HSBC Black'},
+    dining:{low:'ADCB Foodie',mid:'Dubai First Royale',high:'Emirates NBD',premium:'Emirates NBD Infinite'},
+    shopping:{low:'ADCB SimplyLife',mid:'Mashreq Online',high:'FAB Online',premium:'HSBC Black'}
+  };
+  const db=isUAE?uae:cards;
+  const rec=(db[cqs.s1]||db.cashback)[cqs.s2]||'HDFC Regalia';
+  const rw=cqs.s2==='premium'?(isUAE?'$800–$2,400/yr':'₹18K–₹45K/yr'):cqs.s2==='high'?(isUAE?'$400–$900/yr':'₹8K–₹18K/yr'):cqs.s2==='mid'?(isUAE?'$150–$400/yr':'₹3K–₹8K/yr'):(isUAE?'$40–$150/yr':'₹1K–₹3K/yr');
+  const res=document.getElementById('cq-res');
+  res.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--credit);margin-bottom:8px">Top Recommendation for You</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:7px">${rec}</div><div style="display:flex;gap:14px;margin-bottom:10px"><div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--credit)">${rw}</div><div style="font-size:9px;color:var(--ink3);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:2px">EST. ANNUAL REWARDS</div></div><div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--credit)">4.2★</div><div style="font-size:9px;color:var(--ink3);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:2px">CREDITIQ SCORE</div></div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://credit-iq-beryl.vercel.app" target="_blank" style="background:var(--credit);color:#fff;padding:7px 14px;border-radius:8px;font-size:11px;font-weight:600;display:inline-block">Full Comparison →</a><button onclick="resetCQ()" style="background:var(--bg3);border:1.5px solid var(--border);color:var(--ink);padding:7px 14px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer">Start Over</button></div>`;
+  res.classList.add('show');
+}
+function resetCQ(){Object.keys(cqs).forEach(k=>delete cqs[k]);document.getElementById('cq-res').classList.remove('show');['2','3','4'].forEach(q=>document.getElementById('cq'+q).style.display='none');document.getElementById('cq1').style.display='block'}
+
+// FOLIOIQ
+function runFolio(){
+  const fn=parseInt(document.getElementById('f-fn').value)||6;
+  const val=parseFloat(document.getElementById('f-val').value.replace(/,/g,''))||1000000;
+  const sip=parseFloat(document.getElementById('f-sip').value.replace(/,/g,''))||15000;
+  const plan=document.getElementById('f-plan').value;
+  const or=fn>8?'High':fn>5?'Medium':'Low';
+  const oc=fn>8?'#ef4444':fn>5?'var(--gold)':'var(--folio)';
+  const ec=Math.round(val*(plan==='regular'?.012:plan==='direct'?.004:.008));
+  const th=Math.round(val*.015);
+  const h=plan==='direct'?82:plan==='mixed'?71:58;
+  const hc=h>=75?'var(--folio)':h>=65?'var(--gold)':'#ef4444';
+  const p10=Math.round(val*Math.pow(1.12,10)+sip*12*((Math.pow(1.12,10)-1)/.12));
+  const res=document.getElementById('folio-res');
+  res.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px;flex-wrap:wrap;gap:8px"><div><div style="font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px">Health Score</div><div style="font-family:'Playfair Display',serif;font-weight:900;font-size:36px;color:${hc};letter-spacing:-2px;line-height:1">${h}<span style="font-size:14px;color:var(--ink3)">/100</span></div></div><div style="text-align:right"><div style="font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px">10-Year Projection</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--folio)">$${Math.round(p10/90/1000)}K <span style="font-size:12px;color:var(--ink3)">(₹${(p10/100000).toFixed(1)}L)</span></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px"><div style="background:var(--bg3);border-radius:8px;padding:9px"><div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:3px">OVERLAP</div><div style="font-weight:700;font-size:14px;color:${oc}">${or}</div><div style="font-size:9px;color:var(--ink3);margin-top:1px">${fn} funds</div></div><div style="background:var(--bg3);border-radius:8px;padding:9px"><div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:3px">COST DRAG/YR</div><div style="font-weight:700;font-size:14px;color:#ef4444">$${Math.round(ec/90)}</div><div style="font-size:9px;color:var(--ink3);margin-top:1px">₹${(ec/1000).toFixed(0)}K/yr</div></div><div style="background:var(--bg3);border-radius:8px;padding:9px"><div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--ink3);letter-spacing:1px;margin-bottom:3px">TAX HARVEST</div><div style="font-weight:700;font-size:14px;color:var(--folio)">$${Math.round(th/90)}</div><div style="font-size:9px;color:var(--ink3);margin-top:1px">₹${(th/1000).toFixed(0)}K opp.</div></div></div><div style="font-size:11px;padding:8px 10px;background:var(--bg3);border-radius:8px;color:var(--ink2);margin-bottom:10px">${plan==='regular'?`🔶 Switch to Direct: Save ~$${Math.round(val*.008/90)}/yr (₹${Math.round(val*.008/1000)}K) in commissions.`:'✅ Good — on Direct Plans, maximizing returns.'} ${fn>7?` ${fn} funds may overlap.`:''}</div><a href="https://folio-iq.vercel.app" target="_blank" style="display:inline-block;background:var(--folio);color:#fff;padding:7px 14px;border-radius:8px;font-size:11px;font-weight:600">Upload CAS for Full Analysis →</a>`;
+  res.classList.add('show');
+}
+
+// ASKGOGO WHATSAPP
+const waR={
+  'remind':m=>{const t=m.match(/(\d+\s*(am|pm|:))/i)?.[0]||'8:00 PM';return`✅ *Reminder set!*\n\nI'll remind you at ${t} today.\nRecurring? Say "every day" or "every Monday".`},
+  'split':m=>{const a=m.match(/₹?(\d[,\d]*)/)?.[0]||'₹1,500';const p=parseInt(m.match(/(\d+)\s*(friend|people)/)?.[1])||3;const e=Math.round(parseInt(a.replace(/[₹,$,]/g,''))/(p+1));return`💸 *Bill Split!*\n\n${a} ÷ ${p+1} people\n*Each owes: ₹${e}*\n\nSend UPI reminders?`},
+  'plan my day':()=>`📅 *Your Day Plan:*\n\n• 9 AM — Morning standup\n• 11 AM — Client call\n• 1 PM — Lunch\n• 3 PM — Project review\n• 6 PM — Gym 💪\n\nSet reminders for each?`,
+  'uae':()=>`🇦🇪 *AskGogo UAE:*\n\n• Bilingual English/Arabic\n• AED currency support\n• UAE prayer time reminders\n• Dubai/Abu Dhabi weather\n\nUAE Pro: AED 18.50/mo (~$5)`,
+  'expense':()=>`💰 *Logged!*\n\n📊 *This month:*\nFood: ₹4,200\nTransport: ₹1,800\nShopping: ₹6,500\n\n68% of monthly budget used.`,
+  'weather':()=>`🌤️ *Bengaluru:* 28°C, Partly cloudy\nHumidity 72% · Evening rain🌧️\n\n*Dubai:* 38°C, Sunny ☀️`,
+  'what can you':()=>`🤖 *I can help with:*\n\n⏰ Smart Reminders\n📝 Notes & Memory\n💸 Bill Split (UPI/AED)\n✅ Tasks & To-dos\n📰 Daily Briefing\n🎙️ Voice Notes (10+ langs)\n📄 Doc Intelligence\n💱 Expense Tracking\n🇦🇪 UAE Bilingual Mode`,
+  'news':()=>`📰 *Briefing:*\n\n1. Sensex hits 82,000+\n2. RBI holds repo at 6.5%\n3. UAE fintech licenses +28%\n4. AI funding +40% India Q1 2026`,
+  'note':()=>`📝 *Saved!* Added to your notes.\nSearch anytime: "show my notes"\n\n*Total notes: 47*`
+};
+const waD=['Got it! 👍','Sure! 🤖 Done.','Noted! I\'ll remember this.','On it! 💪'];
+function waSend(){
+  const inp=document.getElementById('waInp');
+  const msg=inp.value.trim();if(!msg)return;
+  const chat=document.getElementById('waMsgs');
+  const ud=document.createElement('div');ud.className='wa-m wa-out';ud.textContent=msg;chat.appendChild(ud);
+  inp.value='';chat.scrollTop=9999;
+  setTimeout(()=>{
+    const lo=msg.toLowerCase();let r=null;
+    for(const[k,fn]of Object.entries(waR)){if(lo.includes(k)){r=typeof fn==='function'?fn(msg):fn;break}}
+    if(!r)r=waD[Math.floor(Math.random()*waD.length)];
+    const rd=document.createElement('div');rd.className='wa-m wa-in';rd.style.whiteSpace='pre-line';
+    rd.innerHTML=r.replace(/\*(.*?)\*/g,'<strong>$1</strong>');
+    chat.appendChild(rd);chat.scrollTop=9999;
+  },650);
+}
+</script>
 </body>
 </html>
