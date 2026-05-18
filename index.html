@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus AI Ventures — $11 Mn ARR by Year 3 · India + UAE</title>
+<title>Nexus AI Ventures — $9.5M ARR by Year 3 · India + UAE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Instrument+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,16 +28,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:
 .nav-right{display:flex;align-items:center;gap:12px}
 .theme-btn{background:var(--bg3);border:1.5px solid var(--border2);border-radius:100px;padding:6px 12px;font-size:12px;font-weight:500;color:var(--ink2);display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap}
 .theme-btn:hover{border-color:var(--gold);color:var(--gold)}
-.nav-cta{background:var(--ink);color:var(--bg);font-weight:600;font-size:13px;padding:9px 20px;border-radius:var(--r);border:none;letter-spacing:.2px;transition:all .2s;white-space:nowrap;cursor:pointer}
+.nav-cta{background:var(--ink);color:var(--bg);font-weight:600;font-size:13px;padding:9px 20px;border-radius:var(--r);border:none;letter-spacing:.2px;transition:all .2s;white-space:nowrap}
 .nav-cta:hover{background:var(--gold);color:var(--bg)}
 
 /* HERO */
 #hero{min-height:100vh;padding-top:calc(var(--nav-h) + 56px);padding-bottom:80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--bg);padding-left:clamp(16px,5vw,80px);padding-right:clamp(16px,5vw,80px)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
-
-/* ── NEW: AI particle canvas ── */
-#hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.45}
-
 .hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:28px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
@@ -45,24 +41,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:
 .hero-h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-3px;color:var(--ink);margin-bottom:24px}
 .hero-h1 .h1-accent{display:block;background:linear-gradient(135deg,var(--gold) 0%,#e8a020 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-h1 .h1-italic{display:block;font-style:italic;font-size:.82em;color:var(--ink2);-webkit-text-fill-color:var(--ink2)}
-.hero-desc{font-size:clamp(15px,1.8vw,19px);font-weight:300;color:var(--ink3);max-width:540px;line-height:1.7;margin-bottom:20px}
-
-/* ── NEW: hero clarity block ── */
-.hero-clarity{max-width:700px;margin-bottom:32px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:28px 32px;position:relative;overflow:hidden}
-.hero-clarity::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),#e8a020 60%,var(--gold))}
-.hc-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.hc-headline{font-size:18px;font-weight:500;color:var(--ink);line-height:1.5;margin-bottom:16px}
-.hc-divider-label{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.hc-divider-label::before{content:'';flex:0 0 16px;height:1.5px;background:var(--gold)}
-.hc-diff{border-left:3px solid var(--gold);padding-left:16px;margin-bottom:0}
-.hc-diff-text{font-size:14px;font-weight:300;color:var(--ink3);line-height:1.75}
-.hc-diff-text strong{font-weight:600;color:var(--ink2)}
-.hc-tags{display:none}
-
+.hero-desc{font-size:clamp(15px,1.8vw,19px);font-weight:300;color:var(--ink3);max-width:540px;line-height:1.7;margin-bottom:36px}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
 .pill{display:flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--border);color:var(--ink2);font-size:12px;font-weight:500;letter-spacing:.2px;padding:7px 13px;border-radius:100px;transition:all .2s}
 .pill:hover{border-color:var(--gold);color:var(--gold)}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--white);box-shadow:0 4px 24px var(--shadow);max-width:820px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--white);box-shadow:0 4px 24px var(--shadow);max-width:820px}
 .hs{padding:24px 20px;border-right:1.5px solid var(--border);transition:background .2s}
 .hs:last-child{border-right:none}
 .hs:hover{background:var(--bg2)}
@@ -200,10 +183,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:
 
 /* FINANCIALS */
 #financials{background:var(--bg)}
-.fin-hero{text-align:center;margin-bottom:56px}
-.fin-big{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(64px,11vw,148px);letter-spacing:-6px;line-height:.9;background:linear-gradient(135deg,var(--ink) 0%,var(--gold) 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.fin-hero{text-align:center;margin-bottom:56px;overflow:visible;padding:0 16px}
+.fin-big{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(40px,6vw,80px);letter-spacing:-1px;line-height:1.1;background:linear-gradient(135deg,var(--ink) 0%,var(--gold) 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;padding:4px 8px;overflow:visible}
 .fin-sub{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink3);letter-spacing:.5px}
-.fin-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.fin-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
 .fc{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r2);padding:24px 20px;transition:transform .2s,box-shadow .2s}
 .fc:hover{transform:translateY(-4px);box-shadow:0 12px 40px var(--shadow2)}
 .fc-top{display:flex;align-items:center;gap:7px;margin-bottom:12px}
@@ -260,9 +243,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:
 #cta .eyebrow{justify-content:center}
 #cta .sec-sub{margin-left:auto;margin-right:auto;text-align:center}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-.btn-cta-p{background:var(--ink);color:var(--bg);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:none;transition:all .2s;cursor:pointer}
+.btn-cta-p{background:var(--ink);color:var(--bg);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:none;transition:all .2s}
 .btn-cta-p:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 28px var(--shadow2)}
-.btn-cta-o{background:transparent;color:var(--ink);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:2px solid var(--border2);transition:all .2s;cursor:pointer}
+.btn-cta-o{background:transparent;color:var(--ink);font-weight:700;font-size:15px;padding:15px 36px;border-radius:var(--r);border:2px solid var(--border2);transition:all .2s}
 .btn-cta-o:hover{border-color:var(--gold);color:var(--gold)}
 .cta-email{margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink3);letter-spacing:.5px}
 
@@ -306,7 +289,6 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
   .alloc-nm{width:100%}
   footer{flex-direction:column;text-align:center}
   .foot-links{justify-content:center}
-  .hc-tags{display:none}
 }
 </style>
 </head>
@@ -326,17 +308,13 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
       <span id="themeIcon">🌙</span>
       <span id="themeTxt">Dark Mode</span>
     </button>
-    <!-- ── CHANGED: WhatsApp CTA ── -->
-    <a href="https://wa.me/918310441698?text=Hi%20Goverdhan%2C%20I%20came%20across%20Nexus%20AI%20Ventures%20and%20would%20like%20to%20discuss%20the%20investment%20opportunity." target="_blank" class="nav-cta">Invest →</a>
+    <a href="mailto:hello@askgogo.in" class="nav-cta">Invest →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
-  <!-- ── NEW: AI particle canvas ── -->
-  <canvas id="hero-canvas"></canvas>
-
   <div class="hero-inner">
     <div class="hero-badge"><span class="live-dot"></span>Seed Round Open · May 2026 · India + UAE</div>
     <h1 class="hero-h1">
@@ -344,28 +322,17 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
       <span class="h1-accent">Products.</span>
       <span class="h1-italic">One Operating System.</span>
     </h1>
-    <p class="hero-desc">Nexus AI Ventures builds capital-efficient AI products across B2B SaaS underwriting, consumer credit, mutual fund intelligence and WhatsApp-native consumer AI — launched simultaneously in India and UAE.</p>
-
-    <!-- ── NEW: clarity + differentiation block ── -->
-    <div class="hero-clarity">
-      <div class="hc-label">What we do — in plain English</div>
-      <div class="hc-headline">We are an AI product company — not a single-thesis startup, but a <strong>portfolio of four live AI products</strong> built for Indian and UAE consumers and B2B fintech buyers.</div>
-      <div class="hc-divider-label">Why we're different from every other "AI product" company</div>
-      <div class="hc-diff">
-        <div class="hc-diff-text">Everyone is building AI products that require users to download something new, learn a new interface, or change how they work. <strong>We don't.</strong> Each of our four products plugs into a workflow people are already in — their <strong>WhatsApp</strong> for daily tasks, their <strong>mutual fund statement</strong> they already receive, the <strong>credit card comparison</strong> they're already doing, and the <strong>lending tools</strong> institutions already use. Different products, different users, one principle: <strong>meet people where they already are.</strong></div>
-      </div>
-    </div>
-
+    <p class="hero-desc">Nexus AI Ventures builds capital-efficient consumer AI products across credit card intelligence, mutual fund analytics and WhatsApp-native AI — launched simultaneously in India and UAE.</p>
     <div class="hero-pills">
       <span class="pill">🌏 India + UAE launch</span>
       <span class="pill">🏗️ Shared AI infrastructure</span>
-      <span class="pill">⚡ All 4 products live</span>
-      <span class="pill">📈 $11 Mn Y3 ARR target</span>
-      <span class="pill">🎯 $500K–$1M seed ask</span>
+      <span class="pill">⚡ All 3 products live</span>
+      <span class="pill">📈 $9.5M Y3 ARR target</span>
+      <span class="pill">🎯 $450K seed ask</span>
     </div>
     <div class="hero-stats">
-      <div class="hs"><div class="hs-val">$<span class="a">11</span> Mn</div><div class="hs-lbl">Y3 ARR Target</div></div>
-      <div class="hs"><div class="hs-val"><span class="a">4</span></div><div class="hs-lbl">Live Products</div></div>
+      <div class="hs"><div class="hs-val">$<span class="a">9.5</span>M</div><div class="hs-lbl">Y3 ARR Target</div></div>
+      <div class="hs"><div class="hs-val"><span class="a">3</span></div><div class="hs-lbl">Live Products</div></div>
       <div class="hs"><div class="hs-val"><span class="a">90</span>%</div><div class="hs-lbl">Peak Margin</div></div>
       <div class="hs"><div class="hs-val"><span class="a">18</span>mo</div><div class="hs-lbl">Runway</div></div>
     </div>
@@ -376,18 +343,18 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
 <!-- MARQUEE -->
 <div class="mq-wrap">
   <div class="mq-track" id="mqTrack">
-    <div class="mq-item"><span class="mq-dot">◆</span> AskGogo AI · WhatsApp-Native AI</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Analyser</div>
+    
     <div class="mq-item"><span class="mq-dot">◆</span> CreditIQ · Credit Card Discovery</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> AURA Intelligence · B2B SaaS Underwriting</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> India + UAE · Dual Market Launch 2026</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> $11 Mn Y3 ARR · ≈ ₹100 Crore</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Intelligence</div>
     <div class="mq-item"><span class="mq-dot">◆</span> AskGogo AI · WhatsApp-Native AI</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Analyser</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> CreditIQ · Credit Card Discovery</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> AURA Intelligence · B2B SaaS Underwriting</div>
     <div class="mq-item"><span class="mq-dot">◆</span> India + UAE · Dual Market Launch 2026</div>
-    <div class="mq-item"><span class="mq-dot">◆</span> $11 Mn Y3 ARR · ≈ ₹100 Crore</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> $9.5M Y3 ARR · ≈ ₹85 Crore</div>
+    
+    <div class="mq-item"><span class="mq-dot">◆</span> CreditIQ · Credit Card Discovery</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> FolioIQ · Mutual Fund Intelligence</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> AskGogo AI · WhatsApp-Native AI</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> India + UAE · Dual Market Launch 2026</div>
+    <div class="mq-item"><span class="mq-dot">◆</span> $11.1M Y3 ARR · ≈ ₹100 Crore</div>
   </div>
 </div>
 
@@ -395,107 +362,24 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
 <section id="portfolio" class="sec" style="padding-bottom:24px">
   <div class="mx">
     <div class="eyebrow rv">The Portfolio</div>
-    <h2 class="sec-h rv">Four Products.<br>All Live Today.</h2>
-    <p class="sec-sub rv">Every product has a production URL, defined ARR path and isolated seed allocation. Scroll through each — try the live demos inline, or download the investor deck.</p>
+    <h2 class="sec-h rv">Three Products.<br>All Live Today.</h2>
+    <p class="sec-sub rv">Every product has a production URL, defined ARR path and isolated seed allocation. Scroll through each — try the live demos, or download the individual investor deck.</p>
   </div>
 </section>
 
-<!-- PRODUCT 1: ASKGOGO -->
-<div class="prod-block pb-gogo">
-  <div class="prod-inner">
-    <div class="rv">
-      <div class="prod-num">01 / 04</div>
-      <span class="prod-badge pb-g">🤖 Consumer AI · WhatsApp-Native</span>
-      <h2 class="prod-name">Ask<span style="color:var(--gogo)">Gogo</span></h2>
-      <p class="prod-tag">Your personal AI assistant on WhatsApp. Reminders, notes, bill split, tasks, briefings in 10+ Indian languages — no new app, no signup. India + UAE launch with bilingual Arabic/English support.</p>
-      <div class="prod-metrics">
-        <div class="pm"><div class="pm-v" style="color:var(--gogo)">$3.4M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
-        <div class="pm"><div class="pm-v" style="color:var(--gogo)">90.3%</div><div class="pm-l">Gross Margin</div></div>
-        <div class="pm"><div class="pm-v">$1.10</div><div class="pm-l">India entry (₹99/mo)</div></div>
-        <div class="pm"><div class="pm-v">$4.99</div><div class="pm-l">UAE entry /mo</div></div>
-      </div>
-      <div class="prod-actions">
-        <a href="https://askgogo.in" target="_blank" class="btn-p" style="background:var(--gogo)">Try AskGogo ↗</a>
-        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/AskGogo_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
-      </div>
-    </div>
-    <div class="rv rv2">
-      <div class="feat-grid">
-        <div class="feat"><span class="feat-ico">⏰</span><div><div class="feat-nm">Smart Reminders</div><div class="feat-ds">"Kal subah 7 baje gym" works in Hindi, Kannada, Tamil & 7 more</div></div></div>
-        <div class="feat"><span class="feat-ico">💸</span><div><div class="feat-nm">Bill Split</div><div class="feat-ds">"Split ₹2,400 between me, Riya and Aman" → instant UPI prompts</div></div></div>
-        <div class="feat"><span class="feat-ico">🎙️</span><div><div class="feat-nm">Voice-First</div><div class="feat-ds">Voice notes in any Indian language + Arabic for UAE users</div></div></div>
-        <div class="feat"><span class="feat-ico">📄</span><div><div class="feat-nm">Doc Intelligence</div><div class="feat-ds">Send any PDF or image — instant summary, bill analysis, contract review</div></div></div>
-      </div>
-      <div class="demo-box">
-        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">AskGogo AI — WhatsApp Simulation</div></div>
-        <div style="padding:0">
-          <div class="wa-wrap">
-            <div class="wa-hdr"><div class="wa-av">G</div><div><div class="wa-nm">AskGogo AI ✓</div><div class="wa-st">online · askgogo.in</div></div></div>
-            <div class="wa-msgs" id="waMsgs"><div class="wa-m wa-in">👋 Hi! I'm Gogo. Try: "Remind me at 8pm", "Split ₹1500 between 3 friends", "Plan my day", "UAE mode", or "What can you do?"</div></div>
-            <div class="wa-inp-wrap"><input class="wa-inp" id="waInp" placeholder="Type a message..." onkeypress="if(event.key==='Enter')waSend()"><button class="wa-snd" onclick="waSend()">➤</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCT 2: FOLIOIQ -->
-<div class="prod-block pb-folio">
-  <div class="prod-inner">
-    <div class="rv">
-      <div class="prod-num">02 / 04</div>
-      <span class="prod-badge pb-f">📊 Mutual Fund Analyser</span>
-      <h2 class="prod-name">Folio<span style="color:var(--folio)">IQ</span></h2>
-      <p class="prod-tag">One CAS upload gives Indian mutual fund investors complete portfolio intelligence — overlap, cost drag, tax-harvesting, rebalancing. UAE expansion targets NRI investors with global MF portfolios.</p>
-      <div class="prod-metrics">
-        <div class="pm"><div class="pm-v" style="color:var(--folio)">$4.1M</div><div class="pm-l">Y3 ARR (≈₹37Cr)</div></div>
-        <div class="pm"><div class="pm-v" style="color:var(--folio)">77.7%</div><div class="pm-l">Gross Margin</div></div>
-        <div class="pm"><div class="pm-v">$2.20</div><div class="pm-l">India Pro/mo (₹199)</div></div>
-        <div class="pm"><div class="pm-v">Mo.14</div><div class="pm-l">Break-even</div></div>
-      </div>
-      <div class="prod-actions">
-        <a href="https://folio-iq.vercel.app" target="_blank" class="btn-p" style="background:var(--folio)">Launch App ↗</a>
-        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/FolioIQ_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
-      </div>
-    </div>
-    <div class="rv rv2">
-      <div class="feat-grid">
-        <div class="feat"><span class="feat-ico">📂</span><div><div class="feat-nm">CAS Intelligence</div><div class="feat-ds">Drag-drop CAMS/KFintech PDF — extracts all funds, SIPs, NAVs instantly</div></div></div>
-        <div class="feat"><span class="feat-ico">🔗</span><div><div class="feat-nm">Overlap Detector</div><div class="feat-ds">Surfaces hidden fund overlap diluting diversification with fixes</div></div></div>
-        <div class="feat"><span class="feat-ico">💰</span><div><div class="feat-nm">Tax & Cost Engine</div><div class="feat-ds">LTCG/STCG harvest opportunities + expense ratio drag in real dollars</div></div></div>
-        <div class="feat"><span class="feat-ico">💬</span><div><div class="feat-nm">AI Chat</div><div class="feat-ds">Ask "Which fund has highest overlap?" — get exact answer in plain language</div></div></div>
-      </div>
-      <div class="demo-box">
-        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">FolioIQ Portfolio Analyzer — Live Demo</div></div>
-        <div class="demo-bd">
-          <div class="dgrid">
-            <div><label class="dlbl">Number of Funds</label><input class="dinp" type="number" id="f-fn" placeholder="e.g. 8" min="1" max="50"></div>
-            <div><label class="dlbl">Portfolio Value (₹)</label><input class="dinp" id="f-val" placeholder="e.g. 15,00,000"></div>
-            <div><label class="dlbl">Monthly SIP (₹)</label><input class="dinp" id="f-sip" placeholder="e.g. 25,000"></div>
-            <div><label class="dlbl">Plan Type</label><select class="dsel" id="f-plan"><option value="regular">Regular Plan (MFD)</option><option value="direct">Direct Plan</option><option value="mixed">Mix of Both</option></select></div>
-          </div>
-          <button class="run-btn" style="background:var(--folio);color:#fff" onclick="runFolio()">📊 Generate Health Score</button>
-          <div class="result" id="folio-res"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCT 3: CREDITIQ -->
+<!-- PRODUCT 2: CREDITIQ -->
 <div class="prod-block pb-credit">
   <div class="prod-inner">
     <div class="rv">
-      <div class="prod-num">03 / 04</div>
+      <div class="prod-num">01 / 03</div>
       <span class="prod-badge pb-c">💳 Consumer Fintech · India + UAE</span>
       <h2 class="prod-name">Credit<span style="color:var(--credit)">IQ</span></h2>
-      <p class="prod-tag">AI-powered credit card discovery, comparison and reward optimization. 60+ cards across India and UAE banks. Free for users — monetized on high-intent CPA leads and B2B API.</p>
+      <p class="prod-tag">AI-powered credit card discovery, comparison and reward optimization. 90+ cards across India and UAE banks. Free for users — monetized on high-intent CPA leads and B2B API.</p>
       <div class="prod-metrics">
-        <div class="pm"><div class="pm-v" style="color:var(--credit)">$1.3M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--credit)">$2M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
         <div class="pm"><div class="pm-v" style="color:var(--credit)">~80%</div><div class="pm-l">Gross Margin</div></div>
-        <div class="pm"><div class="pm-v">60+</div><div class="pm-l">Cards Indexed</div></div>
-        <div class="pm"><div class="pm-v">$33</div><div class="pm-l">CPA/Approval (UAE)</div></div>
+        <div class="pm"><div class="pm-v">90+</div><div class="pm-l">Cards Indexed</div></div>
+        <div class="pm"><div class="pm-v">$45</div><div class="pm-l">CPA/Approval (UAE)</div></div>
       </div>
       <div class="prod-actions">
         <a href="https://credit-iq-beryl.vercel.app" target="_blank" class="btn-p" style="background:var(--credit)">Launch App ↗</a>
@@ -504,7 +388,7 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
     </div>
     <div class="rv rv2">
       <div class="feat-grid">
-        <div class="feat"><span class="feat-ico">🔍</span><div><div class="feat-nm">AI Card Finder</div><div class="feat-ds">4-step quiz matches you to best card from 60+ options across 12 banks</div></div></div>
+        <div class="feat"><span class="feat-ico">🔍</span><div><div class="feat-nm">AI Card Finder</div><div class="feat-ds">4-step quiz matches you to best card from 90+ options across 14 banks</div></div></div>
         <div class="feat"><span class="feat-ico">🧮</span><div><div class="feat-nm">Reward Calculator</div><div class="feat-ds">True annual reward value based on actual spend patterns</div></div></div>
         <div class="feat"><span class="feat-ico">⚖️</span><div><div class="feat-nm">Compare Cards</div><div class="feat-ds">Side-by-side fees, cashback, lounge access, welcome bonuses</div></div></div>
         <div class="feat"><span class="feat-ico">🇦🇪</span><div><div class="feat-nm">UAE NRI Track</div><div class="feat-ds">ADCB, Emirates NBD, HSBC UAE for NRI and expat cardholders</div></div></div>
@@ -559,45 +443,83 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
   </div>
 </div>
 
-<!-- PRODUCT 4: AURA -->
-<div class="prod-block pb-aura">
+<!-- PRODUCT 3: FOLIOIQ -->
+<div class="prod-block pb-folio">
   <div class="prod-inner">
     <div class="rv">
-      <div class="prod-num">04 / 04</div>
-      <span class="prod-badge pb-a">🔶 B2B SaaS · Enterprise</span>
-      <h2 class="prod-name">AURA<br>Intelligence</h2>
-      <p class="prod-tag">AI underwriting OS for any institution funding SaaS. From inbound deal to IC memo in 5 minutes. Serving banks, debt VCs and fintech lenders in India, UAE and globally.</p>
+      <div class="prod-num">02 / 03</div>
+      <span class="prod-badge pb-f">📊 Consumer Wealth · MF Intelligence</span>
+      <h2 class="prod-name">Folio<span style="color:var(--folio)">IQ</span></h2>
+      <p class="prod-tag">One CAS upload gives Indian mutual fund investors complete portfolio intelligence — overlap, cost drag, tax-harvesting, rebalancing. UAE expansion targets NRI investors with global MF portfolios.</p>
       <div class="prod-metrics">
-        <div class="pm"><div class="pm-v" style="color:var(--aura)">$2.4M</div><div class="pm-l">Y3 ARR · India+UAE+US</div></div>
-        <div class="pm"><div class="pm-v" style="color:var(--aura)">45–55%</div><div class="pm-l">Gross Margin</div></div>
-        <div class="pm"><div class="pm-v">5 min</div><div class="pm-l">Deal Screening</div></div>
-        <div class="pm"><div class="pm-v">15×</div><div class="pm-l">Faster Decisions</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--folio)">$4.1M</div><div class="pm-l">Y3 ARR (≈₹37Cr)</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--folio)">77.7%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">$2.20</div><div class="pm-l">India Pro/mo (₹199)</div></div>
+        <div class="pm"><div class="pm-v">Mo.14</div><div class="pm-l">Break-even</div></div>
       </div>
       <div class="prod-actions">
-        <a href="https://ecl-aura.vercel.app" target="_blank" class="btn-p" style="background:var(--aura)">Launch App ↗</a>
-        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/AURA_Intelligence_Platform_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+        <a href="https://folio-iq.vercel.app" target="_blank" class="btn-p" style="background:var(--folio)">Launch App ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/FolioIQ_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
       </div>
     </div>
     <div class="rv rv2">
       <div class="feat-grid">
-        <div class="feat"><span class="feat-ico">⚗️</span><div><div class="feat-nm">8-Layer Risk Engine</div><div class="feat-ds">PD/LGD/EL, DSCR, NRR, burn multiple — one standardized model</div></div></div>
-        <div class="feat"><span class="feat-ico">📄</span><div><div class="feat-nm">AI Deal Memos</div><div class="feat-ds">Full IC-ready memos with risk analysis in under 60 seconds</div></div></div>
-        <div class="feat"><span class="feat-ico">📋</span><div><div class="feat-nm">Smart Term Sheets</div><div class="feat-ds">Facility sizing and covenant logic auto-drafted from score data</div></div></div>
-        <div class="feat"><span class="feat-ico">📊</span><div><div class="feat-nm">Live Pipeline</div><div class="feat-ds">Probability-weighted deal tracking from watchlist to funded</div></div></div>
+        <div class="feat"><span class="feat-ico">📂</span><div><div class="feat-nm">CAS Intelligence</div><div class="feat-ds">Drag-drop CAMS/KFintech PDF — extracts all funds, SIPs, NAVs instantly</div></div></div>
+        <div class="feat"><span class="feat-ico">🔗</span><div><div class="feat-nm">Overlap Detector</div><div class="feat-ds">Surfaces hidden fund overlap diluting diversification with fixes</div></div></div>
+        <div class="feat"><span class="feat-ico">💰</span><div><div class="feat-nm">Tax & Cost Engine</div><div class="feat-ds">LTCG/STCG harvest opportunities + expense ratio drag in real dollars</div></div></div>
+        <div class="feat"><span class="feat-ico">💬</span><div><div class="feat-nm">AI Chat</div><div class="feat-ds">Ask "Which fund has highest overlap?" — get exact answer in plain language</div></div></div>
       </div>
       <div class="demo-box">
-        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">AURA Risk Scorer — Live Demo</div></div>
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">FolioIQ Portfolio Analyzer — Live Demo</div></div>
         <div class="demo-bd">
           <div class="dgrid">
-            <div><label class="dlbl">Company</label><input class="dinp" id="a-co" placeholder="e.g. Acme SaaS"></div>
-            <div><label class="dlbl">ARR (USD)</label><input class="dinp" id="a-arr" placeholder="e.g. $2.4M"></div>
-            <div><label class="dlbl">Gross Margin %</label><input class="dinp" type="number" id="a-margin" placeholder="72"></div>
-            <div><label class="dlbl">YoY Growth %</label><input class="dinp" type="number" id="a-growth" placeholder="85"></div>
-            <div><label class="dlbl">Cash Runway (mo)</label><input class="dinp" type="number" id="a-run" placeholder="18"></div>
-            <div><label class="dlbl">NRR %</label><input class="dinp" type="number" id="a-nrr" placeholder="115"></div>
+            <div><label class="dlbl">Number of Funds</label><input class="dinp" type="number" id="f-fn" placeholder="e.g. 8" min="1" max="50"></div>
+            <div><label class="dlbl">Portfolio Value (₹)</label><input class="dinp" id="f-val" placeholder="e.g. 15,00,000"></div>
+            <div><label class="dlbl">Monthly SIP (₹)</label><input class="dinp" id="f-sip" placeholder="e.g. 25,000"></div>
+            <div><label class="dlbl">Plan Type</label><select class="dsel" id="f-plan"><option value="regular">Regular Plan (MFD)</option><option value="direct">Direct Plan</option><option value="mixed">Mix of Both</option></select></div>
           </div>
-          <button class="run-btn" style="background:var(--aura);color:#fff" onclick="runAura()">⚡ Generate AURA Score</button>
-          <div class="result" id="aura-res"></div>
+          <button class="run-btn" style="background:var(--folio);color:#fff" onclick="runFolio()">📊 Generate Health Score</button>
+          <div class="result" id="folio-res"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT 4: ASKGOGO -->
+<div class="prod-block pb-gogo">
+  <div class="prod-inner">
+    <div class="rv">
+      <div class="prod-num">03 / 03</div>
+      <span class="prod-badge pb-g">🤖 Consumer AI · WhatsApp-Native</span>
+      <h2 class="prod-name">Ask<span style="color:var(--gogo)">Gogo</span></h2>
+      <p class="prod-tag">Your personal AI assistant on WhatsApp. Reminders, notes, bill split, tasks, briefings in 10+ Indian languages — no new app, no signup. India + UAE launch with bilingual Arabic/English support.</p>
+      <div class="prod-metrics">
+        <div class="pm"><div class="pm-v" style="color:var(--gogo)">$3.4M</div><div class="pm-l">Y3 ARR · India+UAE</div></div>
+        <div class="pm"><div class="pm-v" style="color:var(--gogo)">90.3%</div><div class="pm-l">Gross Margin</div></div>
+        <div class="pm"><div class="pm-v">$1.10</div><div class="pm-l">India entry (₹99/mo)</div></div>
+        <div class="pm"><div class="pm-v">$4.99</div><div class="pm-l">UAE entry /mo</div></div>
+      </div>
+      <div class="prod-actions">
+        <a href="https://askgogo.in" target="_blank" class="btn-p" style="background:var(--gogo)">Try AskGogo ↗</a>
+        <a href="https://github.com/askgogo84/nexus-ai-ventures/raw/main/decks/AskGogo_Investor_Deck.pdf" target="_blank" class="btn-dl">⬇ Investor Deck PDF</a>
+      </div>
+    </div>
+    <div class="rv rv2">
+      <div class="feat-grid">
+        <div class="feat"><span class="feat-ico">⏰</span><div><div class="feat-nm">Smart Reminders</div><div class="feat-ds">"Kal subah 7 baje gym" works in Hindi, Kannada, Tamil & 7 more</div></div></div>
+        <div class="feat"><span class="feat-ico">💸</span><div><div class="feat-nm">Bill Split</div><div class="feat-ds">"Split ₹2,400 between me, Riya and Aman" → instant UPI prompts</div></div></div>
+        <div class="feat"><span class="feat-ico">🎙️</span><div><div class="feat-nm">Voice-First</div><div class="feat-ds">Voice notes in any Indian language + Arabic for UAE users</div></div></div>
+        <div class="feat"><span class="feat-ico">📄</span><div><div class="feat-nm">Doc Intelligence</div><div class="feat-ds">Send any PDF or image — instant summary, bill analysis, contract review</div></div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-bar"><div class="demo-dots"><div class="dd dd-r"></div><div class="dd dd-y"></div><div class="dd dd-g"></div></div><div class="demo-url">AskGogo AI — WhatsApp Simulation</div></div>
+        <div style="padding:0">
+          <div class="wa-wrap">
+            <div class="wa-hdr"><div class="wa-av">G</div><div><div class="wa-nm">AskGogo AI ✓</div><div class="wa-st">online · askgogo.in</div></div></div>
+            <div class="wa-msgs" id="waMsgs"><div class="wa-m wa-in">👋 Hi! I'm Gogo. Try: "Remind me at 8pm", "Split ₹1500 between 3 friends", "Plan my day", "UAE mode", or "What can you do?"</div></div>
+            <div class="wa-inp-wrap"><input class="wa-inp" id="waInp" placeholder="Type a message..." onkeypress="if(event.key==='Enter')waSend()"><button class="wa-snd" onclick="waSend()">➤</button></div>
+          </div>
         </div>
       </div>
     </div>
@@ -609,14 +531,13 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
   <div class="mx">
     <div class="eyebrow rv">Market Opportunity</div>
     <h2 class="sec-h rv">India + UAE.<br>Different Price Points,<br>One Platform.</h2>
-    <p class="sec-sub rv">Dual-market launch unlocks premium USD pricing in UAE ($4.99–$3K/mo) alongside volume-scale pricing in India ($1.10–$2K/mo) — compounding ARR from two distinct consumer and B2B markets.</p>
+    <p class="sec-sub rv">Dual-market launch unlocks premium USD pricing in UAE alongside volume-scale pricing in India — compounding ARR from two distinct consumer markets across three products.</p>
     <div class="mkt-grid">
       <div class="mkt-card rv">
         <div class="mkt-top" style="background:var(--folio)"></div>
         <div class="mc-flag">🇮🇳</div>
         <div class="mc-country">India</div>
         <div class="mc-desc">Volume market · INR pricing · 550M WhatsApp users · ₹73.73L Cr MF AUM · 11.5Cr+ credit cards</div>
-        <div class="mc-row"><span class="mc-k">AURA</span><span class="mc-v">$2K/mo + $10K setup</span></div>
         <div class="mc-row"><span class="mc-k">CreditIQ CPA</span><span class="mc-v">$17 avg (₹1,500)</span></div>
         <div class="mc-row"><span class="mc-k">FolioIQ Pro</span><span class="mc-v">$2.20/mo (₹199)</span></div>
         <div class="mc-row"><span class="mc-k">AskGogo entry</span><span class="mc-v">$1.10/mo (₹99)</span></div>
@@ -627,23 +548,12 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div class="mc-flag">🇦🇪</div>
         <div class="mc-country">UAE</div>
         <div class="mc-desc">Premium market · USD pricing · 9.5M+ population · $1.6T banking assets · highest NRI density globally</div>
-        <div class="mc-row"><span class="mc-k">AURA</span><span class="mc-v">$3K/mo + $15K setup</span></div>
         <div class="mc-row"><span class="mc-k">CreditIQ CPA</span><span class="mc-v">$25–$45/approval</span></div>
         <div class="mc-row"><span class="mc-k">FolioIQ Pro</span><span class="mc-v">$9.99/mo</span></div>
         <div class="mc-row"><span class="mc-k">AskGogo entry</span><span class="mc-v">$4.99/mo</span></div>
         <div class="mc-row"><span class="mc-k">Fintech TAM</span><span class="mc-v">$8B+</span></div>
       </div>
-      <div class="mkt-card rv rv2">
-        <div class="mkt-top" style="background:var(--gold)"></div>
-        <div class="mc-flag">🌐</div>
-        <div class="mc-country">AURA Global</div>
-        <div class="mc-desc">B2B SaaS intelligence · US venture debt $83.4B · Revenue-based finance $5.78B · Singapore, UK corridors</div>
-        <div class="mc-row"><span class="mc-k">US/UK/SG pricing</span><span class="mc-v">$2K–$3K/mo + setup</span></div>
-        <div class="mc-row"><span class="mc-k">Speed improvement</span><span class="mc-v">5 min vs 2–3 days</span></div>
-        <div class="mc-row"><span class="mc-k">Data cost savings</span><span class="mc-v">76% vs $100K+ stack</span></div>
-        <div class="mc-row"><span class="mc-k">Memo creation</span><span class="mc-v">60 sec vs 4–6 hrs</span></div>
-        <div class="mc-row"><span class="mc-k">Y3 target</span><span class="mc-v">80–100 customers</span></div>
-      </div>
+
     </div>
     <div class="ptbl rv">
       <div class="ptbl-row hdr">
@@ -653,18 +563,12 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div class="ptbl-cell">Y3 ARR</div>
         <div class="ptbl-cell">Margin</div>
       </div>
-      <div class="ptbl-row">
-        <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--aura)"></span>AURA Intelligence</span></div>
-        <div class="ptbl-cell">$2K/mo + $10K</div>
-        <div class="ptbl-cell">$3K/mo + $15K</div>
-        <div class="ptbl-cell ptbl-hl">$2.4M</div>
-        <div class="ptbl-cell">45–55%</div>
-      </div>
+
       <div class="ptbl-row">
         <div class="ptbl-cell"><span class="ptbl-prod"><span class="pd" style="background:var(--credit)"></span>CreditIQ</span></div>
         <div class="ptbl-cell">$17 CPA avg</div>
         <div class="ptbl-cell">$33 CPA avg</div>
-        <div class="ptbl-cell ptbl-hl">$1.3M</div>
+        <div class="ptbl-cell ptbl-hl">$2M</div>
         <div class="ptbl-cell">~80%</div>
       </div>
       <div class="ptbl-row">
@@ -685,7 +589,7 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div class="ptbl-cell">Combined Portfolio</div>
         <div class="ptbl-cell">INR + USD</div>
         <div class="ptbl-cell">USD premium</div>
-        <div class="ptbl-cell" style="font-size:15px;color:var(--gold)">$11 Mn</div>
+        <div class="ptbl-cell" style="font-size:15px;color:var(--gold)">$9.5M</div>
         <div class="ptbl-cell">45–90%</div>
       </div>
     </div>
@@ -697,26 +601,18 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
   <div class="mx">
     <div class="eyebrow rv" style="justify-content:center">Combined Financials</div>
     <div class="fin-hero rv">
-      <div class="fin-big">$11 Mn</div>
-      <div class="fin-sub">Year 3 ARR Target · India + UAE · ≈ ₹100 Crore · at $1 = ₹90</div>
+      <div class="fin-big">$9.5M</div>
+      <div class="fin-sub">Year 3 ARR Target · India + UAE · ≈ ₹85.5 Crore · at $1 = ₹90</div>
     </div>
     <div class="fin-cards">
-      <div class="fc rv">
-        <div class="fc-top"><div class="fcd" style="background:var(--aura)"></div><div class="fc-prod">AURA Intelligence</div></div>
-        <div class="fc-arr" style="color:var(--aura)">$2.4M</div>
-        <div class="fc-note">≈₹21.6Cr · 80 customers Y3</div>
-        <div class="fc-row"><span class="fck">India customers</span><span class="fcv">50</span></div>
-        <div class="fc-row"><span class="fck">UAE customers</span><span class="fcv">30</span></div>
-        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$222K (₹2Cr)</span></div>
-        <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">45–55%</span></div>
-      </div>
+
       <div class="fc rv rv1">
         <div class="fc-top"><div class="fcd" style="background:var(--credit)"></div><div class="fc-prod">CreditIQ</div></div>
-        <div class="fc-arr" style="color:var(--credit)">$1.3M</div>
-        <div class="fc-note">≈₹11.7Cr · CPA + B2B API</div>
+        <div class="fc-arr" style="color:var(--credit)">$2M</div>
+        <div class="fc-note">≈₹18Cr · CPA + B2B API</div>
         <div class="fc-row"><span class="fck">India CPA avg</span><span class="fcv">$17 (₹1,500)</span></div>
         <div class="fc-row"><span class="fck">UAE CPA avg</span><span class="fcv">$33 (AED 121)</span></div>
-        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$56K (₹50L)</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$83K (₹75L)</span></div>
         <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">~80%</span></div>
       </div>
       <div class="fc rv rv2">
@@ -725,7 +621,7 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div class="fc-note">≈₹36.9Cr · Sub + B2B</div>
         <div class="fc-row"><span class="fck">India price</span><span class="fcv">$2.20–$3.90/mo</span></div>
         <div class="fc-row"><span class="fck">UAE price</span><span class="fcv">$9.99–$19.99/mo</span></div>
-        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$167K (₹1.5Cr)</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$200K (₹1.8Cr)</span></div>
         <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">77.7%</span></div>
       </div>
       <div class="fc rv rv3">
@@ -734,16 +630,16 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div class="fc-note">≈₹30.6Cr · Subscription tiers</div>
         <div class="fc-row"><span class="fck">India price</span><span class="fcv">$1.10–$5.50/mo</span></div>
         <div class="fc-row"><span class="fck">UAE price</span><span class="fcv">$4.99–$19.99/mo</span></div>
-        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$222K (₹2Cr)</span></div>
+        <div class="fc-row"><span class="fck">Seed allocation</span><span class="fcv">$167K (₹1.5Cr)</span></div>
         <div class="fc-row"><span class="fck">Gross margin</span><span class="fcv">90.3%</span></div>
       </div>
     </div>
     <div class="arr-prog rv">
-      <div class="arr-title">Year 3 ARR Breakdown — Path to $11 Mn</div>
-      <div class="arr-row"><div class="arr-lbl">FolioIQ</div><div class="arr-bg"><div class="arr-fill" data-w="37" style="background:var(--folio)"></div></div><div class="arr-val">$4.1M</div><div class="arr-pct">37%</div></div>
-      <div class="arr-row"><div class="arr-lbl">AskGogo</div><div class="arr-bg"><div class="arr-fill" data-w="31" style="background:var(--gogo)"></div></div><div class="arr-val">$3.4M</div><div class="arr-pct">31%</div></div>
-      <div class="arr-row"><div class="arr-lbl">AURA</div><div class="arr-bg"><div class="arr-fill" data-w="22" style="background:var(--aura)"></div></div><div class="arr-val">$2.4M</div><div class="arr-pct">22%</div></div>
-      <div class="arr-row"><div class="arr-lbl">CreditIQ</div><div class="arr-bg"><div class="arr-fill" data-w="12" style="background:var(--credit)"></div></div><div class="arr-val">$1.3M</div><div class="arr-pct">12%</div></div>
+      <div class="arr-title">Year 3 ARR Breakdown — Path to $9.5M</div>
+      <div class="arr-row"><div class="arr-lbl">FolioIQ</div><div class="arr-bg"><div class="arr-fill" data-w="43" style="background:var(--folio)"></div></div><div class="arr-val">$4.1M</div><div class="arr-pct">43%</div></div>
+      <div class="arr-row"><div class="arr-lbl">AskGogo</div><div class="arr-bg"><div class="arr-fill" data-w="36" style="background:var(--gogo)"></div></div><div class="arr-val">$3.4M</div><div class="arr-pct">36%</div></div>
+
+      <div class="arr-row"><div class="arr-lbl">CreditIQ</div><div class="arr-bg"><div class="arr-fill" data-w="21" style="background:var(--credit)"></div></div><div class="arr-val">$2M</div><div class="arr-pct">21%</div></div>
     </div>
   </div>
 </section>
@@ -752,16 +648,15 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
 <section id="ask">
   <div class="mx">
     <div class="eyebrow rv">The Ask</div>
-    <div class="ask-amt rv"><em>$500K</em><br>to $1M</div>
-    <div class="ask-range rv">Seed Round · India + UAE Combined · May 2026 · At $1 = ₹90, this is ₹4.5Cr–₹9Cr</div>
+    <div class="ask-amt rv"><em>$450K</em></div>
+    <div class="ask-range rv">Seed Round · India + UAE · May 2026 · At $1 = ₹90, this is ₹4 Crore</div>
     <div class="ask-split">
       <div class="rv">
         <div class="ask-lbl">Capital Allocation</div>
         <div class="alloc-list">
-          <div class="alloc-item"><div class="alloc-nm">AskGogo</div><div class="alloc-bg"><div class="alloc-fill" style="width:34%;background:var(--gogo)"></div></div><div class="alloc-val">$222K</div></div>
-          <div class="alloc-item"><div class="alloc-nm">AURA</div><div class="alloc-bg"><div class="alloc-fill" style="width:34%;background:var(--aura)"></div></div><div class="alloc-val">$222K</div></div>
-          <div class="alloc-item"><div class="alloc-nm">FolioIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:26%;background:var(--folio)"></div></div><div class="alloc-val">$167K</div></div>
-          <div class="alloc-item"><div class="alloc-nm">CreditIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:9%;background:var(--credit)"></div></div><div class="alloc-val">$56K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">FolioIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:44%;background:var(--folio)"></div></div><div class="alloc-val">$200K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">AskGogo</div><div class="alloc-bg"><div class="alloc-fill" style="width:37%;background:var(--gogo)"></div></div><div class="alloc-val">$167K</div></div>
+          <div class="alloc-item"><div class="alloc-nm">CreditIQ</div><div class="alloc-bg"><div class="alloc-fill" style="width:18%;background:var(--credit)"></div></div><div class="alloc-val">$83K</div></div>
         </div>
         <p style="font-size:11px;color:rgba(240,236,227,.3);margin-top:18px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px">Total ₹5.5Cr at $610K midpoint · $1 = ₹90<br>Investor can allocate to full portfolio or single product</p>
       </div>
@@ -812,14 +707,13 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
 <!-- CTA -->
 <section id="cta">
   <div class="eyebrow">Partner With Us</div>
-  <h2 class="sec-h">Four Live Products.<br>Two Markets. One Round.</h2>
-  <p class="sec-sub" style="margin:0 auto;text-align:center">$500K–$1M seeds India + UAE simultaneously across 4 capital-efficient AI products through to Series A readiness. Each product has its own ARR path, margin profile and isolated allocation.</p>
+  <h2 class="sec-h">Three Live Products.<br>Two Markets. One Round.</h2>
+  <p class="sec-sub" style="margin:0 auto;text-align:center">$450K seeds India + UAE simultaneously across 3 capital-efficient AI products through to Series A readiness. Each product has its own ARR path, margin profile and isolated allocation.</p>
   <div class="cta-btns">
-    <!-- ── CHANGED: WhatsApp primary CTA ── -->
-    <a href="https://wa.me/918310441698?text=Hi%20Goverdhan%2C%20I%20came%20across%20Nexus%20AI%20Ventures%20and%20would%20like%20to%20discuss%20the%20investment%20opportunity." target="_blank" class="btn-cta-p">💬 Chat on WhatsApp →</a>
-    <a href="mailto:goverdhan.md@gmail.com?subject=Nexus%20AI%20Ventures%20%E2%80%94%20Investment%20Enquiry&body=Hi%20Goverdhan%2C%0A%0AI%20came%20across%20Nexus%20AI%20Ventures%20and%20am%20interested%20in%20the%20investment%20opportunity.%0A%0ARegards" class="btn-cta-o">✉ Email Instead</a>
+    <a href="mailto:hello@askgogo.in" class="btn-cta-p">Contact Goverdhan →</a>
+    <a href="https://nexus-ai-ventures.vercel.app" class="btn-cta-o">View Live Products</a>
   </div>
-  <p class="cta-email">goverdhan.md@gmail.com · +91 83104 41698 · Bengaluru, India + Dubai, UAE</p>
+  <p class="cta-email">hello@askgogo.in · Bengaluru, India + Dubai, UAE</p>
 </section>
 
 <!-- FOOTER -->
@@ -830,7 +724,7 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
     <a href="https://credit-iq-beryl.vercel.app" target="_blank">CreditIQ</a>
     <a href="https://folio-iq.vercel.app" target="_blank">FolioIQ</a>
     <a href="https://askgogo.in" target="_blank">AskGogo</a>
-    <a href="https://wa.me/918310441698?text=Hi%20Goverdhan%2C%20I%20would%20like%20to%20discuss%20Nexus%20AI%20Ventures." target="_blank">Contact</a>
+    <a href="mailto:hello@askgogo.in">Contact</a>
   </div>
   <div class="foot-copy">© 2026 Nexus AI Ventures · $1 = ₹90 · India + UAE</div>
 </footer>
@@ -852,77 +746,6 @@ tBtn.addEventListener('click',()=>{
   localStorage.setItem('nx-theme',n);
   updateThemeBtn(n);
 });
-
-// ── NEW: AI PARTICLE CANVAS ANIMATION ──
-(function(){
-  const canvas=document.getElementById('hero-canvas');
-  const ctx=canvas.getContext('2d');
-  let W,H,particles=[],animId;
-  const GOLD='#b8870c',GOLD2='#e8a020';
-  const N=55;
-
-  function resize(){
-    W=canvas.width=canvas.offsetWidth;
-    H=canvas.height=canvas.offsetHeight;
-  }
-
-  function Particle(){
-    this.x=Math.random()*W;
-    this.y=Math.random()*H;
-    this.r=Math.random()*1.8+.4;
-    this.vx=(Math.random()-.5)*.35;
-    this.vy=(Math.random()-.5)*.35;
-    this.a=Math.random();
-    this.va=(Math.random()-.5)*.008;
-    this.col=Math.random()>.6?GOLD2:GOLD;
-  }
-
-  function init(){
-    resize();
-    particles=[];
-    for(let i=0;i<N;i++) particles.push(new Particle());
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    // draw connections
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx=particles[i].x-particles[j].x;
-        const dy=particles[i].y-particles[j].y;
-        const dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<140){
-          ctx.beginPath();
-          ctx.strokeStyle=`rgba(184,135,12,${.18*(1-dist/140)})`;
-          ctx.lineWidth=.6;
-          ctx.moveTo(particles[i].x,particles[i].y);
-          ctx.lineTo(particles[j].x,particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    // draw nodes
-    particles.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy; p.a+=p.va;
-      if(p.a>1||p.a<0) p.va*=-1;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.col.replace(')',`,${p.a})`).replace('rgb','rgba').replace('#',p.col.length===7?'rgba('+parseInt(p.col.slice(1,3),16)+','+parseInt(p.col.slice(3,5),16)+','+parseInt(p.col.slice(5,7),16)+',':'');
-      // simpler fill:
-      ctx.globalAlpha=p.a*.7+.1;
-      ctx.fillStyle=p.col;
-      ctx.fill();
-      ctx.globalAlpha=1;
-    });
-    animId=requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize',()=>{resize();});
-  init();
-  draw();
-})();
 
 // SCROLL REVEAL
 const rvObs=new IntersectionObserver(entries=>{
