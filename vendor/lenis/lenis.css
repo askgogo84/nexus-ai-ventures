@@ -1,0 +1,37 @@
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
+/* ── AskGogo addition, not upstream ──────────────────────────────────────────
+   Every one of these sites sets `html { scroll-behavior: smooth }`. Lenis sets
+   the real scroll position itself on each frame, so a native smooth behaviour
+   on top of that animates towards each intermediate target and the page fights
+   itself. Scoped to .lenis, which Lenis adds only while it is actually running,
+   so destroying Lenis (or never starting it under reduced motion) restores the
+   site's own smooth behaviour untouched. */
+html.lenis {
+  scroll-behavior: auto !important;
+}

@@ -7,11 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Instrument+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/vendor/lenis/lenis.css">
 <style>
 :root{--bg:#faf8f5;--bg2:#f2efe8;--bg3:#e8e4da;--ink:#0f0e0b;--ink2:#3a3830;--ink3:#6b6659;--border:#d4cfc3;--border2:#c2bdb0;--white:#ffffff;--shadow:rgba(15,14,11,0.06);--shadow2:rgba(15,14,11,0.12);--aura:#c94a0a;--aura-bg:#fff3ee;--aura-border:#f5c4aa;--credit:#0a7c6e;--credit-bg:#edfaf7;--credit-border:#9de4d6;--folio:#1a6b2a;--folio-bg:#edfaf0;--folio-border:#9ddba8;--gogo:#5b1eaa;--gogo-bg:#f5eeff;--gogo-border:#c9a8f5;--gold:#b8870c;--gold-bg:#fdf6e3;--gold-border:#e8c96a;--nav-h:64px;--r:12px;--r2:20px}
 [data-theme="dark"]{--bg:#0d0c09;--bg2:#171510;--bg3:#221f17;--ink:#f0ece3;--ink2:#c8c2b4;--ink3:#7a7468;--border:#2e2a22;--border2:#3d3830;--white:#1a1710;--shadow:rgba(0,0,0,0.3);--shadow2:rgba(0,0,0,0.5);--aura:#f07040;--aura-bg:#1f1008;--aura-border:#6b2c10;--credit:#22c4ae;--credit-bg:#081a18;--credit-border:#0d5a50;--folio:#4ade74;--folio-bg:#081408;--folio-border:#1a5020;--gogo:#c084fc;--gogo-bg:#120820;--gogo-border:#5b2a8a;--gold:#f0bb30;--gold-bg:#1a1408;--gold-border:#6a5010}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
 body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;font-family:inherit}
@@ -517,7 +522,7 @@ footer{background:var(--bg2);border-top:1.5px solid var(--border);padding:36px c
         <div style="padding:0">
           <div class="wa-wrap">
             <div class="wa-hdr"><div class="wa-av">G</div><div><div class="wa-nm">AskGogo AI ✓</div><div class="wa-st">online · askgogo.in</div></div></div>
-            <div class="wa-msgs" id="waMsgs"><div class="wa-m wa-in">👋 Hi! I'm Gogo. Try: "Remind me at 8pm", "Split ₹1500 between 3 friends", "Plan my day", "UAE mode", or "What can you do?"</div></div>
+            <div class="wa-msgs" id="waMsgs" data-lenis-prevent><div class="wa-m wa-in">👋 Hi! I'm Gogo. Try: "Remind me at 8pm", "Split ₹1500 between 3 friends", "Plan my day", "UAE mode", or "What can you do?"</div></div>
             <div class="wa-inp-wrap"><input class="wa-inp" id="waInp" placeholder="Type a message..." onkeypress="if(event.key==='Enter')waSend()"><button class="wa-snd" onclick="waSend()">➤</button></div>
           </div>
         </div>
@@ -878,5 +883,7 @@ function waSend(){
   },650);
 }
 </script>
+<script src="/vendor/lenis/lenis.min.js" defer></script>
+<script src="/vendor/lenis/smooth-scroll.js" defer></script>
 </body>
 </html>
